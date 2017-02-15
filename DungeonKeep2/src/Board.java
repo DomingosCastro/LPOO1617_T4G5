@@ -62,6 +62,21 @@ public class Board {
 
 	}
 
+	public char getBoardTilesLetter(int c, int l)
+	{
+		return boardTiles[c][l].getTileLetter();	
+	}
+	
+	public String getBoardTilesState(int c, int l)
+	{
+		return boardTiles[c][l].getTileState();
+	}
+	
+	/*public void MoveCharacter()
+	{
+		
+		
+	}*/
 	
 	// Daqui para baixo vai dar jeito para por a ler o mapa a partir do ficheiro, mas não vale
 	// a pena preocuparmo nos com isso neste momento:
