@@ -1,3 +1,4 @@
+package dungeon.logic;
 import java.io.*; // evitar usar
 import java.util.Scanner;
 
@@ -23,12 +24,12 @@ public class Board
 		{
 			for(int j = 0; j < nr_columns; j++) 
 			{
-				boardTiles[i][j] = new Tile(i, j, '.', false);
+				boardTiles[i][j] = new Tile(i, j, '.', "null");
 			}
 		}
 	}
 
-	// preenche o tabuleiro a partir do temporaryBoard com o caracter correto em cada celula, nao imprime nada
+	// preenche o tabuleiro com o caracter correto em cada celula, nao imprime nada
 	public void fillBoard()
 	{
 		char tileLetter;
@@ -40,41 +41,43 @@ public class Board
 			{
 
 				tileLetter = temporaryBoard[i].charAt(j); // retorna o char do indice especificado (inicia em 0)
-				boardTiles[i][j] = new Tile(i, j, tileLetter, false); 
+				if (tileLetter=='k')
+				boardTiles[i][j] = new Tile(i, j, tileLetter, "lever"); 
+				else 
+					boardTiles[i][j] = new Tile(i, j, tileLetter, "null"); 
 			}
 		}
 	}
 
-	// imprime o tabuleiro!
-	public void showBoard(){
-		for (int i = 0; i < lines; i++)
-		{
-			for(int j = 0; j < columns; j++)
-			{
-
-				System.out.print(boardTiles[i][j].getTileLetter()) ;
-			}
-			System.out.println();
-		}
-	}
+//	// imprime o tabuleiro!
+//	public void showBoard(){
+//		for (int i = 0; i < lines; i++)
+//		{
+//			for(int j = 0; j < columns; j++)
+//			{
+//				System.out.print(boardTiles[i][j].getTileLetter()) ;
+//			}
+//			System.out.println();
+//		}
+//	}
 
 	public void unlockDoors()
 	{
-		for (int i = 0; i < lines; i++)
-		{
-			for(int j = 0; j < columns; j++)
-			{
-				if (boardTiles[i][j].getTileLetter() == 'I')
-				{
-					boardTiles[i][j].setTileLetter(' ');
-				}		
-			}
-		}
+		boardTiles[5][0].setTileLetter('S');
+		boardTiles[6][0].setTileLetter('S');
 	}
 	 
 	public Tile[][] getBoardTiles()
 	{		
 		return boardTiles;		
+	}
+	
+	public int getLines(){
+		return lines;
+	}
+	
+	public int getColumns(){
+		return columns;
 	}
 }
 

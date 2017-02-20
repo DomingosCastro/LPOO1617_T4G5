@@ -36,4 +36,23 @@ public abstract class Character
 		dir = newDir;
 	}
 	
+	// calcula distancia entre o Guarda e o Heroi ou o Ogre e o Heroi 
+	// Dá erro!!!
+	/*public int calcDistance(Character character)
+	{
+		if(getPos().getTileLine() == character.getPos().getTileLine())
+		{
+			int deltaY = Math.abs(getPos().getTileColumn() - character.getPos().getTileColumn());
+			return (int) deltaY;
+		}
+		
+		if(getPos().getTileColumn() == character.getPos().getTileColumn())
+		{
+			int deltaX = Math.abs(getPos().getTileLine() - character.getPos().getTileLine());
+			return (int) deltaX;
+		}
+			
+	}*/
+	
+	
 }

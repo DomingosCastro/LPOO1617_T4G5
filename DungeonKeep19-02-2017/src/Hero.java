@@ -9,6 +9,12 @@ public class Hero extends Character
 		this.name = name;
 	}
 	
+	public Hero(String name, Coordinate pos)
+	{
+		this.name = name;
+		this.pos = pos;
+	}
+	
 	public boolean hasLever()
 	{
 		return hasLever;
@@ -21,6 +27,7 @@ public class Hero extends Character
 	}
 	
 	// desbloqueia as portas de saida
+	// passagem de nivel
 	
 	public String toString()
 	{
