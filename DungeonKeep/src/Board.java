@@ -5,7 +5,7 @@ public class Board {
 
 	private int lines; 
 	private int columns;	
-	private Tiles[][] boardTiles; // Matriz de objetos da classe  Tiles 
+	private Tiles[][] boardTiles; // Matriz de objetos da classe Tiles 
 
 	// depois podemos por o mapa num ficheiro (DungeonMap.txt) e ler a partir de lá, para preencher o Board.
 	// assim para o segundo nível, bastaria correr o mesmo codigo, só teria de ler um outro ficheiro, com o desenho do segundo nivel
