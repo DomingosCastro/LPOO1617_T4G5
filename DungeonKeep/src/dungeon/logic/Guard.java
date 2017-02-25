@@ -21,7 +21,7 @@ public class Guard extends Character  {
 	public void setAwake(boolean state){
 		awake=state;
 	}
-	public void setClockwise(boolean clokwise){
+	public void setClockwise(boolean clockwise){
 		this.clockwise=clockwise;
 	}
 

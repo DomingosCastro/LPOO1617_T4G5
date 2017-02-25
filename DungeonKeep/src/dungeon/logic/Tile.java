@@ -38,8 +38,6 @@ public class Tile
 		c = newC;
 	}
 	
-
-	
 	public char getTileLetter()
 	{
 		return letter;

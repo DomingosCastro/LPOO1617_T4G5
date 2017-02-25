@@ -3,10 +3,9 @@ package dungeon.cli;
 import dungeon.logic.Board;
 import dungeon.logic.Tile;
 
-public class ShowBoard {
-	
-	
-	// imprime o tabuleiro!
+public class ShowBoard 
+{
+	    // imprime o tabuleiro!
 		public void printBoard(Board board ){
 			
 		int	lines=board.getLines();

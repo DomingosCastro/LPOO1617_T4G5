@@ -19,6 +19,7 @@ public abstract class Character
 	//protected boolean awake = true;
 	//protected boolean walking = true;
 	
+	
 	// LINE COLUMN
 	public void setLine(int newL)
 	{
@@ -100,5 +101,8 @@ public abstract class Character
 
 	}
 	
-
+	public void setCharacterLetter(char letter)
+	{
+		this.letter = letter;
+	}	
 }
