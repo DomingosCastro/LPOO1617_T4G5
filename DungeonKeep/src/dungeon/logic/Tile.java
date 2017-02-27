@@ -5,7 +5,7 @@ public class Tile
 	//private Coordinate coord;
 	private int l; // coord da linha
 	private int c; // coord da coluna
-	private char letter; // X, I, H, G, k, ' '   
+	private char letter; // X, I, H, G, k, ' ', 0, $, *
 	private String state; // null, lever, lethal;
 	
 	// construtor 

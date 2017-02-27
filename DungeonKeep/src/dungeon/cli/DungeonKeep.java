@@ -1,5 +1,6 @@
 package dungeon.cli;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 import dungeon.logic.Board;
 import dungeon.logic.Character;
@@ -14,6 +15,7 @@ public class DungeonKeep
 {
 	public static void main(String[] args)
 	{				
+		int startLevel = 2;
 		Scanner input = new Scanner(System.in);
 		char playerInput; 
 		int previousHeroColumn;
@@ -22,11 +24,12 @@ public class DungeonKeep
 		Hero hero = new Hero('H', 1, 1);
 		Guard guard = new Guard('G', 1, 8 );
 		Ogre ogre = null;
+		Tile previousClubTile = null;
 		Board board = null;
 		ShowBoard showBoard = null;
-
+		
 		// Ciclo dos Níveis do Jogo:
-		for (int level=1; level<=2; level++){
+		for (int level=startLevel; level<=2; level++){
 
 			board = new Board(level);						
 			showBoard = new ShowBoard();
@@ -49,7 +52,7 @@ public class DungeonKeep
 				// OGRE
 				board.getBoardTiles()[ogre.getLine()][ogre.getColumn()].setTileLetter('0');
 			}
-
+ 
 			// Ciclo de jogo
 			do 
 			{
@@ -84,16 +87,25 @@ public class DungeonKeep
 					}	
 				}
 
-				else if (level==2)
+				else if (level==2) 
 				{ 
 					// Movimento do Ogre
 					ogre.setLethalTiles(board.getBoardTiles(), "null");	// faz o reset dos lethal tiles devido posicao anterior do guarda		
 					ogre.movingDirection();
 					// tem de se alterar aqui a letra do ogre de modo a que esta seja atualizada no metodo moveCharacter (para a atualizar no momento em que o o ogre acaba de se deslocar para a posicao da lever)
 					// logo desenvolvi uma funcao que prevê a quadricula para onde o ogre se irá mover, de modo a, que caso corresponda à da lever
-					// alterar a letra do ogre para $
+				    // alterar a letra do ogre para $
 					ogre.moveCharacter(board.getBoardTiles(), board.getLeverLine(), board.getLeverColumn());
 					ogre.setLethalTiles(board.getBoardTiles(), "lethal");
+					ArrayList<Tile> lethalTiles = board.getBoardLethalTiles();
+					Tile[][] allTiles = board.getBoardTiles();
+					  
+					if (previousClubTile != null && previousClubTile.getTileLetter() == '*')
+						board.getBoardTiles()[previousClubTile.getTileLine()][previousClubTile.getTileColumn()].setTileLetter(' ');
+						
+					previousClubTile = ogre.setClub(lethalTiles, allTiles);
+					
+					ogre.setClubLethalTiles(board.getBoardTiles(), previousClubTile);
 					
 					if (board.getBoardTiles()[ogre.getLine()][ogre.getColumn()].getTileState() == "lever")
 					{
@@ -120,7 +132,7 @@ public class DungeonKeep
 					if (board.getBoardTiles()[hero.getLine()][hero.getColumn()].getTileState() == "lever")
 					{
 						//board.unlockDoors(level);
-						hero.setCharacterLetter('K');
+						hero.setCharacterLetter('K'); 
 						leverCaught = true;
 						//board.getBoardTiles()[hero.getLine()][hero.getColumn()].setTileLetter('K');
 					}
@@ -150,8 +162,3 @@ public class DungeonKeep
 		}
 	}
 }
-
-
-
-
-

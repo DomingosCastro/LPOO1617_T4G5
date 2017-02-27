@@ -1,5 +1,6 @@
 package dungeon.logic;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Ogre extends Character 
@@ -48,6 +49,7 @@ public class Ogre extends Character
 		
 		public void setLethalTiles(Tile[][] boardTiles, String type)
 		{
+			
 			if (l-1 == leverL && c == leverC)
 			{
 				if (type == "null")		// para nao colocar o tile da chave com state "null"
@@ -101,6 +103,28 @@ public class Ogre extends Character
 			}
 		}	
 		
+		public void setClubLethalTiles(Tile[][] boardTiles, Tile clubTile)
+		{
+			if(clubTile.getTileLine()-1 >= 0)
+			{
+				boardTiles[clubTile.getTileLine()-1][clubTile.getTileColumn()].setTileState("lethal");
+			}
+			
+			if(clubTile.getTileLine()+1 < boardTiles[0].length)
+			{
+				boardTiles[clubTile.getTileLine()+1][clubTile.getTileColumn()].setTileState("lethal");
+			}
+			
+			if(clubTile.getTileColumn()-1 >= 0)
+			{
+				boardTiles[clubTile.getTileLine()][clubTile.getTileColumn()-1].setTileState("lethal");
+			}
+			if(clubTile.getTileColumn()+1 < boardTiles[0].length)
+			{
+				boardTiles[clubTile.getTileLine()][clubTile.getTileColumn()+1].setTileState("lethal");
+			}
+		}	
+		
 		public void moveCharacter(Tile[][] boardTiles, int leverL, int leverC){
 			
 			switch (dir)
@@ -145,7 +169,7 @@ public class Ogre extends Character
 				case RIGHT:
 					if (boardTiles[l][c+1].getTileLetter()!='X' && boardTiles[l][c+1].getTileLetter()!='I')
 					{
-						boardTiles[l][c].setTileLetter( ' ');
+						boardTiles[l][c].setTileLetter(' ');
 						c++;
 						if (l == leverL && c == leverC)		// se estiver na posicao da lever
 							boardTiles[l][c].setTileLetter(letter);
@@ -154,5 +178,23 @@ public class Ogre extends Character
 					}
 					break;
 			}
-		}	
+		}
+
+		public Tile setClub(ArrayList<Tile> lethalTiles, Tile[][] tiles) {
+			// TODO Auto-generated method stub
+			int clubPosition = random.nextInt(lethalTiles.size()); //clubPosition é como se fosse o índice
+			
+			if(lethalTiles.get(clubPosition).getTileState() == "lever")
+				lethalTiles.get(clubPosition).setTileLetter('$');
+			else if (lethalTiles.get(clubPosition).getTileLetter() != 'X' || lethalTiles.get(clubPosition).getTileLetter() != 'I')
+				lethalTiles.get(clubPosition).setTileLetter('*');
+			
+			return lethalTiles.get(clubPosition);
+		}
+		
+		
+		
+		
+		
+		
 }

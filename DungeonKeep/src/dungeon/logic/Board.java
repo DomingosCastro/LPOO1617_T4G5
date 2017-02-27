@@ -1,5 +1,6 @@
 package dungeon.logic;
 import java.io.*; // evitar usar!!
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Board 
@@ -85,6 +86,29 @@ public class Board
 		return boardTiles;		
 	}
 	
+	public ArrayList<Tile> getBoardLethalTiles()
+	{
+		ArrayList<Tile> lethalTiles = new ArrayList<Tile>();
+	
+		/*for(int i = 0; i < boardTiles.length ; i ++)
+		{
+			for(int j = 0; j < boardTiles[i].length; j++)
+			{
+				boardTiles[i][j].getTileLetter()
+			}
+		}*/
+		
+		for(Tile[] line : boardTiles)
+			for(Tile t : line)
+				if(t.getTileState() == "lethal" || t.getTileState() == "lever" )
+				{
+					//lethalTiles[lethalTiles.length] = t;
+					lethalTiles.add(t);
+				}
+		
+		return lethalTiles;
+	}
+	
 	public int getLines(){
 		return lines;
 	}
@@ -106,7 +130,7 @@ public class Board
 
 // Obter a coordenada da porta a abrir
 // É necessário ter acesso às coordenadas das portas a abrir no ficheiro DungeonKeep.java de modo a poder detetar a proximidade do Heroi a elas
-// Isto é apenas para o nivel 2, é necesssário fazer uma geral de modo a dar a lista de portas a abrir de cada nivel
+// Isto é apenas para o nivel 2, é necessário fazer uma geral de modo a dar a lista de portas a abrir de cada nivel
 
 	public Tile getDoorTile(int level)
 	{
