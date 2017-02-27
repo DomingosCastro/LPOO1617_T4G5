@@ -16,6 +16,7 @@ public class DungeonKeep
 	{				
 		Scanner input = new Scanner(System.in);		
 		char playerInput; 
+		int previousHeroColumn;
 		boolean leverCaught = false;
 		
 		Hero hero = new Hero('H', 1, 1);
@@ -58,6 +59,7 @@ public class DungeonKeep
 				// Leitura do teclado
 				do
 				{
+					previousHeroColumn = hero.getColumn();
 					playerInput = input.next().charAt(0);			
 				} while(playerInput!='w' && playerInput!='a' && playerInput!='s' && playerInput!='d');
 
@@ -114,16 +116,26 @@ public class DungeonKeep
 						}	
 					}				
 
-				// Desbloqueio das portas
-				if (board.getBoardTiles()[hero.getLine()][hero.getColumn()].getTileState()=="lever")
-				{
-					board.unlockDoors(level);
-					hero.setCharacterLetter('K');
-					leverCaught = true;
-					//board.getBoardTiles()[hero.getLine()][hero.getColumn()].setTileLetter('K');
+					// Mudanca de letra do Hero quando apanha a lever
+					if (board.getBoardTiles()[hero.getLine()][hero.getColumn()].getTileState() == "lever")
+					{
+						//board.unlockDoors(level);
+						hero.setCharacterLetter('K');
+						leverCaught = true;
+						//board.getBoardTiles()[hero.getLine()][hero.getColumn()].setTileLetter('K');
+					}
+										
+				// Desbloqueio da porta
+				// se o hero estiver na quadricula à direita da lever
+					if (hero.getColumn() == board.getDoorTile(2).getTileColumn()+1 && leverCaught)
+					{
+						if (previousHeroColumn == hero.getColumn() && playerInput == 'a')
+						{
+							board.unlockDoors(level);
+						}
+					}	
+					
 				}
-				
-			}
 		} while(hero.isALive(board)&& hero.getColumn()!=0);
 
 			showBoard.printBoard(board);  
@@ -135,13 +147,11 @@ public class DungeonKeep
 				System.out.println("GAME OVER");
 				break;
 			}
-			
-
 		}
-
 	}
-
 }
+
+
 
 
 

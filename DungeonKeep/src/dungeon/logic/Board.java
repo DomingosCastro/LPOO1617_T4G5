@@ -102,5 +102,17 @@ public class Board
 	{
 		return leverC;
 	}
-}
 
+
+// Obter a coordenada da porta a abrir
+// É necessário ter acesso às coordenadas das portas a abrir no ficheiro DungeonKeep.java de modo a poder detetar a proximidade do Heroi a elas
+// Isto é apenas para o nivel 2, é necesssário fazer uma geral de modo a dar a lista de portas a abrir de cada nivel
+
+	public Tile getDoorTile(int level)
+	{
+		if (level == 2)
+			return boardTiles[1][0];
+		return null;
+	}
+
+}

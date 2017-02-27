@@ -72,7 +72,7 @@ public class Ogre extends Character
 			} 
 			else if (l == leverL && c-1 == leverC)
 			{
-				if (type == "null")		// para nao colocar o tile da chave com state "null"
+				if (type.equals("null"))		// para nao colocar o tile da chave com state "null"
 					boardTiles[l][c-1].setTileState("lever");
 				else
 					boardTiles[l-1][c].setTileState(type);
@@ -83,7 +83,7 @@ public class Ogre extends Character
 			}
 			else if (l == leverL && c+1 == leverC)
 			{
-				if (type == "null")		// para nao colocar o tile da chave com state "null"
+				if (type.equals("null"))		// para nao colocar o tile da chave com state "null"
 					boardTiles[l][c+1].setTileState("lever");
 				else
 					boardTiles[l-1][c].setTileState(type);
