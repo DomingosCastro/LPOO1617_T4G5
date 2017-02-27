@@ -1,5 +1,5 @@
 package dungeon.logic;
-import java.io.*; // evitar usar
+import java.io.*; // evitar usar!!
 import java.util.Scanner;
 
 public class Board 

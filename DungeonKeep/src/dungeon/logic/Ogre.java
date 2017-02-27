@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class Ogre extends Character 
 {
-	//boolean clockwise = false;  // <---------- VER ISTO DEPOIS
+	//boolean clockwise = false;  // <--------- VER ISTO DEPOIS
 	
 		private int leverL, leverC;
 		private int nMaxPossibleMoves = 4;		// nº maximo de movimentos possiveis

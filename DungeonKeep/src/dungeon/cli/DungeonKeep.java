@@ -14,7 +14,7 @@ public class DungeonKeep
 {
 	public static void main(String[] args)
 	{				
-		Scanner input = new Scanner(System.in);		
+		Scanner input = new Scanner(System.in);
 		char playerInput; 
 		int previousHeroColumn;
 		boolean leverCaught = false;
@@ -31,7 +31,7 @@ public class DungeonKeep
 			board = new Board(level);						
 			showBoard = new ShowBoard();
 
-			// Colocação das personagens no tabuleiro para um dado nível:
+			// Colocacao das personagens no tabuleiro para um dado nível:
 			if (level==1)
 			{			
 				hero.setCharacterLetter('H');			// reset da letra do hero
