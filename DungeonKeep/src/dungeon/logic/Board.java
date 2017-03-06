@@ -11,33 +11,43 @@ public class Board
 	private int leverC;	// lever coluna
 	private int leverL; // lever linha
 
+	private int[] exit= new int[2];
+
 	private char[][] fixedBoard;
 	private char[][] changingBoard;
-	
+
 	public Board(char[][] board){
 		fixedBoard = board;
 
 		lines=fixedBoard.length;
 		columns=fixedBoard[0].length;
-		
+
 		changingBoard= new char[lines][columns];
-		
+
 		// Inicializa changingBord:
+		int count=0;
 		for(int i=0; i<lines;i++)
+		{			
+			if(fixedBoard[i][0]=='I')
+			{exit[count]=i;
+			count++;
+			}
+
 			for(int j=0; j<columns;j++)
 			{	
 				changingBoard[i][j]=fixedBoard[i][j];
-			
-			if (changingBoard[i][j]=='k')
-			{leverL=i;
-			leverC=j;}
-			}
-	}
 
-	public void setFixedBoardLetter(int l, int c, char letter, int level){
-			fixedBoard[l][c]=letter;	
+				if (changingBoard[i][j]=='k')
+				{leverL=i;
+				leverC=j;}
+			}
+		}
 	}
 	
+	public void setFixedBoardLetter(int l, int c, char letter, int level){
+		fixedBoard[l][c]=letter;	
+	}
+
 	public void setChangingBoardLetter(int l, int c, char letter){
 		changingBoard[l][c]=letter;
 	}
@@ -53,7 +63,7 @@ public class Board
 	public char[][] getBoard(){
 		return changingBoard;
 	}
-	
+
 	public int getLeverLine()
 	{
 		return leverL;
@@ -67,15 +77,8 @@ public class Board
 	public void setCharactersInBoard(ArrayList<Character>characters, int level){
 
 		// Inicializa tabuleiro vazio
-		for(int i=0; i<lines;i++)
-			for(int j=0; j<columns;j++)
-			{	
-				changingBoard[i][j]=fixedBoard[i][j];
-			
-			if (changingBoard[i][j]=='k')
-			{leverL=i;
-			leverC=j;}
-			}
+		initializeChangingBoard();
+
 
 		int l, c;
 		for (int i=0; i<characters.size(); i++){
@@ -95,20 +98,30 @@ public class Board
 		}
 	}
 	
+	public void initializeChangingBoard(){
+		// Inicializa tabuleiro vazio:
+		for(int i=0; i<lines;i++)
+			for(int j=0; j<columns;j++)
+			{	
+				changingBoard[i][j]=fixedBoard[i][j];
+
+				if (changingBoard[i][j]=='k')
+				{leverL=i;
+				leverC=j;}
+			}
+
+	}
+	
 	public void unlockDoors(int level)
 	{
-		if (level==1)
-		{
-			fixedBoard[5][0]='S';
-			fixedBoard[6][0]='S';
-		}
+		for(int i: exit)
+			fixedBoard[i][0]='S';
 
-		else if (level==2)
-		{
-			fixedBoard[1][0]='S';
+		if (level==2)		
 			fixedBoard[leverL][leverC]=' ';
-		}
+
 	}
+
 
 }
 

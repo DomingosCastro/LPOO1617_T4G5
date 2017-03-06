@@ -9,8 +9,7 @@ public class Ogre extends Enemy
 	Random randNum = new Random();
 	int clubL=l+1, clubC=c;
 	char clubLetter='*';	
-	int stunnedRounds=0;
-	
+	int stunnedRounds=0;	
 
 	public Ogre(char letter, int l, int c) {
 		super(letter, l, c);
@@ -39,6 +38,12 @@ public class Ogre extends Enemy
 				movingDirection();			
 				valid=moveCharacter(board); // se fica a esbarrar na parede, repete leitura	
 			}
+			
+			if (c==0){
+				c++;
+				valid=false;
+			}
+						
 		} while(valid==false );
 		
 		// ATAQUE DO HERO - Depois de mover o ogre verifica se o Hero o pode atacar;		

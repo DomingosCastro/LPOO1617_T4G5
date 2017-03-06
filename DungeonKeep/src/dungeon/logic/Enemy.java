@@ -11,7 +11,7 @@ public class Enemy extends Character {
 
 	int[][] lethalTiles ; 
 	
-	protected void setLethalTiles(boolean state, int l, int c){
+	public void setLethalTiles(boolean state, int l, int c){
 		if (state){
 			lethalTiles=new int[][] {{l,c}, {l+1,c}, {l, c+1}, {l-1, c}, {l, c-1}};}
 		else lethalTiles = new int[][] {{l,c}};	
