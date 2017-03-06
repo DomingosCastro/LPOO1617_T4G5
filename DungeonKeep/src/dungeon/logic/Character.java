@@ -15,10 +15,12 @@ public abstract class Character
 	protected Direction dir; 
 	protected int l;
 	protected int c;
-    
-	//protected boolean awake = true;
-	//protected boolean walking = true;
 	
+	public Character(char letter,  int l, int c){
+		this.letter=letter;
+		this.l=l;
+		this.c=c;		
+	}
 	
 	// LINE COLUMN
 	public void setLine(int newL)
@@ -40,69 +42,61 @@ public abstract class Character
 	{
 		return c;
 	}
-	///////////////////////////////////////////////////////////////////
+	
+	public void setCharacterLetter(char letter)
+	{
+		this.letter = letter;
+	}	
 	
 	public char getLetter(){
 		return letter;
 	}
-	
 	
 	public Direction getDir()
 	{
 		return dir;
 	}
 	
-
 	public void setDir(Direction newDir)
 	{
 		dir = newDir;
 	}
-
 	
-	//public abstract void movingDirection();
-	
-	public void moveCharacter(Tile[][] boardTiles){
-			
+	public boolean moveCharacter(Board board){
+		
+		char[][] boardTiles=board.getBoard();
+		boolean valid=true;
+		
 		switch (dir)
 		{
 		case UP:			
-			if (boardTiles[l-1][c].getTileLetter()!='X' && boardTiles[l-1][c].getTileLetter()!='I'){
-			    boardTiles[l][c].setTileLetter(' ');
+			if (boardTiles[l-1][c]!='X' && boardTiles[l-1][c]!='I'){
 				l--;
-				boardTiles[l][c].setTileLetter(letter);
 			}
-			
+			else valid=false;
 			break;
 
 		case DOWN:			
-			if (boardTiles[l+1][c].getTileLetter()!='X' && boardTiles[l+1][c].getTileLetter()!='I'){
-				boardTiles[l][c].setTileLetter(' ');
+			if (boardTiles[l+1][c]!='X' && boardTiles[l+1][c]!='I'){
 				l++;
-				boardTiles[l][c].setTileLetter(letter);
 			}
+			else valid=false;
 			break;
 
 		case LEFT:
-			if (boardTiles[l][c-1].getTileLetter()!='X' && boardTiles[l][c-1].getTileLetter()!='I'){
-				boardTiles[l][c].setTileLetter(' ');
+			if (boardTiles[l][c-1]!='X' && boardTiles[l][c-1]!='I'){
 				c--;
-				boardTiles[l][c].setTileLetter(letter);
 			}
+			else valid=false;
 			break;
 
 		case RIGHT:
-			if (boardTiles[l][c+1].getTileLetter()!='X' && boardTiles[l][c+1].getTileLetter()!='I'){
-				boardTiles[l][c].setTileLetter( ' ');
+			if (boardTiles[l][c+1]!='X' && boardTiles[l][c+1]!='I'){
 				c++;
-				boardTiles[l][c].setTileLetter(letter);
 			}
+			else valid=false;
 			break;
 		}
-
-	}
-	
-	public void setCharacterLetter(char letter)
-	{
-		this.letter = letter;
-	}	
+		return valid;
+	} 
 }

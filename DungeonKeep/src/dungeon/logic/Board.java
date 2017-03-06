@@ -1,142 +1,115 @@
 package dungeon.logic;
 import java.io.*; // evitar usar!!
-import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Board 
 {
 	private int lines; 
 	private int columns;	
-	private Tile[][] boardTiles; // matriz de objetos do tipo Tile
+	//private Tile[][] boardTiles; // matriz de objetos do tipo Tile
 	private int leverC;	// lever coluna
 	private int leverL; // lever linha
 
-	public String[] temporaryBoard1 = {"XXXXXXXXXX", 
-			                           "X   I X  X", 
-			                           "XXX XXX  X", 
-			                           "X I I X  X" , 
-			                           "XXX XXX  X", 
-			                           "I        X", 
-			                           "I        X", 
-			                           "XXX XXXX X", 
-			                           "X I I Xk X", 
-			                           "XXXXXXXXXX"};
+	private char[][] fixedBoard;
+	private char[][] changingBoard;
 	
-	private String[] temporaryBoard2 = {"XXXXXXXXX", 
-			                            "I      kX", 
-			                            "X       X", 
-			                            "X       X", 
-			                            "X       X", 
-			                            "X       X", 
-			                            "X       X", 
-			                            "X       X", 
-			                            "XXXXXXXXX"};
+	public Board(char[][] board){
+		fixedBoard = board;
 
-
-// preenche o tabuleiro com o caracter correto em cada celula, nao imprime nada
-	public Board(int level)
-	{
-		String[] temporaryBoard={};
-		char tileLetter;
+		lines=fixedBoard.length;
+		columns=fixedBoard[0].length;
 		
-		// Seleçao do tabuleiro do nivel
-        if (level==1){
-        	temporaryBoard=temporaryBoard1;}
-		else if (level==2){
-			temporaryBoard=temporaryBoard2;}
-				        
-        this.lines = temporaryBoard.length;
-		this.columns = temporaryBoard[1].length();
-		boardTiles = new Tile[lines][columns]; // array de tiles
+		changingBoard= new char[lines][columns];
 		
-		// inicialização de todos os tiles (X, I, k, empty cell)
-		for (int i = 0; i < lines; i++)
-		{
-			for(int j = 0; j < columns; j++)
-			{
-				tileLetter = temporaryBoard[i].charAt(j);
-				if (tileLetter == 'k')
-				{
-					boardTiles[i][j] = new Tile(i, j, tileLetter, "lever"); 
-					leverL = i;
-					leverC = j;
-				}
-				else 
-					boardTiles[i][j] = new Tile(i, j, tileLetter, "null"); 
+		// Inicializa changingBord:
+		for(int i=0; i<lines;i++)
+			for(int j=0; j<columns;j++)
+			{	
+				changingBoard[i][j]=fixedBoard[i][j];
+			
+			if (changingBoard[i][j]=='k')
+			{leverL=i;
+			leverC=j;}
 			}
-		}
 	}
 
-	public void unlockDoors(int level)
-	{
-		if (level==1)
-		{
-			boardTiles[5][0].setTileLetter('S');
-			boardTiles[6][0].setTileLetter('S');
-		}
-		
-		else if (level==2)
-		{
-			boardTiles[1][0].setTileLetter('S');
-		}
-	}
-	 
-	public Tile[][] getBoardTiles()
-	{		
-		return boardTiles;		
+	public void setFixedBoardLetter(int l, int c, char letter, int level){
+			fixedBoard[l][c]=letter;	
 	}
 	
-	public ArrayList<Tile> getBoardLethalTiles()
-	{
-		ArrayList<Tile> lethalTiles = new ArrayList<Tile>();
-	
-		/*for(int i = 0; i < boardTiles.length ; i ++)
-		{
-			for(int j = 0; j < boardTiles[i].length; j++)
-			{
-				boardTiles[i][j].getTileLetter()
-			}
-		}*/
-		
-		for(Tile[] line : boardTiles)
-			for(Tile t : line)
-				if(t.getTileState() == "lethal" || t.getTileState() == "lever" )
-				{
-					//lethalTiles[lethalTiles.length] = t;
-					lethalTiles.add(t);
-				}
-		
-		return lethalTiles;
+	public void setChangingBoardLetter(int l, int c, char letter){
+		changingBoard[l][c]=letter;
 	}
-	
+
 	public int getLines(){
 		return lines;
 	}
-	
+
 	public int getColumns(){
 		return columns;
+	}
+
+	public char[][] getBoard(){
+		return changingBoard;
 	}
 	
 	public int getLeverLine()
 	{
 		return leverL;
 	}
-	
+
 	public int getLeverColumn()
 	{
 		return leverC;
 	}
 
+	public void setCharactersInBoard(ArrayList<Character>characters, int level){
 
-// Obter a coordenada da porta a abrir
-// É necessário ter acesso às coordenadas das portas a abrir no ficheiro DungeonKeep.java de modo a poder detetar a proximidade do Heroi a elas
-// Isto é apenas para o nivel 2, é necessário fazer uma geral de modo a dar a lista de portas a abrir de cada nivel
+		// Inicializa tabuleiro vazio
+		for(int i=0; i<lines;i++)
+			for(int j=0; j<columns;j++)
+			{	
+				changingBoard[i][j]=fixedBoard[i][j];
+			
+			if (changingBoard[i][j]=='k')
+			{leverL=i;
+			leverC=j;}
+			}
 
-	public Tile getDoorTile(int level)
+		int l, c;
+		for (int i=0; i<characters.size(); i++){
+
+			Character character = characters.get(i);
+
+			l=character.getLine();
+			c=character.getColumn();
+			changingBoard[l][c]=characters.get(i).getLetter();
+			if (character instanceof Ogre){
+				int clubC=((Ogre) character).getClubColumn();
+				int clubL=((Ogre) character).getClubLine();
+
+				changingBoard[clubL][clubC]=((Ogre) character).getClubLetter();
+
+			}
+		}
+	}
+	
+	public void unlockDoors(int level)
 	{
-		if (level == 2)
-			return boardTiles[1][0];
-		return null;
+		if (level==1)
+		{
+			fixedBoard[5][0]='S';
+			fixedBoard[6][0]='S';
+		}
+
+		else if (level==2)
+		{
+			fixedBoard[1][0]='S';
+			fixedBoard[leverL][leverC]=' ';
+		}
 	}
 
 }
+
+

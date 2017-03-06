@@ -1,22 +1,48 @@
 package dungeon.logic;
+import java.util.ArrayList;
 import java.util.Scanner;
 import dungeon.cli.Input;
 
 public class Hero extends Character 
 {
-
 	char keyboard; // caracter lido a partir do teclado
-
 	Scanner input = new Scanner(System.in);
+	boolean armedState = false;
 	
-	// construtor
-	public Hero(char name, int l, int c)
-	{
-		this.letter = name;
-		this.l=l;
-		this.c=c;
+	public Hero(char letter, int l, int c) {
+		super(letter, l, c);
+		// TODO Auto-generated constructor stub
+	}
+	
+	public boolean getArmedState(){
+		return armedState;
 	}
 
+	public void setArmedState(){
+		armedState=true;
+	}
+	
+	public void moveHero(char playerInput, Board board, int level){
+
+    	// Estabelece direção do movimento
+    	movingDirection(playerInput);
+    		
+    	// muda coordenadas do hero:
+    	moveCharacter(board);
+    
+    	// Verifica se chegou ao Club
+    	if(board.getBoard()[l][c]=='c'){
+    		letter='A';
+    		armedState=true;
+    		}		
+    			
+    	// Desbloqueio das portas
+    	if (l==board.getLeverLine() && c==board.getLeverColumn()){
+    		board.unlockDoors(level);
+    		if (level==2)
+    			letter='K';
+    		}	
+    	}
 
 	public void movingDirection(char playerInput){
 		Input input = new Input();
@@ -35,13 +61,6 @@ public class Hero extends Character
 			dir = Direction.RIGHT;
 			break;
 		}
-	}
-	
-	public boolean isALive(Board board){
-			  if (board.getBoardTiles()[l][c].getTileState()=="lethal")
-				  return false;
-			  else return true;	   
-			 
 	}
 }
 

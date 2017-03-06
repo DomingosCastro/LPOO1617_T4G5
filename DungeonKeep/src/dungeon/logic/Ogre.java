@@ -1,200 +1,177 @@
 package dungeon.logic;
 
-import java.util.ArrayList;
 import java.util.Random;
+import java.util.ArrayList;
+import java.util.Arrays;
 
-public class Ogre extends Character 
+public class Ogre extends Enemy 
 {
-	//boolean clockwise = false;  // <--------- VER ISTO DEPOIS
+	Random randNum = new Random();
+	int clubL=l+1, clubC=c;
+	char clubLetter='*';	
+	int stunnedRounds=0;
 	
-		private int leverL, leverC;
-		private int nMaxPossibleMoves = 4;		// nº maximo de movimentos possiveis
-		private Random random = new Random();
-		//private boolean awake = true;
+
+	public Ogre(char letter, int l, int c) {
+		super(letter, l, c);
+		// TODO Auto-generated constructor stub
+	}
+
+	public int getClubLine(){
+		return clubL;
+	}
+	
+	public int getClubColumn(){
+		return clubC;
+	}
+
+	public char getClubLetter(){
+		return clubLetter;
+	}
+	
+	public void moveOgre(Board board, Hero hero){
+
+		boolean valid = true;
 		
-		public Ogre(char letter,  int l, int c, int leverL, int leverC)
+		// MOVER OGRE - repete ate mover ogre (evita que fique a bater contra a parede)
+		do {			
+			if (awakeState){
+				movingDirection();			
+				valid=moveCharacter(board); // se fica a esbarrar na parede, repete leitura	
+			}
+		} while(valid==false );
+		
+		// ATAQUE DO HERO - Depois de mover o ogre verifica se o Hero o pode atacar;		
+		heroAttack(hero);
+				
+		// MOVER BASTAO
+		do {
+			// inicia posiçao do club no ogre
+			clubL=l;
+			clubC=c;
+			
+			// atribui direçao aleatoria 
+			movingDirection(); 
+			
+			// atribui coordenadas a direçao atribuida anteriormente, se coincidir com parede, retorna false
+			valid=moveClub(board); 
+		} while(valid==false);
+
+		
+		// Atualização do Board:
+		setLethalTiles(awakeState, l, c);	
+		setClubLethalTiles(clubL, clubC, lethalTiles);  
+		
+		manageOgreLetter(board);
+		
+//		board.setChangingBoardLetter(l, c, letter); 
+	}
+	
+		
+	protected void movingDirection() {
+		
+		int direction=randNum.nextInt(4);
+		
+		if (direction==0)
+			dir=Direction.UP;
+		else if(direction==1)
+			dir=Direction.DOWN;
+		else if (direction==2)
+			dir=Direction.LEFT;
+		else if (direction==3)
+			dir=Direction.RIGHT;
+	}
+		
+	protected boolean moveClub(Board board){
+		char[][] boardTiles=board.getBoard();
+		boolean valid=true;
+
+		switch (dir)
 		{
-			this.letter=letter;
-			this.l=l;
-			this.c=c;		
-			this.leverL = leverL;
-			this.leverC = leverC;
+		case UP:			
+			if (boardTiles[l-1][c]!='X' && boardTiles[l-1][c]!='I' && boardTiles[l-1][c]!='S'){
+				clubL--;	
+			}
+			else valid=false;
+			break;
+
+		case DOWN:			
+			if (boardTiles[l+1][c]!='X' && boardTiles[l+1][c]!='I'&& boardTiles[l+1][c]!='S'){
+				clubL++;				
+			}
+			else valid=false;
+			break;
+
+		case LEFT:
+			if (boardTiles[l][c-1]!='X' && boardTiles[l][c-1]!='I'&& boardTiles[l][c-1]!='S'){
+				clubC--;				
+			}
+			else valid=false;
+			break;
+
+		case RIGHT:
+			if (boardTiles[l][c+1]!='X' && boardTiles[l][c+1]!='I'&& boardTiles[l][c+1]!='S'){
+				clubC++;
+			}
+			else valid=false;
+			break;
+
 		}
-		
-		/*public boolean isAwake(){
-			return awake;
+		return valid;
+	}
+	
+	public void setClubLethalTiles(int l, int c, int[][] ogreLethalTiles){
+		int[][] clubLethalTiles=new int[][] {{l,c}, {l+1,c}, {l, c+1}, {l-1, c}, {l, c-1}};
+		lethalTiles=concat(clubLethalTiles, ogreLethalTiles );
+	}
+
+	public int[][] concat(int[][] a, int[][] b) {
+		int[][] result = new int[a.length + b.length][];
+		System.arraycopy(a, 0, result, 0, a.length);
+		System.arraycopy(b, 0, result, a.length, b.length);
+		return result;
+	}
+
+	public void manageOgreLetter(Board board){
+
+		char[][] boardTiles = board.getBoard(); 
+
+		if(awakeState==false)
+			letter='8';
+
+		else if (boardTiles[l][c]=='k' || boardTiles[l][c]=='c' || boardTiles[l][c]=='$'){
+			letter='$';
+			clubLetter='*';
 		}
 
-		public void setAwake(boolean state){
-			awake=state;
-		}*/
-		
-		/*public void setClockwise(boolean clockwise){
-			this.clockwise=clockwise;
-		}*/
-
-		public void movingDirection()
-		{
-			int dirChoice = random.nextInt(nMaxPossibleMoves) + 1;		// [1, nMaxPossibleMoves]
-			
-			if (dirChoice == 1)
-				dir = Direction.LEFT;
-			else if (dirChoice == 2)
-				dir = Direction.RIGHT;
-			else if (dirChoice == 3)
-				dir = Direction.UP;
-			else if (dirChoice == 4)
-				dir = Direction.DOWN;
+		else if (boardTiles[clubL][clubC]=='k' || boardTiles[clubL][clubC]=='c' || boardTiles[clubL][clubC]=='$'){
+			clubLetter='$';	
+			letter='O';
 		}
-		
-		public void setLethalTiles(Tile[][] boardTiles, String type)
-		{
-			
-			if (l-1 == leverL && c == leverC)
-			{
-				if (type == "null")		// para nao colocar o tile da chave com state "null"
-					boardTiles[l-1][c].setTileState("lever");
-				else
-					boardTiles[l-1][c].setTileState(type);
-				
-				boardTiles[l+1][c].setTileState(type);
-				boardTiles[l][c-1].setTileState(type);
-				boardTiles[l][c+1].setTileState(type);
-			}
-			else if (l+1 == leverL && c == leverC)
-			{
-				if (type == "null")		// para nao colocar o tile da chave com state "null"
-					boardTiles[l+1][c].setTileState("lever");
-				else
-					boardTiles[l-1][c].setTileState(type);
-				
-				boardTiles[l-1][c].setTileState(type);
-				boardTiles[l][c-1].setTileState(type);
-				boardTiles[l][c+1].setTileState(type);
-			} 
-			else if (l == leverL && c-1 == leverC)
-			{
-				if (type.equals("null"))		// para nao colocar o tile da chave com state "null"
-					boardTiles[l][c-1].setTileState("lever");
-				else
-					boardTiles[l-1][c].setTileState(type);
-				
-				boardTiles[l-1][c].setTileState(type);
-				boardTiles[l+1][c].setTileState(type);
-				boardTiles[l][c+1].setTileState(type);
-			}
-			else if (l == leverL && c+1 == leverC)
-			{
-				if (type.equals("null"))		// para nao colocar o tile da chave com state "null"
-					boardTiles[l][c+1].setTileState("lever");
-				else
-					boardTiles[l-1][c].setTileState(type);
-				
-				boardTiles[l-1][c].setTileState(type);
-				boardTiles[l+1][c].setTileState(type);
-				boardTiles[l][c-1].setTileState(type);
-			}
-			else
-			{
-				boardTiles[l-1][c].setTileState(type);
-				boardTiles[l+1][c].setTileState(type);
-				boardTiles[l][c-1].setTileState(type);
-				boardTiles[l][c+1].setTileState(type);
-			}
-		}	
-		
-		public void setClubLethalTiles(Tile[][] boardTiles, Tile clubTile)
-		{
-			if(clubTile.getTileLine()-1 >= 0)
-			{
-				boardTiles[clubTile.getTileLine()-1][clubTile.getTileColumn()].setTileState("lethal");
-			}
-			
-			if(clubTile.getTileLine()+1 < boardTiles[0].length)
-			{
-				boardTiles[clubTile.getTileLine()+1][clubTile.getTileColumn()].setTileState("lethal");
-			}
-			
-			if(clubTile.getTileColumn()-1 >= 0)
-			{
-				boardTiles[clubTile.getTileLine()][clubTile.getTileColumn()-1].setTileState("lethal");
-			}
-			if(clubTile.getTileColumn()+1 < boardTiles[0].length)
-			{
-				boardTiles[clubTile.getTileLine()][clubTile.getTileColumn()+1].setTileState("lethal");
-			}
-		}	
-		
-		public void moveCharacter(Tile[][] boardTiles, int leverL, int leverC){
-			
-			switch (dir)
-			{
-				case UP:			
-					if (boardTiles[l-1][c].getTileLetter()!='X' && boardTiles[l-1][c].getTileLetter()!='I')
-					{
-					    boardTiles[l][c].setTileLetter(' ');
-						l--;
-						if (l == leverL && c == leverC)		// se estiver na posicao da lever
-							boardTiles[l][c].setTileLetter(letter);
-						else
-							boardTiles[l][c].setTileLetter('O');
-					}
-					
-					break;
-		
-				case DOWN:			
-					if (boardTiles[l+1][c].getTileLetter()!='X' && boardTiles[l+1][c].getTileLetter()!='I')
-					{
-						boardTiles[l][c].setTileLetter(' ');
-						l++;
-						if (l == leverL && c == leverC)		// se estiver na posicao da lever
-							boardTiles[l][c].setTileLetter(letter);
-						else
-							boardTiles[l][c].setTileLetter('O');
-					}
-					break;
-		
-				case LEFT:
-					if (boardTiles[l][c-1].getTileLetter()!='X' && boardTiles[l][c-1].getTileLetter()!='I')
-					{
-						boardTiles[l][c].setTileLetter(' ');
-						c--;
-						if (l == leverL && c == leverC)		// se estiver na posicao da lever
-							boardTiles[l][c].setTileLetter(letter);
-						else
-							boardTiles[l][c].setTileLetter('O');
-					}
-					break;
-		
-				case RIGHT:
-					if (boardTiles[l][c+1].getTileLetter()!='X' && boardTiles[l][c+1].getTileLetter()!='I')
-					{
-						boardTiles[l][c].setTileLetter(' ');
-						c++;
-						if (l == leverL && c == leverC)		// se estiver na posicao da lever
-							boardTiles[l][c].setTileLetter(letter);
-						else
-							boardTiles[l][c].setTileLetter('O');
-					}
-					break;
+		else {letter='O';
+		clubLetter='*';
+		}
+
+	}
+
+
+	public void heroAttack(Hero hero){
+		int heroL=hero.getLine();
+		int heroC=hero.getColumn();
+		if(hero.getArmedState()){
+			if ((heroL==l && Math.abs(heroC-c)==1) || (heroC==c && Math.abs(heroL-l)==1)){
+				awakeState=false;
 			}
 		}
 
-		public Tile setClub(ArrayList<Tile> lethalTiles, Tile[][] tiles) {
-			// TODO Auto-generated method stub
-			int clubPosition = random.nextInt(lethalTiles.size()); //clubPosition é como se fosse o índice
-			
-			if(lethalTiles.get(clubPosition).getTileState() == "lever")
-				lethalTiles.get(clubPosition).setTileLetter('$');
-			else if (lethalTiles.get(clubPosition).getTileLetter() != 'X' || lethalTiles.get(clubPosition).getTileLetter() != 'I')
-				lethalTiles.get(clubPosition).setTileLetter('*');
-			
-			return lethalTiles.get(clubPosition);
+		if (awakeState==false){
+			stunnedRounds++;
 		}
-		
-		
-		
-		
-		
-		
+
+		if (stunnedRounds==4){
+			stunnedRounds=0;
+			awakeState=true;
+		}
+
+	}
 }

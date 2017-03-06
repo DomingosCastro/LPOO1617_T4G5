@@ -1,164 +1,217 @@
 package dungeon.cli;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Scanner;
 import dungeon.logic.Board;
 import dungeon.logic.Character;
+import dungeon.logic.Club;
 import dungeon.logic.Direction;
 import dungeon.logic.Hero;
 import dungeon.logic.Ogre;
 import dungeon.logic.Guard;
-import dungeon.logic.Tile;
+import dungeon.logic.Rookie;
+import dungeon.logic.Drunken;
+import dungeon.logic.Suspicious;
 
 
 public class DungeonKeep 
 {
 	public static void main(String[] args)
-	{				
-		int startLevel = 2;
+	{	
+		char[][] fixedBoard1 = {{'X','X','X','X','X','X','X','X','X','X'}, 
+				{'X',' ',' ',' ','I',' ','X',' ',' ','X'}, 
+				{'X','X','X',' ','X','X','X',' ',' ','X'}, 
+				{'X',' ','I',' ','I',' ','X',' ',' ','X'}, 
+				{'X','X','X',' ','X','X','X',' ',' ','X'}, 
+				{'I',' ',' ',' ',' ',' ',' ',' ',' ','X'}, 
+				{'I',' ',' ',' ',' ',' ',' ',' ',' ','X'}, 
+				{'X','X','X',' ','X','X','X','X',' ','X'}, 
+				{'X',' ','I',' ','I',' ','X','k',' ','X'}, 
+				{'X','X','X','X','X','X','X','X','X','X'}};
+
+		char[][] fixedBoard2 = {{'X','X','X','X','X','X','X','X','X'}, 
+				{'I',' ',' ',' ',' ',' ',' ','k','X'}, 
+				{'X',' ',' ',' ',' ',' ',' ',' ','X'}, 
+				{'X',' ',' ',' ',' ',' ',' ',' ','X'}, 
+				{'X',' ',' ',' ',' ',' ',' ',' ','X'}, 
+				{'X',' ',' ',' ',' ',' ',' ',' ','X'}, 
+				{'X',' ',' ',' ',' ',' ',' ',' ','X'}, 
+				{'X',' ',' ',' ',' ',' ',' ',' ','X'}, 
+				{'X','X','X','X','X','X','X','X','X'}};
+		
+		//for debug purposes
+		//int startLevel = 2;
+		
 		Scanner input = new Scanner(System.in);
 		char playerInput; 
-		int previousHeroColumn;
-		boolean leverCaught = false;
 		
+		ArrayList<Character> characters = new ArrayList<>();
+
+		/*
 		Hero hero = new Hero('H', 1, 1);
-		Guard guard = new Guard('G', 1, 8 );
-		Ogre ogre = null;
-		Tile previousClubTile = null;
-		Board board = null;
-		ShowBoard showBoard = null;
+		Club club = new Club('c');
+		*/
+
+		Hero hero = null; 
+		boolean heroKilled = false;
 		
-		// Ciclo dos Níveis do Jogo:
-		for (int level=startLevel; level<=2; level++){
+		/*
+		Guard rookie = new Rookie('G', 1, 8 );
+		Guard drunken = new Drunken('G', 1, 8 );
+		Guard suspicious = new Suspicious('G', 1, 8 );
+		*/
+		
+		/*
+		// Armazena os guardas num Array:
+		ArrayList<Guard> guards=new ArrayList<>();
 
-			board = new Board(level);						
-			showBoard = new ShowBoard();
+		guards.add(rookie);
+		guards.add(drunken);		
+		guards.add(suspicious);
+		
+		
+		//lista de ogres
+		ArrayList<Ogre> ogres = new ArrayList<Ogre>();  
+		Ogre ogre = null;
+		Ogre ogre2= null;
+		Ogre ogre3= null;
+		*/
+		
+		Guard rookie = null;
+		Guard drunken = null; 
+		Guard suspicious = null; 
+		ArrayList<Guard> guards=new ArrayList<>();
+		
+		Ogre ogre1 = null;
+		Ogre ogre2= null;
+		Ogre ogre3=null;
+		ArrayList<Ogre> ogres = new ArrayList<>();
 
-			// Colocacao das personagens no tabuleiro para um dado nível:
-			if (level==1)
-			{			
-				hero.setCharacterLetter('H');			// reset da letra do hero
-				board.getBoardTiles()[hero.getLine()][hero.getColumn()].setTileLetter('H');
-				board.getBoardTiles()[guard.getLine()][guard.getColumn()].setTileLetter('G');
+		Club heroClub = new Club('c') ;	
+		Board board = null;
+		ShowBoard showBoard = new ShowBoard();
+		//Lever lever = null;
+		
+		// Ciclo dos Níveis do Jogo
+		for (int level = 2; level <= 2; level++){
+
+			// Vai determinar qual é o guarda de vigia
+			int choseGuard = 0;
+						
+			// Inicializacao dos Niveis:
+			if (level==1){	
+				board=new Board(fixedBoard1);
+				hero = new Hero('H', 1, 1);
+	                
+	            rookie = new Rookie('G', 1, 8);
+	        	drunken = new Drunken('G', 1, 8 );
+	        	suspicious = new Suspicious('G', 1, 8 );
+
+	        	// Armazena os guardas num Array
+
+	        	guards.add(rookie);
+	        	guards.add(drunken);		
+	        	guards.add(suspicious);
+	                
+				// Renova o array de characters (para a colocaçao das persongens no board)
+				characters.add(hero);
+				characters.add(guards.get(0));
 			}
 
 			else if (level==2)
 			{
-				ogre = new Ogre('O', 1, 6, board.getLeverLine(), board.getLeverColumn());
-				hero.setCharacterLetter('H');			// reset da letra do hero
-				hero.setColumn(2);			
-				hero.setLine(7);
-				board.getBoardTiles()[hero.getLine()][hero.getColumn()].setTileLetter('H');
-				// OGRE
-				board.getBoardTiles()[ogre.getLine()][ogre.getColumn()].setTileLetter('0');
+				board=new Board(fixedBoard2);
+				heroClub.setHeroClub(board, level);
+				
+				hero = new Hero('H', 7, 2);		
+
+				ogre1=new Ogre('O', 1, 2 );
+				ogre2=new Ogre('O', 1, 3);
+				ogre3=new Ogre('O', 1, 4);
+
+				// Armazena ogres no arrayList:
+				ogres.add(ogre1);
+				ogres.add(ogre2);
+				ogres.add(ogre3);
+				
+				// Renova o array de characters (para a colocaçao das persongens no board)
+				characters.removeAll(characters);
+				characters.add(hero);
+				characters.add(ogre1);
+				characters.add(ogre2);	
+				characters.add(ogre3);
 			}
  
+			//boolean atLeastOneStunned = false;
+			
+			
 			// Ciclo de jogo
-			do 
-			{
+			
+			do {
+				board.setCharactersInBoard(characters, level);
+				heroClub.setHeroClub(board, level);
 				
-				showBoard.printBoard(board);
-
+				showBoard.printBoard(board, level);
+				
 				// Leitura do teclado
-				do
-				{
-					previousHeroColumn = hero.getColumn();
-					playerInput = input.next().charAt(0);			
+				
+				do{
+					playerInput = input.next().charAt(0);		
 				} while(playerInput!='w' && playerInput!='a' && playerInput!='s' && playerInput!='d');
 
 				// Movimento HERO
-				hero.movingDirection(playerInput);
-				hero.moveCharacter(board.getBoardTiles());
-
+				hero.moveHero(playerInput, board, level);
 
 				// Movimento dos Inimigos
-				if(level==1)
-				{
-					// Movimento Guarda
-					guard.setLethalTiles(board.getBoardTiles(), "null"); // faz o reset dos lethal tiles devido posicao anterior do guarda				
-					guard.movingDirection();
-					guard.moveCharacter(board.getBoardTiles());
-					guard.setLethalTiles(board.getBoardTiles(), "lethal");
+				if(level==1){                    
+
+					// Escolhe o Guarda
+					if (guards.get(choseGuard).changeGuard()){						
+						choseGuard=choseGuard+1;
+						if (choseGuard==3)
+							choseGuard=0;
+					}
+
+					// Substitui o guarda anterior no arraylist characters
+					characters.set(1, guards.get(choseGuard));
 					
-					// Desbloqueio das portas
-					if (board.getBoardTiles()[hero.getLine()][hero.getColumn()].getTileState() == "lever")
-					{
-						board.unlockDoors(level);
-					}	
+					// Depois de escolhido o guard, move-o
+					guards.get(choseGuard).moveGuard(board);
+					
+					// Verifica se mata o heroi
+					heroKilled=guards.get(choseGuard).killHero(hero);
 				}
 
-				else if (level==2) 
-				{ 
-					// Movimento do Ogre
-					ogre.setLethalTiles(board.getBoardTiles(), "null");	// faz o reset dos lethal tiles devido posicao anterior do guarda		
-					ogre.movingDirection();
-					// tem de se alterar aqui a letra do ogre de modo a que esta seja atualizada no metodo moveCharacter (para a atualizar no momento em que o o ogre acaba de se deslocar para a posicao da lever)
-					// logo desenvolvi uma funcao que prevê a quadricula para onde o ogre se irá mover, de modo a, que caso corresponda à da lever
-				    // alterar a letra do ogre para $
-					ogre.moveCharacter(board.getBoardTiles(), board.getLeverLine(), board.getLeverColumn());
-					ogre.setLethalTiles(board.getBoardTiles(), "lethal");
-					ArrayList<Tile> lethalTiles = board.getBoardLethalTiles();
-					Tile[][] allTiles = board.getBoardTiles();
-					  
-					if (previousClubTile != null && previousClubTile.getTileLetter() == '*')
-						board.getBoardTiles()[previousClubTile.getTileLine()][previousClubTile.getTileColumn()].setTileLetter(' ');
+				else if (level==2)	{
+					
+					for (Ogre ogre: ogres){
+						// Move ogre:
+						ogre.moveOgre(board,  hero);
 						
-					previousClubTile = ogre.setClub(lethalTiles, allTiles);
-					
-					ogre.setClubLethalTiles(board.getBoardTiles(), previousClubTile);
-					
-					if (board.getBoardTiles()[ogre.getLine()][ogre.getColumn()].getTileState() == "lever")
-					{
-						//ogre.setCharacterLetter('$');
-						board.getBoardTiles()[ogre.getLine()][ogre.getColumn()].setTileLetter('$');		// serve para alterar a letra no momento em que o ogre se move para a posicao da lever
-					}
-					else
-					{
-						//ogre.setCharacterLetter('O');
-						if (hero.getLine() == board.getLeverLine() && hero.getColumn() == board.getLeverColumn())
-							board.getBoardTiles()[board.getLeverLine()][board.getLeverColumn()].setTileLetter('K');
-						else if (leverCaught)
-						{
-							board.getBoardTiles()[board.getLeverLine()][board.getLeverColumn()].setTileLetter(' ');
-							board.getBoardTiles()[board.getLeverLine()][board.getLeverColumn()].setTileState("null");		// ja nao existe chave, logo fica a null
-						}
-						else if (!leverCaught)
-						{
-							board.getBoardTiles()[board.getLeverLine()][board.getLeverColumn()].setTileLetter('k');
-						}	
-					}				
+						// verifica se mata o hero:
+						heroKilled=ogre.killHero(hero) ;						
+						if(heroKilled)
+							break;
+					}					
+				
+				}					
 
-					// Mudanca de letra do Hero quando apanha a lever
-					if (board.getBoardTiles()[hero.getLine()][hero.getColumn()].getTileState() == "lever")
-					{
-						//board.unlockDoors(level);
-						hero.setCharacterLetter('K'); 
-						leverCaught = true;
-						//board.getBoardTiles()[hero.getLine()][hero.getColumn()].setTileLetter('K');
-					}
-										
-				// Desbloqueio da porta
-				// se o hero estiver na quadricula à direita da lever
-					if (hero.getColumn() == board.getDoorTile(2).getTileColumn()+1 && leverCaught)
-					{
-						if (previousHeroColumn == hero.getColumn() && playerInput == 'a')
-						{
-							board.unlockDoors(level);
-						}
-					}	
-					
-				}
-		} while(hero.isALive(board)&& hero.getColumn()!=0);
 
-			showBoard.printBoard(board);  
-			
-			if (hero.isALive(board))
-				System.out.println("LEVEL 2");
-			else 
-			{
-				System.out.println("GAME OVER");
+			} while(!heroKilled && hero.getColumn()!=0);
+
+			board.setCharactersInBoard(characters, level);
+			heroClub.setHeroClub(board, level);
+			showBoard.printBoard(board, level); 
+
+			if (heroKilled){		
+				System.out.println(" GAME OVER");
 				break;
+			}
+			else if (level==2){
+				System.out.println(" WINNER!!");
 			}
 		}
 	}
 }
+
