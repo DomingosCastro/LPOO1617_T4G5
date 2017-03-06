@@ -16,6 +16,12 @@ public class Ogre extends Enemy
 		// TODO Auto-generated constructor stub
 	}
 
+	public void setClub(int line, int column){
+		clubL=line;
+		clubC=column;
+	}
+	
+	
 	public int getClubLine(){
 		return clubL;
 	}
@@ -69,7 +75,6 @@ public class Ogre extends Enemy
 		
 		manageOgreLetter(board);
 		
-//		board.setChangingBoardLetter(l, c, letter); 
 	}
 	
 		
@@ -87,7 +92,7 @@ public class Ogre extends Enemy
 			dir=Direction.RIGHT;
 	}
 		
-	protected boolean moveClub(Board board){
+	public boolean moveClub(Board board){
 		char[][] boardTiles=board.getBoard();
 		boolean valid=true;
 
