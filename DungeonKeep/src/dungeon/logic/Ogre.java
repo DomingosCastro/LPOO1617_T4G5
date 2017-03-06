@@ -73,7 +73,7 @@ public class Ogre extends Enemy
 	}
 	
 		
-	protected void movingDirection() {
+	public void movingDirection() {
 		
 		int direction=randNum.nextInt(4);
 		

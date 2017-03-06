@@ -48,35 +48,11 @@ public class DungeonKeep
 		
 		ArrayList<Character> characters = new ArrayList<>();
 
-		/*
-		Hero hero = new Hero('H', 1, 1);
-		Club club = new Club('c');
-		*/
+
 
 		Hero hero = null; 
 		boolean heroKilled = false;
 		
-		/*
-		Guard rookie = new Rookie('G', 1, 8 );
-		Guard drunken = new Drunken('G', 1, 8 );
-		Guard suspicious = new Suspicious('G', 1, 8 );
-		*/
-		
-		/*
-		// Armazena os guardas num Array:
-		ArrayList<Guard> guards=new ArrayList<>();
-
-		guards.add(rookie);
-		guards.add(drunken);		
-		guards.add(suspicious);
-		
-		
-		//lista de ogres
-		ArrayList<Ogre> ogres = new ArrayList<Ogre>();  
-		Ogre ogre = null;
-		Ogre ogre2= null;
-		Ogre ogre3= null;
-		*/
 		
 		Guard rookie = null;
 		Guard drunken = null; 
@@ -94,7 +70,7 @@ public class DungeonKeep
 		//Lever lever = null;
 		
 		// Ciclo dos Níveis do Jogo
-		for (int level = 2; level <= 2; level++){
+		for (int level = 1; level <= 2; level++){
 
 			// Vai determinar qual é o guarda de vigia
 			int choseGuard = 0;
