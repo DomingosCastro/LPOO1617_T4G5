@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Vector;
 
 public class Guard extends Enemy  {
-
+	
 	public Guard(char letter, int l, int c) {
 		super(letter, l, c);
 		// TODO Auto-generated constructor stub
@@ -17,8 +17,7 @@ public class Guard extends Enemy  {
 	boolean reachSetpoint = false;
 
 	Random randNum = new Random();
-
-	
+		
 	public boolean getAwakeState(){
 		return awakeState;
 	}

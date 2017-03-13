@@ -169,7 +169,7 @@ public class DungeonKeep
 						heroKilled=ogre.killHero(hero) ;						
 						if(heroKilled)
 							break;
-					}					
+					}			
 				
 				}					
 

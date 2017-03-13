@@ -1,8 +1,12 @@
 package dungeon.test;
 
 import static org.junit.Assert.*;
+
+import java.util.ArrayList;
+
 import org.junit.Test;
 import dungeon.logic.Board;
+import dungeon.logic.Hero;
 import dungeon.logic.Ogre;
 
 public class TestRandomOgre {
@@ -50,6 +54,7 @@ public class TestRandomOgre {
 		while(!left || !rigth || !up || !down){
 			
 			ogre.setClub(ogre.getLine(), ogre.getColumn());		
+			ogre.movingDirection();	
 			ogre.moveClub(board);
 			
 			// ERRROOOOO
@@ -64,12 +69,12 @@ public class TestRandomOgre {
 				up=true;
 			
 			else if (ogre.getClubLine()==ogre.getLine()+1)
-				down=true;
-			
-
-			
+				down=true;			
 		}
 		
 	}
+	
+
+	
 	
 }
