@@ -10,7 +10,7 @@ public class ShowBoard
 		int	lines=board.getLines();
 		int columns=board.getColumns();
 		char[][] boardTiles=board.getBoard();
-		System.out.println(" LEVEL " + level) ;
+		//System.out.println(" LEVEL " + level) ;
 		
 			for (int i = 0; i < lines; i++)
 			{
