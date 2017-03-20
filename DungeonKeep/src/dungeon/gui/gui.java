@@ -1,6 +1,7 @@
 package dungeon.gui;
 
 import java.awt.EventQueue;
+import java.awt.Graphics;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -63,6 +64,7 @@ public class gui implements KeyListener {
 	 */
 	public gui() {
 		initialize();
+	
 	}
 	
 	/**
