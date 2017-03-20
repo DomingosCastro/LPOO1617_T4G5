@@ -21,15 +21,18 @@ import dungeon.logic.Suspicious;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextArea;
 import javax.swing.JComboBox;
 
-public class gui {
+public class gui implements KeyListener {
 
 	private JFrame frame;
+	private JTextArea textArea;
 	private JTextField TextChoseGuard;
 	private JTextField TextnumberOgres;
 	private JButton up;
@@ -61,15 +64,17 @@ public class gui {
 	public gui() {
 		initialize();
 	}
-
+	
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		
-		JTextArea textArea = new JTextArea();
+		textArea = new JTextArea();
 		textArea.setBounds(20, 81, 257, 178);
+		textArea.addKeyListener(this);
+		textArea.requestFocusInWindow();
+		
 		frame.getContentPane().add(textArea);
 				
 		frame.setBounds(100, 100, 523, 355);
@@ -179,9 +184,57 @@ public class gui {
 		
 		JLabel label = new JLabel("");
 		label.setBounds(20, 279, 257, 14);
-		frame.getContentPane().add(label);
-		
-						
+		frame.getContentPane().add(label);					
 	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		System.out.println("Key pressed:" + e.getKeyCode());	
+		System.out.println(e.getKeyChar());
+		performKeyAction(e.getKeyCode());
+	}
+
+	
+	private void performKeyAction(int keyCode) {
+		
+		switch (keyCode) {
+		case KeyEvent.VK_RIGHT:
+			//TODO move heroi para a direita
+				if(state=="normal")
+					state=game.playTurn('d',textArea);	
+			break;
+		case KeyEvent.VK_LEFT:
+			//TODO move heroi para a esquerda
+			if(state=="normal")
+				state=game.playTurn('a',textArea);	
+			break;
+		case KeyEvent.VK_UP:
+			//TODO move heroi para cima
+			if(state=="normal")
+				state=game.playTurn('w',textArea);	
+			break;
+		case KeyEvent.VK_DOWN:
+			//TODO move heroi para baixo
+			if(state=="normal")
+				state=game.playTurn('s',textArea);	
+			break;
+		default:
+			//nao faz nada
+			break;
+		}
+	}
+	
 }
 
