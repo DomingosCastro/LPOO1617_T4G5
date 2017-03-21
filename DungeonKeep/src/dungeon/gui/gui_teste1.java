@@ -1,4 +1,4 @@
-package dkeep.gui;
+package dungeon.gui;
 
 import java.awt.EventQueue;
 
@@ -27,7 +27,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JTextArea;
 import javax.swing.JComboBox;
 
-public class gui {
+public class gui_teste1 {
 
 	private JFrame frame;
 	private JTextField TextChoseGuard;
@@ -46,7 +46,7 @@ public class gui {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					gui window = new gui();
+					gui_teste1 window = new gui_teste1();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -58,7 +58,7 @@ public class gui {
 	/**
 	 * Create the application.
 	 */
-	public gui() {
+	public gui_teste1() {
 		initialize();
 	}
 
