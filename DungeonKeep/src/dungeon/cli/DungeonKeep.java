@@ -41,8 +41,7 @@ public class DungeonKeep
 			{'X',' ',' ',' ',' ',' ',' ',' ','X'}, 
 			{'X','X','X','X','X','X','X','X','X'}};
 
-	//for debug purposes
-	//int startLevel = 2;
+
 
 	static Scanner input = new Scanner(System.in);
 	static char playerInput; 
@@ -56,6 +55,7 @@ public class DungeonKeep
 
 	static int choseGuard,numberOgres;
 
+	static boolean initialized = false;
 	static Guard rookie = null;
 	static Guard drunken = null; 
 	static Guard suspicious = null; 
@@ -72,13 +72,25 @@ public class DungeonKeep
 	static int level=1;
 
 	
-	public void setEnemys(int choseGuard, int numberOgres){
-		this.choseGuard=choseGuard;
-		this. numberOgres= numberOgres;
+	public void setEnemys(int choseGuard, int numberOgres){		
+		DungeonKeep.choseGuard=choseGuard;
+		DungeonKeep. numberOgres= numberOgres;
 	}
 
 	public Board getBoard(){
 		return board;
+	}
+	
+	public Hero getHero(){
+		return hero;
+	}
+	
+	public int getLevel(){
+		return level;
+	}
+	
+	public boolean getInitialized(){
+		return initialized;
 	}
 	
 	public ArrayList<Character> getCharacters(){
@@ -86,6 +98,7 @@ public class DungeonKeep
 	}
 	
 	public void initializeLevel(){
+		initialized=true;
 		characters.removeAll(characters);
 		// Inicializacao dos Niveis:
 		if (level==1){	
@@ -105,6 +118,7 @@ public class DungeonKeep
 				guards.add(suspicious);
 
 			// Renova o array de characters (para a colocaçao das persongens no board)
+			characters.removeAll(characters);
 			characters.add(hero);
 			characters.add(guards.get(0));
 		}
@@ -135,12 +149,9 @@ public class DungeonKeep
 		////////////////////////////
 	}
 
-	public String playTurn(char playerInput, JTextArea textArea){
+	public String playTurn(char playerInput){//, JTextArea textArea){
 		//board.setCharactersInBoard(characters, level);
 		heroClub.setHeroClub(board, level);
-
-		//showBoard.printBoard(board, level);
-
 
 		// Movimento HERO
 		hero.moveHero(playerInput, board, level);
@@ -176,7 +187,7 @@ public class DungeonKeep
 		heroClub.setHeroClub(board, level);
 		showBoard.printBoard(board, level); 
 
-		printBoard(textArea);
+	//	printBoard(textArea);
 
 		if (heroKilled)
 			return "loser";

@@ -31,20 +31,21 @@ import java.util.Scanner;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextArea;
 import javax.swing.JComboBox;
+import javax.swing.JPanel;
 
-public class gui implements KeyListener {
+public class gui extends JFrame implements KeyListener {
 
 	private JFrame frame;
-	private JTextArea textArea;
 	private JTextField TextChoseGuard;
 	private JTextField TextnumberOgres;
 	private JButton up;
 	private JButton rigth;
 	private JButton down;
 	private JButton left;
-	DungeonKeep game = null;
+//	private DungeonKeep game ;
+	private GamePanel gamePanel;
 	ShowBoard showBoard = new ShowBoard();
-	String state;
+	//String state;
 	/**
 	 * Launch the application.
 	 */
@@ -65,23 +66,27 @@ public class gui implements KeyListener {
 	 * Create the application.
 	 */
 	public gui() {
-		initialize();
+	        
+		initialize();	
 	
 	}
 	
 	/**
 	 * Initialize the contents of the frame.
 	 */
+	
 	private void initialize() {
-		frame = new JFrame();
-		textArea = new JTextArea();
-		textArea.setBounds(20, 81, 152, 178);
-		textArea.addKeyListener(this);
-		textArea.requestFocusInWindow();
 		
-		frame.getContentPane().add(textArea);
-				
-		frame.setBounds(100, 100, 523, 355);
+		
+		gamePanel= new GamePanel();
+	  //  gamePanel.startGame();
+	    
+		gamePanel.setBounds(258, 32, 477, 478);
+//		frame.getContentPane().add(gamePanel);
+		
+		frame = new JFrame();
+			frame.getContentPane().add(gamePanel);	
+		frame.setBounds(100, 100, 833, 574);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
@@ -112,78 +117,90 @@ public class gui implements KeyListener {
 		JButton btnNewGame = new JButton("New Game");
 		btnNewGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
-			    game = new DungeonKeep();				
-           //    GamePanel gamePanel = new GamePanel();
+				int choseGuard=-1;
+				int numberOgres=-1;
 				
 				try{					
-					//int choseGuard=Integer.parseInt(TextChoseGuard.getText());
-					int choseGuard=comboBox.getSelectedIndex();
-					int numberOgres=Integer.parseInt(TextnumberOgres.getText());
-					game.setEnemys(choseGuard, numberOgres);
+					
+					 choseGuard=comboBox.getSelectedIndex();
+				     numberOgres=Integer.parseInt(TextnumberOgres.getText());
+		
+					//gamePanel.setGameEnemys(choseGuard, numberOgres);
 					
 				}catch (Exception e1){
 					JOptionPane.showMessageDialog(null, "invalid");
 				}
-				state="normal";
-				textArea.removeAll();			
-				game.initializeLevel();
-				game.printBoard(textArea);
+				
+				gamePanel.startGame(choseGuard, numberOgres);
+				gamePanel.repaint();
+				
+				frame.getContentPane().add(gamePanel);
+				
+				
+				
 			}
 		});
 
-		btnNewGame.setBounds(295, 21, 166, 37);
+		btnNewGame.setBounds(38, 99, 166, 37);
 		frame.getContentPane().add(btnNewGame);
 
 		up = new JButton("UP");
 		up.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(state=="normal")
-				state=game.playTurn('w',textArea);
+				gamePanel.playTurn('w');
+//				if(state=="normal")
+//				state=game.playTurn('w',textArea);
 			}
 		});
-		up.setBounds(346, 87, 74, 29);
+		up.setBounds(90, 147, 74, 29);
 		frame.getContentPane().add(up);
 
 		rigth = new JButton("RIGTH");
 		rigth.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(state=="normal")
-				state=game.playTurn('d',textArea);	
+				gamePanel.playTurn('d');
+//				if(state=="normal")
+//				state=game.playTurn('d',textArea);	
 			}
 		});
-		rigth.setBounds(387, 128, 74, 29);
+		rigth.setBounds(142, 196, 74, 29);
 		frame.getContentPane().add(rigth);
 
 		down = new JButton("DOWN");
 		down.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(state=="normal")
-				state=game.playTurn('s',textArea);	
+				
+				gamePanel.playTurn('s');
+				
+//				if(state=="normal")
+//				state=game.playTurn('s',textArea);	
 
 			}
 		});
-		down.setBounds(346, 168, 74, 29);
+		down.setBounds(90, 251, 74, 29);
 		frame.getContentPane().add(down);
 
 		left = new JButton("LEFT");
 		left.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(state=="normal")
-				state=game.playTurn('a',textArea);	
+				
+				gamePanel.playTurn('a');
+				
+//				if(state=="normal")
+//				state=game.playTurn('a',textArea);	
 
 			}
 		});
-		left.setBounds(301, 127, 74, 29);
+		left.setBounds(38, 196, 74, 29);
 		frame.getContentPane().add(left);
 		
 		JButton btnNewButton = new JButton("Quit");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				state="quit";
+				gamePanel.setGameState("quit");
 			}
 		});
-		btnNewButton.setBounds(302, 229, 159, 29);
+		btnNewButton.setBounds(45, 304, 159, 29);
 		frame.getContentPane().add(btnNewButton);
 		
 
@@ -197,43 +214,36 @@ public class gui implements KeyListener {
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
+	
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		System.out.println("Key pressed:" + e.getKeyCode());	
-		System.out.println(e.getKeyChar());
-		performKeyAction(e.getKeyCode());
+//		System.out.println("Key pressed:" + e.getKeyCode());	
+//		System.out.println(e.getKeyChar());
+//		performKeyAction(e.getKeyCode());
+		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+			gamePanel.playTurn('d');		
+			}
 	}
-
 	
 	private void performKeyAction(int keyCode) {
 		
 		switch (keyCode) {
 		case KeyEvent.VK_RIGHT:
-			//TODO move heroi para a direita
-				if(state=="normal")
-					state=game.playTurn('d',textArea);	
+				gamePanel.playTurn('d');
 			break;
-		case KeyEvent.VK_LEFT:
-			//TODO move heroi para a esquerda
-			if(state=="normal")
-				state=game.playTurn('a',textArea);	
+		case KeyEvent.VK_LEFT:	
+				gamePanel.playTurn('a');
 			break;
 		case KeyEvent.VK_UP:
-			//TODO move heroi para cima
-			if(state=="normal")
-				state=game.playTurn('w',textArea);	
+				gamePanel.playTurn('w');
 			break;
-		case KeyEvent.VK_DOWN:
-			//TODO move heroi para baixo
-			if(state=="normal")
-				state=game.playTurn('s',textArea);	
+		case KeyEvent.VK_DOWN:	
+				gamePanel.playTurn('s');
 			break;
 		default:
-			//nao faz nada
+
 			break;
 		}
 	}
