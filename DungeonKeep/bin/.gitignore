@@ -3,6 +3,7 @@
 /door.png
 /drunk.png
 /dungeon/
+<<<<<<< HEAD
 /floor.png
 /guard.png
 /hero.png
@@ -12,3 +13,8 @@
 /ogreClub.png
 /wall.png
 /stunedOgre.png
+=======
+/wall tile.jpg
+/wall tile.png
+/wall_tile.png
+>>>>>>> refs/remotes/origin/master
