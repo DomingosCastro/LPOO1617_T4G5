@@ -43,8 +43,9 @@ public class gui extends JFrame implements KeyListener {
 	private JButton down;
 	private JButton left;
 //	private DungeonKeep game ;
-	private GamePanel gamePanel;
+	static private GamePanel gamePanel;
 	ShowBoard showBoard = new ShowBoard();
+
 	//String state;
 	/**
 	 * Launch the application.
@@ -81,11 +82,10 @@ public class gui extends JFrame implements KeyListener {
 		gamePanel= new GamePanel();
 	  //  gamePanel.startGame();
 	    
-		gamePanel.setBounds(258, 32, 477, 478);
-//		frame.getContentPane().add(gamePanel);
+		gamePanel.setBounds(269, 25, 477, 478);
 		
 		frame = new JFrame();
-			frame.getContentPane().add(gamePanel);	
+		frame.getContentPane().add(gamePanel);	
 		frame.setBounds(100, 100, 833, 574);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
@@ -188,15 +188,15 @@ public class gui extends JFrame implements KeyListener {
 		});
 		left.setBounds(38, 196, 74, 29);
 		frame.getContentPane().add(left);
-		
-		JButton btnNewButton = new JButton("Quit");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				gamePanel.setGameState("quit");
-			}
-		});
-		btnNewButton.setBounds(45, 304, 159, 29);
-		frame.getContentPane().add(btnNewButton);
+//		
+//		JButton btnNewButton = new JButton("Quit");
+//		btnNewButton.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent arg0) {
+//				gamePanel.setGameState("quit");
+//			}
+//		});
+//		btnNewButton.setBounds(45, 304, 159, 29);
+//		frame.getContentPane().add(btnNewButton);
 		
 
 	}

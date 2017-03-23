@@ -17,7 +17,7 @@ public class GamePanel extends JPanel {
 
 
 	private Image wall, wall2, floor, door, key, lever, hero, guard, drunken, heroClub, ogreClub , ogre, armedHero, stunedOgre, blood;
-	private DungeonKeep game;
+	static private DungeonKeep game;
 	private String gameState;
 	private int tileWidth, tileHeight;
 	private boolean initialized=false;
@@ -44,6 +44,11 @@ public class GamePanel extends JPanel {
 			gameState=game.playTurn(direction);
 		
 		repaint();
+		
+		if (gameState=="next level"){
+			game.initializeLevel();
+			gameState="normal";
+		}
 	}
 
 	public String getGameState(){
@@ -59,13 +64,13 @@ public class GamePanel extends JPanel {
 	private void loadImages() {
 
 
-		wall= new ImageIcon(this.getClass().getResource("/wall.png")).getImage();
+		wall= new ImageIcon(this.getClass().getResource("/wall (2).png")).getImage();
 
-		wall2= new ImageIcon(this.getClass().getResource("/wall2.png")).getImage();
+		wall2= new ImageIcon(this.getClass().getResource("/wall (1).png")).getImage();
 
 		door= new ImageIcon(this.getClass().getResource("/door.png")).getImage();		
 
-		floor= new ImageIcon(this.getClass().getResource("/floor.png")).getImage();
+		floor= new ImageIcon(this.getClass().getResource("/floor2.png")).getImage();
 
 		lever= new ImageIcon(this.getClass().getResource("/lever.png")).getImage();
 

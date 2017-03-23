@@ -68,7 +68,7 @@ public class DungeonKeep
 	static Club heroClub = new Club('c') ;	
 	static Board board = null;
 	static ShowBoard showBoard = new ShowBoard();
-	static int level=2;
+	static int level=1;
 
 	
 	public void setEnemys(int choseGuard, int numberOgres){		
@@ -103,6 +103,7 @@ public class DungeonKeep
 	public void initializeLevel(){
 		initialized=true;
 		characters.removeAll(characters);
+	
 		// Inicializacao dos Niveis:
 		if (level==1){	
 			board = new Board(fixedBoard1);
@@ -121,7 +122,7 @@ public class DungeonKeep
 				guards.add(suspicious);
 
 			// Renova o array de characters (para a colocaçao das persongens no board)
-			characters.removeAll(characters);
+		//	characters.removeAll(characters);
 			characters.add(hero);
 			characters.add(guards.get(0));
 		}
@@ -197,9 +198,11 @@ public class DungeonKeep
 
 		else if(hero.getColumn()==0){
 			level++;
-			initializeLevel();
+			
+			
 			if(level==3)
 				return "winner";
+			else return "next level";
 		}
 		
 		return "normal";
