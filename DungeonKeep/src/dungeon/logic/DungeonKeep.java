@@ -19,7 +19,7 @@ import dungeon.logic.Suspicious;
 
 public class DungeonKeep 
 {
-	static char[][] fixedBoard1 = {{'X','X','X','X','X','X','X','X','X','X'}, 
+	final char[][] fixedBoard1 = {{'X','X','X','X','X','X','X','X','X','X'}, 
 			{'X',' ',' ',' ','I',' ','X',' ',' ','X'}, 
 			{'X','X','X',' ','X','X','X',' ',' ','X'}, 
 			{'X',' ','I',' ','I',' ','X',' ',' ','X'}, 
@@ -70,7 +70,7 @@ public class DungeonKeep
 	static ShowBoard showBoard = new ShowBoard();
 	static int level=1;
 
-	
+
 	public void setEnemys(int choseGuard, int numberOgres){		
 		DungeonKeep.choseGuard=choseGuard;
 		DungeonKeep. numberOgres= numberOgres;
@@ -79,50 +79,55 @@ public class DungeonKeep
 	public Board getBoard(){
 		return board;
 	}
-	
+
 	public Hero getHero(){
 		return hero;
 	}
-	
+
 	public Club getHeroClub(){
 		return heroClub;
 	}
-	
+
 	public int getLevel(){
 		return level;
 	}
-	
+
 	public boolean getInitialized(){
 		return initialized;
 	}
-	
+
+	public void setLevel(int level){
+		if(level==1|| level==2)
+			DungeonKeep.level=level;
+	}
+
 	public ArrayList<Character> getCharacters(){
 		return characters;
 	}
-	
+
 	public void initializeLevel(){
+		
 		initialized=true;
-		characters.removeAll(characters);
+		characters.clear();
 	
 		// Inicializacao dos Niveis:
 		if (level==1){	
 			board = new Board(fixedBoard1);
 			hero = new Hero('H', 1, 1);
-
-			rookie = new Rookie('G', 1, 8);
-			drunken = new Drunken('G', 1, 8 );
-			suspicious = new Suspicious('G', 1, 8 );
+			guards.clear();
 
 			// Armazena os guardas num Array
 			if (choseGuard==0)
-				guards.add(rookie);
+				guards.add(new Rookie('G', 1, 8));
+
 			else if (choseGuard==1)
-				guards.add(drunken);	
+				guards.add(new Drunken('G', 1, 8 ));	
+
 			else if (choseGuard==2)
-				guards.add(suspicious);
+				guards.add(new Suspicious('G', 1, 8 ));
 
 			// Renova o array de characters (para a colocaçao das persongens no board)
-		//	characters.removeAll(characters);
+			//	characters.removeAll(characters);
 			characters.add(hero);
 			characters.add(guards.get(0));
 		}
@@ -133,7 +138,7 @@ public class DungeonKeep
 			heroClub.setHeroClub(board, level);
 
 			hero = new Hero('H', 7, 2);		
-
+			ogres.clear();
 			// Armazena ogres no arrayList:				
 			for(int i=0; i<numberOgres; i++){
 				ogres.add(new Ogre('O', 1, 3));
@@ -153,8 +158,9 @@ public class DungeonKeep
 		////////////////////////////
 	}
 
-	public String playTurn(char playerInput){//, JTextArea textArea){
-		//board.setCharactersInBoard(characters, level);
+
+	public String playTurn(char playerInput){
+
 		heroClub.setHeroClub(board, level);
 
 		// Movimento HERO
@@ -189,7 +195,7 @@ public class DungeonKeep
 
 		board.setCharactersInBoard(characters, level);
 		heroClub.setHeroClub(board, level);
-		
+
 		showBoard.printBoard(board, level); 
 
 
@@ -197,17 +203,15 @@ public class DungeonKeep
 			return "loser";
 
 		else if(hero.getColumn()==0){
+
 			level++;
-			
-			
+
 			if(level==3)
 				return "winner";
 			else return "next level";
 		}
-		
-		return "normal";
-	
 
+		return "normal";
 
 	}
 }
