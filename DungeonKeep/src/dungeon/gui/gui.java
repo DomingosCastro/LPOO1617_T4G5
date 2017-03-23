@@ -28,6 +28,7 @@ import java.util.Scanner;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextArea;
 import javax.swing.JComboBox;
+import java.awt.Font;
 
 public class gui implements KeyListener {
 
@@ -71,6 +72,7 @@ public class gui implements KeyListener {
 	private void initialize() {
 		frame = new JFrame();
 		textArea = new JTextArea();
+		textArea.setFont(new Font("Courier New", Font.PLAIN, 15));
 		textArea.setBounds(20, 81, 257, 178);
 		textArea.addKeyListener(this);
 		textArea.requestFocusInWindow();
