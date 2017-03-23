@@ -136,67 +136,67 @@ public class gui extends JFrame implements KeyListener {
 		quitButton = new JButton("Quit");
 		quitButton.setBounds(528, 391, 187, 59);
 		gameWindow.add(quitButton);
-		
-				stateText = new JTextField();
-				stateText.setBounds(533, 78, 148, 27);
-				gameWindow.add(stateText);
-				stateText.setText(gamePanel.getStateText());
-				stateText.setColumns(10);
-				
-						JLabel lblGuardPersonality = new JLabel("Guard Personality");
-						lblGuardPersonality.setBounds(223, 14, 159, 14);
-						gameWindow.add(lblGuardPersonality);
-						JComboBox comboBox = new JComboBox(names);
-						comboBox.setBounds(358, 11, 86, 20);
-						gameWindow.add(comboBox);
-						
-						
-								JLabel lblNumberOfOgres = new JLabel("Number of Ogres");
-								lblNumberOfOgres.setBounds(233, 39, 86, 14);
-								gameWindow.add(lblNumberOfOgres);
-								
-								
-										JButton newGameButton = new JButton("New Game");
-										newGameButton.setBounds(511, 14, 192, 51);
-										gameWindow.add(newGameButton);
-										
-												TextnumberOgres = new JTextField();
-												TextnumberOgres.setBounds(358, 35, 86, 20);
-												gameWindow.add(TextnumberOgres);
-												TextnumberOgres.setColumns(10);
-										newGameButton.addActionListener(new ActionListener() {
-											public void actionPerformed(ActionEvent e) {
 
-												
-												int choseGuard=0;
-												int numberOgres=1;
-												boolean valid=true;
-												
-													try{				
-														choseGuard=comboBox.getSelectedIndex();
-														numberOgres=Integer.parseInt(TextnumberOgres.getText());
+		stateText = new JTextField();
+		stateText.setBounds(533, 78, 148, 27);
+		gameWindow.add(stateText);
+		stateText.setText(gamePanel.getStateText());
+		stateText.setColumns(10);
 
-													}catch (Exception e1){
-														valid=false;
-														JOptionPane.showMessageDialog(null, "invalid");
-													}
-												
-												if(valid){
-												menuWindow.setVisible(false);
-												gameWindow.setVisible(true);
-												
-												gamePanel.startGame(choseGuard, numberOgres);
-												gamePanel.repaint();
-												}
-											}
-										});
-						
-						
-						
-								comboBox.addActionListener(new ActionListener() {
-									public void actionPerformed(ActionEvent arg0) {
-									}
-								});
+		JLabel lblGuardPersonality = new JLabel("Guard Personality");
+		lblGuardPersonality.setBounds(223, 14, 159, 14);
+		gameWindow.add(lblGuardPersonality);
+		JComboBox comboBox = new JComboBox(names);
+		comboBox.setBounds(358, 11, 86, 20);
+		gameWindow.add(comboBox);
+
+
+		JLabel lblNumberOfOgres = new JLabel("Number of Ogres");
+		lblNumberOfOgres.setBounds(233, 39, 86, 14);
+		gameWindow.add(lblNumberOfOgres);
+
+
+		JButton newGameButton = new JButton("New Game");
+		newGameButton.setBounds(511, 14, 192, 51);
+		gameWindow.add(newGameButton);
+
+		TextnumberOgres = new JTextField();
+		TextnumberOgres.setBounds(358, 35, 86, 20);
+		gameWindow.add(TextnumberOgres);
+		TextnumberOgres.setColumns(10);
+		newGameButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+
+				int choseGuard=0;
+				int numberOgres=1;
+				boolean valid=true;
+
+				try{				
+					choseGuard=comboBox.getSelectedIndex();
+					numberOgres=Integer.parseInt(TextnumberOgres.getText());
+
+				}catch (Exception e1){
+					valid=false;
+					JOptionPane.showMessageDialog(null, "invalid");
+				}
+
+				if(valid){
+					menuWindow.setVisible(false);
+					gameWindow.setVisible(true);
+
+					gamePanel.startGame(choseGuard, numberOgres);
+					gamePanel.repaint();
+				}
+			}
+		});
+
+
+
+		comboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		quitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				gameWindow.setVisible(false);
