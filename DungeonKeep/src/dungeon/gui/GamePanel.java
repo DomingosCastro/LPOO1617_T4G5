@@ -19,36 +19,39 @@ public class GamePanel extends JPanel {
 	private Image wall, wall2, floor, door, key, lever, hero, guard, drunken, heroClub, ogreClub , ogre, armedHero, stunedOgre, blood;
 	static private DungeonKeep game;
 	private String gameState;
+	private String stateText;
 	private int tileWidth, tileHeight;
 	private boolean initialized=false;
 
 	public GamePanel() {
-
 		loadImages();
-
 	} 
 
 	public void startGame(int guard, int ogres){
 
 		game = new DungeonKeep();
 		game.setEnemys(guard, ogres);
+		game.setLevel(1);
 		game.initializeLevel();
 		gameState="normal";
 		initialized=true;
-
+		setStateText();
 	}
 
 	public void playTurn(char direction ){
-
+		
 		if(gameState=="normal")
 			gameState=game.playTurn(direction);
 		
+		setStateText();
 		repaint();
-		
+
 		if (gameState=="next level"){
 			game.initializeLevel();
+			
 			gameState="normal";
 		}
+	//	setStateText();
 	}
 
 	public String getGameState(){
@@ -57,10 +60,35 @@ public class GamePanel extends JPanel {
 
 	public void setGameState(String state){
 		gameState=state;
+	//	setStateText();
 	}
 
+	private void setStateText() {
+		// TODO Auto-generated method stub
+		switch (gameState){
+		case "normal":
+			if (game.getLevel()==1){
+				stateText="Level 1";
+			}
+			else stateText="Level 2";
+			break;
+		case "next level":
+			stateText="Well Done!";
+			break;
+		case "winner":
+			stateText="Congratulations!";
+			break;
+		case "loser":
+			stateText="You lost";
+			break;
+		}
 
+	}
 
+	public String getStateText(){
+		return stateText;
+	}
+	
 	private void loadImages() {
 
 
@@ -70,7 +98,7 @@ public class GamePanel extends JPanel {
 
 		door= new ImageIcon(this.getClass().getResource("/door.png")).getImage();		
 
-		floor= new ImageIcon(this.getClass().getResource("/floor2.png")).getImage();
+		floor= new ImageIcon(this.getClass().getResource("/floor3.png")).getImage();
 
 		lever= new ImageIcon(this.getClass().getResource("/lever.png")).getImage();
 
@@ -123,15 +151,16 @@ public class GamePanel extends JPanel {
 							drawCharacter(g2d, armedHero, j, i);
 						else
 							drawCharacter(g2d, hero, j, i);
-						
+
 						if (gameState=="loser")
 							drawCharacter(g2d, blood, j, i);
-
-
 					}
 
-					if (game.getBoard().getBoard()[i][j]=='G'){
+					if (game.getBoard().getBoard()[i][j]=='G'){						
+						
 						drawCharacter(g2d, guard, j, i);
+						if (gameState=="loser" && game.getHero().getLine()==i && game.getHero().getColumn()==j)
+							drawCharacter(g2d, blood, j, i);
 					}
 
 					if (game.getBoard().getBoard()[i][j]=='g'){
@@ -142,7 +171,10 @@ public class GamePanel extends JPanel {
 						drawCharacter(g2d, heroClub, j, i);
 
 					if (game.getBoard().getBoard()[i][j]=='O'){
+						
 						drawCharacter(g2d, ogre, j, i);
+						if (gameState=="loser" && game.getHero().getLine()==i && game.getHero().getColumn()==j)
+							drawCharacter(g2d, blood, j, i);
 					}
 
 
@@ -166,6 +198,13 @@ public class GamePanel extends JPanel {
 
 					if (game.getBoard().getBoard()[i][j]=='*'){
 						drawCharacter(g2d, ogreClub, j, i);
+						
+						if (gameState=="loser" && game.getHero().getLine()==i && game.getHero().getColumn()==j){
+							if(game.getHero().getArmedState())
+								drawCharacter(g2d, armedHero, j, i);
+							else
+								drawCharacter(g2d, hero, j, i);
+							drawCharacter(g2d, blood, j, i);}
 					}
 
 

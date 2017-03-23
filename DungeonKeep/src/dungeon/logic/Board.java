@@ -18,6 +18,7 @@ public class Board
 	private char[][] changingBoard;
 
 	public Board(char[][] board){
+		
 		fixedBoard = board;
 
 		lines=fixedBoard.length;
