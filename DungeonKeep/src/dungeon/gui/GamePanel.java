@@ -9,14 +9,14 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
-import dungeon.cli.DungeonKeep;
+import dungeon.logic.DungeonKeep;
 
 public class GamePanel extends JPanel {
 
 
 
 
-	private Image wall, floor, door, key, lever, hero, guard, drunken, heroClub, ogreClub , ogre, armedHero, stunedOgre;
+	private Image wall, wall2, floor, door, key, lever, hero, guard, drunken, heroClub, ogreClub , ogre, armedHero, stunedOgre, blood;
 	private DungeonKeep game;
 	private String gameState;
 	private int tileWidth, tileHeight;
@@ -57,7 +57,9 @@ public class GamePanel extends JPanel {
 	private void loadImages() {
 
 		
-		wall= new ImageIcon(this.getClass().getResource("/wall.png")).getImage();		
+		wall= new ImageIcon(this.getClass().getResource("/wall.png")).getImage();
+		
+		wall2= new ImageIcon(this.getClass().getResource("/wall2.png")).getImage();
 
 		door= new ImageIcon(this.getClass().getResource("/door.png")).getImage();		
 		
@@ -84,6 +86,8 @@ public class GamePanel extends JPanel {
 		stunedOgre = new ImageIcon(this.getClass().getResource("/stunedOgre.png")).getImage();
 		
 		drunken = new ImageIcon(this.getClass().getResource("/drunk.png")).getImage();
+		
+		blood = new ImageIcon(this.getClass().getResource("/blood.png")).getImage();
 	}
 
 
@@ -107,8 +111,13 @@ public class GamePanel extends JPanel {
 				for (int j = 0; j < game.getBoard().getColumns(); j++) {
 					drawMaze(g2d, i, j);
 					
-					if (game.getBoard().getBoard()[i][j]=='H'){
+					if (game.getBoard().getBoard()[i][j]=='H'){					
+		
 						 drawCharacter(g2d, hero, j, i);
+						 if (gameState=="loser")
+							 drawCharacter(g2d, blood, j, i);
+						
+						 
 					}
 					
 					if (game.getBoard().getBoard()[i][j]=='A' || (game.getBoard().getBoard()[i][j]=='K' && game.getHero().getArmedState()))
@@ -123,9 +132,24 @@ public class GamePanel extends JPanel {
 					}
 					
 					if (game.getBoard().getBoard()[i][j]=='c')
-						drawCharacter(g2d, ogreClub, j, i);
+						drawCharacter(g2d, heroClub, j, i);
 					
 					if (game.getBoard().getBoard()[i][j]=='O'){
+						drawCharacter(g2d, ogre, j, i);
+					}
+					
+					
+					if (game.getBoard().getBoard()[i][j]=='#'){
+						if (game.getHeroClub().getLine()==i && game.getHeroClub().getColumn()==j)
+						drawCharacter(g2d, heroClub, j, i);
+						
+						drawCharacter(g2d, ogreClub, j, i);
+					}
+					
+					if (game.getBoard().getBoard()[i][j]=='$'){
+						if (game.getHeroClub().getLine()==i && game.getHeroClub().getColumn()==j)
+							drawCharacter(g2d, heroClub, j, i);
+											
 						drawCharacter(g2d, ogre, j, i);
 					}
 					
@@ -136,6 +160,7 @@ public class GamePanel extends JPanel {
 					if (game.getBoard().getBoard()[i][j]=='*'){
 						drawCharacter(g2d, ogreClub, j, i);
 					}
+								
 				
 				}
 			}
@@ -156,14 +181,14 @@ public class GamePanel extends JPanel {
 					* game.getBoard().getLines()) / 2.0;
 
 			dstX += tileWidth / 6.0;
-			dstY += tileHeight / 6.0;
+			dstY -= tileHeight / 50.0;
 
 			g2d.drawImage(
 					tile,
 					dstX,
 					dstY,
-					(int) (dstX + 2.0 * tileWidth / 3.0),
-					(int) (dstY + 2.0 * tileHeight / 3.0),
+					(int) (dstX + 2.5 * tileWidth / 3.0),
+					(int) (dstY + 2.5 * tileHeight / 3.0),
 					0,
 					0,
 					tile.getWidth(null), tile.getHeight(null), null) ;
@@ -174,18 +199,20 @@ public class GamePanel extends JPanel {
 
 			char[][] boardTiles=game.getBoard().getBoard();
 		if(boardTiles[i][j]=='X' )	
-			drawTile(g2d, wall, j, i);		
+			if(i<game.getBoard().getLines()-1 && boardTiles[i+1][j]=='X')
+				drawTile(g2d, wall2, j, i);
+			else drawTile(g2d, wall, j, i);		
 		else drawTile(g2d, floor, j, i);
 		
 		if (boardTiles[i][j]=='I' )
-			drawTile(g2d, door, j, i);
+			drawCharacter(g2d, door, j, i);
 		else if (boardTiles[i][j]=='k' )
 			if (game.getLevel()==1)
-				drawTile(g2d, lever, j, i);
+				drawCharacter(g2d, lever, j, i);
 		
-			else drawTile(g2d, key, j, i);
-		if (boardTiles[i][j]=='$' )
-			drawTile(g2d, key, j, i);
+			else drawCharacter(g2d, key, j, i);
+		if ((boardTiles[i][j]=='$' || boardTiles[i][j]=='#') && game.getHeroClub().getColumn()!=j && game.getHeroClub().getLine()!=i)
+			drawCharacter(g2d, key, j, i);
 	}
 
 	
@@ -208,8 +235,8 @@ public class GamePanel extends JPanel {
 		int dstX = x * tileWidth;
 
 		int dstY, yCorrection;
-		//				if (tile == wall || (tile == exit && !game.exitIsOpen()))
-		if (tile == wall )
+		
+		if (tile == wall || tile == wall2)
 			yCorrection = (int) (-11.0 * tileHeight / 131.0);
 		else
 			yCorrection = (int) (23.0 * tileHeight / 131.0);

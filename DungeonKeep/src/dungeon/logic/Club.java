@@ -1,6 +1,6 @@
 package dungeon.logic;
 
-import java.util.ArrayList;
+//import java.util.ArrayList;
 import java.util.Random;
 
 public class Club {
@@ -14,7 +14,14 @@ public class Club {
 		//super(heroClub);
 		// TODO Auto-generated constructor stub
 	}
-
+   public int getLine(){
+	   return l;
+   }
+   
+   public int getColumn(){
+	   return c;
+   }
+   
 	public void setHeroClub(Board board, int level) {
 
 		if (level==2){
@@ -27,9 +34,15 @@ public class Club {
 				initialized=true;}		
 
 
-			if (board.getBoard()[l][c]!='A')
+			//			if (board.getBoard()[l][c]!='A')
+			//				if (board.getBoard()[l][c]!='$')
+			//				board.setChangingBoardLetter(l, c, letter);
+			//			else letter=' ';
+
+			if (board.getBoard()[l][c]=='A')
+				letter=' ';
+			if(board.getBoard()[l][c]==' ' || board.getBoard()[l][c]=='c')
 				board.setChangingBoardLetter(l, c, letter);
-			else letter=' ';
 		}
 	}	
 }

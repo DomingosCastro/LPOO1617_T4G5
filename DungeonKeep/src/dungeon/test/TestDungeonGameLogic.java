@@ -17,7 +17,7 @@ import dungeon.logic.Hero;
 import dungeon.logic.Ogre;
 import dungeon.logic.Rookie;
 import dungeon.logic.Suspicious;
-import dungeon.cli.DungeonKeep;
+import dungeon.logic.DungeonKeep;
 
 public class TestDungeonGameLogic {
 

@@ -1,8 +1,8 @@
 package dungeon.logic;
 
 import java.util.Random;
-import java.util.ArrayList;
-import java.util.Arrays;
+//import java.util.ArrayList;
+//import java.util.Arrays;
 
 public class Ogre extends Enemy 
 {
@@ -149,15 +149,27 @@ public class Ogre extends Enemy
 		if(awakeState==false)
 			letter='8';
 
-		else if (boardTiles[l][c]=='k' || boardTiles[l][c]=='c' || boardTiles[l][c]=='$'){
+		else if (boardTiles[l][c]=='k' ||  boardTiles[l][c]=='$' || boardTiles[l][c]=='c' || boardTiles[l][c]=='#'){
 			letter='$';
 			clubLetter='*';
 		}
+		
+//		else if (boardTiles[l][c]=='c' || boardTiles[l][c]=='%' || boardTiles[l][c]=='#' ){
+//			letter='%';
+//			clubLetter='*';
+//		}
 
-		else if (boardTiles[clubL][clubC]=='k' || boardTiles[clubL][clubC]=='c' || boardTiles[clubL][clubC]=='$'){
-			clubLetter='$';	
+		else if (boardTiles[clubL][clubC]=='k' || boardTiles[clubL][clubC]=='$' || boardTiles[clubL][clubC]=='c' || boardTiles[clubL][clubC]=='#'){
+			//clubLetter='$';
+			clubLetter='#';
 			letter='O';
 		}
+		
+//		else if (boardTiles[clubL][clubC]=='c' ){
+//		clubLetter='#';	
+//		letter='O';
+//		}
+		
 		else {letter='O';
 		clubLetter='*';
 		}

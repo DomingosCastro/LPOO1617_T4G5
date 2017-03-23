@@ -1,37 +1,37 @@
 package dungeon.gui;
 
 import java.awt.EventQueue;
-import java.awt.Graphics;
-import java.awt.Image;
+//import java.awt.Graphics;
+//import java.awt.Image;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import dungeon.cli.DungeonKeep;
+//import dungeon.logic.DungeonKeep;
 import dungeon.cli.ShowBoard;
-import dungeon.logic.Board;
-import dungeon.logic.Character;
-import dungeon.logic.Club;
-import dungeon.logic.Drunken;
-import dungeon.logic.Guard;
-import dungeon.logic.Hero;
-import dungeon.logic.Ogre;
-import dungeon.logic.Rookie;
-import dungeon.logic.Suspicious;
+//import dungeon.logic.Board;
+//import dungeon.logic.Character;
+//import dungeon.logic.Club;
+//import dungeon.logic.Drunken;
+//import dungeon.logic.Guard;
+//import dungeon.logic.Hero;
+//import dungeon.logic.Ogre;
+//import dungeon.logic.Rookie;
+//import dungeon.logic.Suspicious;
 
-import javax.swing.ImageIcon;
+//import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.ArrayList;
-import java.util.Scanner;
+//import java.util.ArrayList;
+//import java.util.Scanner;
 import java.awt.event.ActionEvent;
-import javax.swing.JTextArea;
+//import javax.swing.JTextArea;
 import javax.swing.JComboBox;
-import javax.swing.JPanel;
+//import javax.swing.JPanel;
 
 public class gui extends JFrame implements KeyListener {
 
@@ -125,8 +125,7 @@ public class gui extends JFrame implements KeyListener {
 					 choseGuard=comboBox.getSelectedIndex();
 				     numberOgres=Integer.parseInt(TextnumberOgres.getText());
 		
-					//gamePanel.setGameEnemys(choseGuard, numberOgres);
-					
+		
 				}catch (Exception e1){
 					JOptionPane.showMessageDialog(null, "invalid");
 				}
@@ -148,8 +147,7 @@ public class gui extends JFrame implements KeyListener {
 		up.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				gamePanel.playTurn('w');
-//				if(state=="normal")
-//				state=game.playTurn('w',textArea);
+
 			}
 		});
 		up.setBounds(90, 147, 74, 29);
@@ -219,12 +217,7 @@ public class gui extends JFrame implements KeyListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-//		System.out.println("Key pressed:" + e.getKeyCode());	
-//		System.out.println(e.getKeyChar());
-//		performKeyAction(e.getKeyCode());
-		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-			gamePanel.playTurn('d');		
-			}
+
 	}
 	
 	private void performKeyAction(int keyCode) {

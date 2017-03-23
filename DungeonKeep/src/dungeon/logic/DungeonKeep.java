@@ -1,15 +1,14 @@
-package dungeon.cli;
+package dungeon.logic;
 
 import java.util.ArrayList;
-import java.util.Collection;
+//import java.util.Collection;
 import java.util.Scanner;
 
-import javax.swing.JTextArea;
-
+//import dungeon.cli.ShowBoard;
 import dungeon.logic.Board;
 import dungeon.logic.Character;
 import dungeon.logic.Club;
-import dungeon.logic.Direction;
+//import dungeon.logic.Direction;
 import dungeon.logic.Hero;
 import dungeon.logic.Ogre;
 import dungeon.logic.Guard;
@@ -68,7 +67,7 @@ public class DungeonKeep
 
 	static Club heroClub = new Club('c') ;	
 	static Board board = null;
-	static ShowBoard showBoard = new ShowBoard();
+//	static ShowBoard showBoard = new ShowBoard();
 	static int level=1;
 
 	
@@ -83,6 +82,10 @@ public class DungeonKeep
 	
 	public Hero getHero(){
 		return hero;
+	}
+	
+	public Club getHeroClub(){
+		return heroClub;
 	}
 	
 	public int getLevel(){
@@ -145,7 +148,7 @@ public class DungeonKeep
 		board.setCharactersInBoard(characters, level);
 		heroClub.setHeroClub(board, level);
 
-		//	showBoard.printBoard(board, level);
+//		showBoard.printBoard(board, level);
 		////////////////////////////
 	}
 
@@ -185,9 +188,9 @@ public class DungeonKeep
 
 		board.setCharactersInBoard(characters, level);
 		heroClub.setHeroClub(board, level);
-		showBoard.printBoard(board, level); 
+		
+//		showBoard.printBoard(board, level); 
 
-	//	printBoard(textArea);
 
 		if (heroKilled)
 			return "loser";
@@ -204,27 +207,5 @@ public class DungeonKeep
 
 
 	}
-
-	public void printBoard(JTextArea textArea){
-
-		int	lines=board.getLines();
-		int columns=board.getColumns();
-
-		String tilesLine;
-		char[][] boardTiles=board.getBoard();
-		textArea.setText("");
-		for (int i = 0; i < lines; i++)
-		{
-			tilesLine= new String();
-			for(int j = 0; j < columns; j++)
-			{
-				//tilesLine=tilesLine + boardTiles[i][j];					
-				textArea.append("" + boardTiles[i][j]);
-			}
-			textArea.append( "\n");
-
-		}	
-
-	}	
 }
 

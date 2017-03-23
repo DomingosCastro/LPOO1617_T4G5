@@ -1,6 +1,7 @@
 package dungeon.logic;
-import java.io.*; // evitar usar!!
-import java.util.Scanner;
+//import java.awt.List;
+//import java.io.*; // evitar usar!!
+//import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Board 
@@ -11,7 +12,7 @@ public class Board
 	private int leverC;	// lever coluna
 	private int leverL; // lever linha
 
-	private int[] exit= new int[2];
+	private ArrayList<Integer> exit = new ArrayList<Integer>();
 
 	private char[][] fixedBoard;
 	private char[][] changingBoard;
@@ -25,12 +26,11 @@ public class Board
 		changingBoard= new char[lines][columns];
 
 		// Inicializa changingBord:
-		int count=0;
+
 		for(int i=0; i<lines;i++)
 		{			
 			if(fixedBoard[i][0]=='I')
-			{exit[count]=i;
-			count++;
+			{exit.add(i);			
 			}
 
 			for(int j=0; j<columns;j++)
