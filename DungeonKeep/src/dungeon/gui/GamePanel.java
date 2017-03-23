@@ -29,64 +29,66 @@ public class GamePanel extends JPanel {
 	} 
 
 	public void startGame(int guard, int ogres){
-		
+
 		game = new DungeonKeep();
 		game.setEnemys(guard, ogres);
 		game.initializeLevel();
 		gameState="normal";
 		initialized=true;
-		
+
 	}
 
 	public void playTurn(char direction ){
+
 		if(gameState=="normal")
 			gameState=game.playTurn(direction);
+		
 		repaint();
 	}
-	
+
 	public String getGameState(){
 		return gameState;
 	}
-	
+
 	public void setGameState(String state){
 		gameState=state;
 	}
-	
 
-	
+
+
 	private void loadImages() {
 
-		
+
 		wall= new ImageIcon(this.getClass().getResource("/wall.png")).getImage();
-		
+
 		wall2= new ImageIcon(this.getClass().getResource("/wall2.png")).getImage();
 
 		door= new ImageIcon(this.getClass().getResource("/door.png")).getImage();		
-		
+
 		floor= new ImageIcon(this.getClass().getResource("/floor.png")).getImage();
-		
+
 		lever= new ImageIcon(this.getClass().getResource("/lever.png")).getImage();
-				
+
 		key= new ImageIcon(this.getClass().getResource("/key.png")).getImage();
-				
+
 		hero= new ImageIcon(this.getClass().getResource("/hero.png")).getImage();
-			
+
 		guard= new ImageIcon(this.getClass().getResource("/guard.png")).getImage();
-				
+
 		ogre= new ImageIcon(this.getClass().getResource("/ogre.png")).getImage();
-		
+
 		ogreClub= new ImageIcon(this.getClass().getResource("/ogreClub.png")).getImage();
-		
+
 		ogre= new ImageIcon(this.getClass().getResource("/ogre.png")).getImage();
-		
-		armedHero=new ImageIcon(this.getClass().getResource("/armedHero.png")).getImage();
-		
+
+		armedHero=new ImageIcon(this.getClass().getResource("/heroArmed2.png")).getImage();
+
 		heroClub = new ImageIcon(this.getClass().getResource("/heroClub.png")).getImage();
-		
+
 		stunedOgre = new ImageIcon(this.getClass().getResource("/stunedOgre.png")).getImage();
-		
+
 		drunken = new ImageIcon(this.getClass().getResource("/drunk.png")).getImage();
-		
+
 		blood = new ImageIcon(this.getClass().getResource("/blood.png")).getImage();
 	}
 
@@ -110,112 +112,112 @@ public class GamePanel extends JPanel {
 			for (int i = 0; i < game.getBoard().getLines(); i++) {
 				for (int j = 0; j < game.getBoard().getColumns(); j++) {
 					drawMaze(g2d, i, j);
-					
-					if (game.getBoard().getBoard()[i][j]=='H'){					
-		
-						 drawCharacter(g2d, hero, j, i);
-						 if (gameState=="loser")
-							 drawCharacter(g2d, blood, j, i);
+
+					if (game.getBoard().getBoard()[i][j]=='H' || game.getBoard().getBoard()[i][j]=='K' || game.getBoard().getBoard()[i][j]=='A'){					
+						if(game.getHero().getArmedState())
+							drawCharacter(g2d, armedHero, j, i);
+						else
+							drawCharacter(g2d, hero, j, i);
 						
-						 
+						if (gameState=="loser")
+							drawCharacter(g2d, blood, j, i);
+
+
 					}
-					
-					if (game.getBoard().getBoard()[i][j]=='A' || (game.getBoard().getBoard()[i][j]=='K' && game.getHero().getArmedState()))
-						drawCharacter(g2d, armedHero, j, i);
-						
+
 					if (game.getBoard().getBoard()[i][j]=='G'){
 						drawCharacter(g2d, guard, j, i);
 					}
-					
+
 					if (game.getBoard().getBoard()[i][j]=='g'){
 						drawCharacter(g2d, drunken, j, i);
 					}
-					
+
 					if (game.getBoard().getBoard()[i][j]=='c')
 						drawCharacter(g2d, heroClub, j, i);
-					
+
 					if (game.getBoard().getBoard()[i][j]=='O'){
 						drawCharacter(g2d, ogre, j, i);
 					}
-					
-					
+
+
 					if (game.getBoard().getBoard()[i][j]=='#'){
 						if (game.getHeroClub().getLine()==i && game.getHeroClub().getColumn()==j)
-						drawCharacter(g2d, heroClub, j, i);
-						
+							drawCharacter(g2d, heroClub, j, i);
+
 						drawCharacter(g2d, ogreClub, j, i);
 					}
-					
+
 					if (game.getBoard().getBoard()[i][j]=='$'){
 						if (game.getHeroClub().getLine()==i && game.getHeroClub().getColumn()==j)
 							drawCharacter(g2d, heroClub, j, i);
-											
+
 						drawCharacter(g2d, ogre, j, i);
 					}
-					
+
 					if (game.getBoard().getBoard()[i][j]=='8'){
 						drawCharacter(g2d, stunedOgre, j, i);
 					}
-					
+
 					if (game.getBoard().getBoard()[i][j]=='*'){
 						drawCharacter(g2d, ogreClub, j, i);
 					}
-								
-				
+
+
 				}
 			}
 		else g2d.drawImage(hero, 0, 0, null);
-			
+
 
 	}
 
-		private void drawCharacter(Graphics2D g2d, Image tile, int x, int y) {
-			int dstX = x * tileWidth;
-			int dstY = (int) (y * tileHeight - (15 * tileHeight / 131.0));
-			int yCorrection = (int) (-50.0 * tileHeight / 131.0);
-			dstY += y * yCorrection;
+	private void drawCharacter(Graphics2D g2d, Image tile, int x, int y) {
+		int dstX = x * tileWidth;
+		int dstY = (int) (y * tileHeight - (15 * tileHeight / 131.0));
+		int yCorrection = (int) (-50.0 * tileHeight / 131.0);
+		dstY += y * yCorrection;
 
-			// centering board
-			dstX += (getWidth() - tileWidth * game.getBoard().getColumns()) / 2.0;
-			dstY += (getHeight() - (tileHeight - 0.37 * tileHeight)
-					* game.getBoard().getLines()) / 2.0;
+		// centering board
+		dstX += (getWidth() - tileWidth * game.getBoard().getColumns()) / 2.0;
+		dstY += (getHeight() - (tileHeight - 0.37 * tileHeight)
+				* game.getBoard().getLines()) / 2.0;
 
-			dstX += tileWidth / 6.0;
-			dstY -= tileHeight / 50.0;
+		dstX += tileWidth / 6.0;
+		dstY -= tileHeight / 50.0;
 
-			g2d.drawImage(
-					tile,
-					dstX,
-					dstY,
-					(int) (dstX + 2.5 * tileWidth / 3.0),
-					(int) (dstY + 2.5 * tileHeight / 3.0),
-					0,
-					0,
-					tile.getWidth(null), tile.getHeight(null), null) ;
-			
+		g2d.drawImage(
+				tile,
+				dstX,
+				dstY,
+				(int) (dstX + 2.5 * tileWidth / 3.0),
+				(int) (dstY + 2.5 * tileHeight / 3.0),
+				0,
+				0,
+				tile.getWidth(null), tile.getHeight(null), null) ;
+
 	}
 
 	private void drawMaze(Graphics2D g2d, int i, int j) {
 
-			char[][] boardTiles=game.getBoard().getBoard();
+		char[][] boardTiles=game.getBoard().getBoard();
 		if(boardTiles[i][j]=='X' )	
 			if(i<game.getBoard().getLines()-1 && boardTiles[i+1][j]=='X')
 				drawTile(g2d, wall2, j, i);
 			else drawTile(g2d, wall, j, i);		
 		else drawTile(g2d, floor, j, i);
-		
+
 		if (boardTiles[i][j]=='I' )
 			drawCharacter(g2d, door, j, i);
 		else if (boardTiles[i][j]=='k' )
 			if (game.getLevel()==1)
 				drawCharacter(g2d, lever, j, i);
-		
+
 			else drawCharacter(g2d, key, j, i);
 		if ((boardTiles[i][j]=='$' || boardTiles[i][j]=='#') && game.getHeroClub().getColumn()!=j && game.getHeroClub().getLine()!=i)
 			drawCharacter(g2d, key, j, i);
 	}
 
-	
+
 	private void drawTile(Graphics2D g2d, Image tile, int x, int y) {
 
 		// scaling tiles
@@ -235,7 +237,7 @@ public class GamePanel extends JPanel {
 		int dstX = x * tileWidth;
 
 		int dstY, yCorrection;
-		
+
 		if (tile == wall || tile == wall2)
 			yCorrection = (int) (-11.0 * tileHeight / 131.0);
 		else

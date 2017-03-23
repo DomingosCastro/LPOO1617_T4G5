@@ -4,7 +4,7 @@ import java.util.ArrayList;
 //import java.util.Collection;
 import java.util.Scanner;
 
-//import dungeon.cli.ShowBoard;
+import dungeon.cli.ShowBoard;
 import dungeon.logic.Board;
 import dungeon.logic.Character;
 import dungeon.logic.Club;
@@ -67,8 +67,8 @@ public class DungeonKeep
 
 	static Club heroClub = new Club('c') ;	
 	static Board board = null;
-//	static ShowBoard showBoard = new ShowBoard();
-	static int level=1;
+	static ShowBoard showBoard = new ShowBoard();
+	static int level=2;
 
 	
 	public void setEnemys(int choseGuard, int numberOgres){		
@@ -148,7 +148,7 @@ public class DungeonKeep
 		board.setCharactersInBoard(characters, level);
 		heroClub.setHeroClub(board, level);
 
-//		showBoard.printBoard(board, level);
+		showBoard.printBoard(board, level);
 		////////////////////////////
 	}
 
@@ -189,7 +189,7 @@ public class DungeonKeep
 		board.setCharactersInBoard(characters, level);
 		heroClub.setHeroClub(board, level);
 		
-//		showBoard.printBoard(board, level); 
+		showBoard.printBoard(board, level); 
 
 
 		if (heroKilled)

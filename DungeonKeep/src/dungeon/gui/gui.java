@@ -184,9 +184,6 @@ public class gui extends JFrame implements KeyListener {
 				
 				gamePanel.playTurn('a');
 				
-//				if(state=="normal")
-//				state=game.playTurn('a',textArea);	
-
 			}
 		});
 		left.setBounds(38, 196, 74, 29);
