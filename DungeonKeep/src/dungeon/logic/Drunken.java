@@ -36,8 +36,8 @@ public class Drunken extends Guard {
 		boolean newAwakeState=true;
 		changeRoute=false; // permite que o changeRoute=true so dure 1 iteraçao
 		
-		int State=randNum.nextInt(4); // gera numero entre 0 e 3: 0-dormir, 1 a 3-acordado
-		// Estabelece se o novo estado é acordado ou a dormir (3/4 do tempo esta acordado)
+		int State=randNum.nextInt(3); // gera numero entre 0 e 2: 0-dormir, 1 a 2-acordado
+		// Estabelece se o novo estado é acordado ou a dormir (2/3 do tempo esta acordado)
 
 		// Quando adormece
 		if (State==0){

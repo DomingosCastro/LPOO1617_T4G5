@@ -28,7 +28,7 @@ import javax.swing.JButton;
 public class createMap {
 
 	private JFrame frame;
-
+	JPanel matrix = new JPanel();
 	/**
 	 * Launch the application.
 	 */
@@ -50,8 +50,7 @@ public class createMap {
 	 */
 	public createMap() {
 		initialize();
-		editMap();
-		
+		editMap();		
 	}
 
 	/**
@@ -64,7 +63,11 @@ public class createMap {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 		frame.setLocationRelativeTo(null);
-		frame.getContentPane().setLayout(null);		
+		frame.getContentPane().setLayout(null);
+		
+		
+		matrix.setBounds(259, 0, 298, 298);
+		frame.getContentPane().add(matrix);
 		
 	}
 
@@ -78,13 +81,19 @@ public class createMap {
 				} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
 				}
 
-				JFrame frame = new JFrame("Edit Keep");
-				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				frame.getContentPane().setLayout(new BorderLayout());
-				frame.getContentPane().add(new TestPane(10, 10));
-				frame.pack();
-				frame.setLocationRelativeTo(null);
-				frame.setVisible(true);
+//				JFrame frame = new JFrame("Edit Keep");
+//				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//				frame.getContentPane().setLayout(new BorderLayout());
+//				frame.add(new TestPane(10, 10));
+//			    frame.pack();
+//				frame.setLocationRelativeTo(null);
+//				frame.setVisible(true);
+				
+				
+				matrix.setLayout(new BorderLayout());
+				matrix.add(new TestPane(10, 10));		
+				matrix.revalidate();
+				//matrix.setVisible(true);
 				
 			}
 		});
@@ -144,6 +153,7 @@ public class createMap {
 					setBackground(Color.BLACK);
 					defaultBackground = getBackground();
 					setBackground(defaultBackground);
+					
 				}
 
 				@Override
@@ -151,6 +161,8 @@ public class createMap {
 					setBackground(defaultBackground);
 				}
 			});
+			
+			
 		}
 
 		@Override

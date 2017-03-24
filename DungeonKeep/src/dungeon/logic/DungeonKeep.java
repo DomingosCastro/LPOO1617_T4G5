@@ -30,7 +30,7 @@ public class DungeonKeep
 			{'X',' ','I',' ','I',' ','X','k',' ','X'}, 
 			{'X','X','X','X','X','X','X','X','X','X'}};
 
-	static char[][] fixedBoard2 = {{'X','X','X','X','X','X','X','X','X'}, 
+	final char[][] fixedBoard2 = {{'X','X','X','X','X','X','X','X','X'}, 
 			{'I',' ',' ',' ',' ',' ',' ','k','X'}, 
 			{'X',' ',' ',' ',' ',' ',' ',' ','X'}, 
 			{'X',' ',' ',' ',' ',' ',' ',' ','X'}, 
@@ -40,7 +40,8 @@ public class DungeonKeep
 			{'X',' ',' ',' ',' ',' ',' ',' ','X'}, 
 			{'X','X','X','X','X','X','X','X','X'}};
 
-
+	static char[][] editedBoard;
+	boolean edited=false;
 
 	static Scanner input = new Scanner(System.in);
 	static char playerInput; 
@@ -55,20 +56,15 @@ public class DungeonKeep
 	static int choseGuard,numberOgres;
 
 	static boolean initialized = false;
-	static Guard rookie = null;
-	static Guard drunken = null; 
-	static Guard suspicious = null; 
+
 	static ArrayList<Guard> guards=new ArrayList<>();
 
-	static Ogre ogre1 = null;
-	static Ogre ogre2= null;
-	static Ogre ogre3=null;
 	static ArrayList<Ogre> ogres = new ArrayList<>();
 
-	static Club heroClub = new Club('c') ;	
+	static Club heroClub = new Club('c') ;; 	
 	static Board board = null;
 	static ShowBoard showBoard = new ShowBoard();
-	static int level=1;
+	static int level=2;
 
 
 	public void setEnemys(int choseGuard, int numberOgres){		
@@ -78,6 +74,15 @@ public class DungeonKeep
 
 	public Board getBoard(){
 		return board;
+	}
+
+	public void setEditedBoard(char[][] board2){
+		editedBoard = board2;	
+		edited=true;
+	}
+
+	public boolean getEditedState(){
+		return edited;
 	}
 
 	public Hero getHero(){
@@ -106,10 +111,10 @@ public class DungeonKeep
 	}
 
 	public void initializeLevel(){
-		
+
 		initialized=true;
 		characters.clear();
-	
+
 		// Inicializacao dos Niveis:
 		if (level==1){	
 			board = new Board(fixedBoard1);
@@ -134,7 +139,11 @@ public class DungeonKeep
 
 		else if (level==2)
 		{
-			board=new Board(fixedBoard2);
+			if (edited)
+				board= new Board(editedBoard);
+			else board=new Board(fixedBoard2);
+			
+			heroClub = new Club('c') ;
 			heroClub.setHeroClub(board, level);
 
 			hero = new Hero('H', 7, 2);		
@@ -154,7 +163,7 @@ public class DungeonKeep
 		board.setCharactersInBoard(characters, level);
 		heroClub.setHeroClub(board, level);
 
-		showBoard.printBoard(board, level);
+	//	showBoard.printBoard(board, level);
 		////////////////////////////
 	}
 
@@ -196,7 +205,7 @@ public class DungeonKeep
 		board.setCharactersInBoard(characters, level);
 		heroClub.setHeroClub(board, level);
 
-		showBoard.printBoard(board, level); 
+		//showBoard.printBoard(board, level);
 
 
 		if (heroKilled)
