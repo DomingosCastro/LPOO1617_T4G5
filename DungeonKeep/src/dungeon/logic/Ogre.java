@@ -7,7 +7,7 @@ import java.util.Random;
 public class Ogre extends Enemy 
 {
 	Random randNum = new Random();
-	int clubL=l+1, clubC=c;
+	int clubL=l, clubC=c;
 	char clubLetter='*';	
 	int stunnedRounds=0;	
 
@@ -154,10 +154,6 @@ public class Ogre extends Enemy
 			clubLetter='*';
 		}
 		
-//		else if (boardTiles[l][c]=='c' || boardTiles[l][c]=='%' || boardTiles[l][c]=='#' ){
-//			letter='%';
-//			clubLetter='*';
-//		}
 
 		else if (boardTiles[clubL][clubC]=='k' || boardTiles[clubL][clubC]=='$' || boardTiles[clubL][clubC]=='c' || boardTiles[clubL][clubC]=='#'){
 			//clubLetter='$';
@@ -165,11 +161,7 @@ public class Ogre extends Enemy
 			letter='O';
 		}
 		
-//		else if (boardTiles[clubL][clubC]=='c' ){
-//		clubLetter='#';	
-//		letter='O';
-//		}
-		
+
 		else {letter='O';
 		clubLetter='*';
 		}

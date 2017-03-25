@@ -119,8 +119,12 @@ public class Board
 			fixedBoard[i][0]='S';
 
 		if (level==2)		
+			for (int i=0; i<lines; i++)
+				for (int j=0; j<columns; j++){
 			fixedBoard[leverL][leverC]=' ';
-
+			if (fixedBoard[i][j]=='I')
+				fixedBoard[i][j]='S';
+				}
 	}
 
 

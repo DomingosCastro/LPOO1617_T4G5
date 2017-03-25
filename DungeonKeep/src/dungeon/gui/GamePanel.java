@@ -1,6 +1,5 @@
 package dungeon.gui;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -8,20 +7,19 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
+import java.util.ArrayList;
+
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 
 import dungeon.logic.DungeonKeep;
 import dungeon.logic.TileType;
 
 public class GamePanel extends JPanel {
 
-	private Image wall, wall2, floor, door, doorfront, key, lever, hero, guard, drunken, heroClub, 
+	private Image wall, wall2, floor, door,  key, lever, hero, guard, drunken, heroClub, 
 	ogreClub , ogre, armedHero, stunedOgre, blood;
 	static private DungeonKeep game;
 	private String gameState;
@@ -38,7 +36,11 @@ public class GamePanel extends JPanel {
 	private JLabel label;
 	MyMouseAdapter mouseAdapter;
 	private TileType addingTile;
-
+	private int heroL, heroC, keyL, keyC;
+	private boolean heroInBoard=false;
+	private boolean keyInBoard=false;
+	private boolean exitInBoard=false;
+	static ArrayList<int[]> newPositions = new ArrayList<>();
 
 
 	public GamePanel() {
@@ -56,18 +58,20 @@ public class GamePanel extends JPanel {
 
 	public void startGame(int guard, int ogres){
 		removeMouseListener(mouseAdapter);
-
+		setLabel(gui.getLabel());
+		showMessage();
 		if(!boardEdited)
 			game = new DungeonKeep();
 
 		game.setEnemys(guard, ogres);
 		game.setLevel(1);
+
 		game.initializeLevel();
 		gameState="normal";
 		initialized=true;
 		requestFocus();
 		if(boardEdited)
-			game.setEditedBoard(editedBoard);
+			game.setEditedBoard(editedBoard, newPositions);
 
 		//setStateText();
 	}
@@ -107,17 +111,20 @@ public class GamePanel extends JPanel {
 			}
 			else stateText="Level 2";
 			break;
+
 		case "next level":
 			stateText="Well Done!";
 			break;
+
 		case "winner":
 			stateText="WINNER!";
 			break;
+
 		case "loser":
 			stateText="GAME OVER";
 			break;
 		}
-
+		showMessage();
 	}
 
 	public String getStateText(){
@@ -133,10 +140,8 @@ public class GamePanel extends JPanel {
 
 		wall2= new ImageIcon(this.getClass().getResource("/wall (1).png")).getImage();
 
-		door= new ImageIcon(this.getClass().getResource("/door.png")).getImage();		
+		door= new ImageIcon(this.getClass().getResource("/door.png")).getImage();	
 
-		doorfront= new ImageIcon(this.getClass().getResource("/doorfront.png")).getImage();	
-		
 		floor= new ImageIcon(this.getClass().getResource("/floor3.png")).getImage();
 
 		lever= new ImageIcon(this.getClass().getResource("/lever.png")).getImage();
@@ -274,6 +279,11 @@ public class GamePanel extends JPanel {
 			for (int i = 0; i < editLines; i++) {
 				for (int j = 0; j < editColumns; j++) {
 					drawMaze(g2d, temporaryBoard,i, j );
+
+					if (temporaryBoard[i][j]=='H')
+						drawCharacter(g2d, hero, j, i);
+					if (temporaryBoard[i][j]=='O')
+						drawCharacter(g2d, ogre, j, i);
 				}
 			}
 		}
@@ -313,18 +323,11 @@ public class GamePanel extends JPanel {
 		dstY += (getHeight() - (tileHeight - 0.37 * tileHeight)
 				* boardLines) / 2.0;
 
-		dstX += tileWidth / 6.0;
+		dstX += tileWidth / 20.0;
 		dstY -= tileHeight / 50.0;
 
-		g2d.drawImage(
-				tile,
-				dstX,
-				dstY,
-				(int) (dstX + 2.5 * tileWidth / 3.0),
-				(int) (dstY + 2.5 * tileHeight / 3.0),
-				0,
-				0,
-				tile.getWidth(null), tile.getHeight(null), null) ;
+		g2d.drawImage(tile, dstX, dstY,	(int) (dstX + 2.5 * tileWidth / 3.0),
+				(int) (dstY + 2.5 * tileHeight / 3.0),0,0,	tile.getWidth(null), tile.getHeight(null), null) ;
 
 	}
 
@@ -343,10 +346,8 @@ public class GamePanel extends JPanel {
 			else drawTile(g2d, wall, j, i, boardLines, boardColumns);		
 		else drawTile(g2d, floor, j, i, boardLines, boardColumns);
 
-		if (board[i][j]=='I' )
-			if((j>0 && board[i][j-1]=='X') || (j<boardColumns-1) && board[i][j+1]=='X')
-				drawTile(g2d, doorfront, j, i);
-			else drawCharacter(g2d, door, j, i);
+		if (board[i][j]=='I' )			
+			drawCharacter(g2d, door, j, i);
 		else if (board[i][j]=='k' )
 			if (game.getLevel()==1)
 				drawCharacter(g2d, lever, j, i);
@@ -361,7 +362,6 @@ public class GamePanel extends JPanel {
 		// scaling tiles
 		tileWidth = this.getWidth() / columns;
 		tileHeight = this.getHeight()/lines;
-
 
 
 		// correcting scaling
@@ -402,12 +402,6 @@ public class GamePanel extends JPanel {
 
 	public void endGame() {
 
-
-
-		//	game=null;
-
-
-
 		initialized=false;
 	}
 
@@ -422,22 +416,66 @@ public class GamePanel extends JPanel {
 			int y = (int) ((e.getY() - (getHeight() - (tileHeight - 0.37 * tileHeight)
 					* boardLines) / 2.0) / (tileHeight - 0.37 * tileHeight));
 
+			mouseX=x;
+			mouseY=y;
+			
 			if (addingTile==TileType.WALL)
 				temporaryBoard[mouseY][mouseX]='X';
 
-			else if (addingTile==TileType.DOOR)
-				temporaryBoard[mouseY][mouseX]='I';
 
-			else if (addingTile==TileType.KEY)
-				temporaryBoard[mouseY][mouseX]='k';
+			else if (addingTile==TileType.DOOR){
+				if (mouseX==0 || mouseX==boardLines-1 || mouseY==0 || mouseY==boardColumns-1){
+					temporaryBoard[mouseY][mouseX]='I';
+					exitInBoard=true;
+				}
+			}
+			else if (mouseX!=0 && mouseX!=boardLines-1 && mouseY!=0 && mouseY!=boardColumns-1){
+				System.out.println(mouseX);
+				System.out.println(mouseY);
+				if (addingTile==TileType.KEY){
+					if(keyInBoard)
+						temporaryBoard[keyL][keyC]=' ';							
+					else keyInBoard=true;
 
+					temporaryBoard[mouseY][mouseX]='k';
+					keyL=mouseY;
+					keyC=mouseX;	
+				}
+				else if (addingTile==TileType.FLOOR)
+					temporaryBoard[mouseY][mouseX]=' ';
+				
+				else if (addingTile==TileType.HERO){
+
+					int[] heroPos = {mouseY, mouseX};
+
+					if(heroInBoard){
+						temporaryBoard[heroL][heroC]=' ';
+						newPositions.set(0, heroPos);
+					}
+
+					else {heroInBoard=true;
+					newPositions.add(0, heroPos);}
+
+
+					temporaryBoard[mouseY][mouseX]='H';
+
+					heroL=mouseY;
+					heroC=mouseX;	
+				}
+
+				else if (addingTile==TileType.OGRE){
+					int[] ogrePos = {mouseY, mouseX};
+					newPositions.add(ogrePos);
+					temporaryBoard[mouseY][mouseX]='O';
+				}
+			}
+			repaint();
 		}
 
 		public void mouseMoved(MouseEvent e) {		
 
 			if (!editingBoard)
 				return;
-
 
 
 			int x = (int) ((e.getX() - (getWidth() - tileWidth
@@ -464,37 +502,41 @@ public class GamePanel extends JPanel {
 			mouseX=x;
 			mouseY=y;
 
+			if (addingTile==TileType.WALL)
+				temporaryBoard[mouseY][mouseX]='X';
 
-			if (0 < mouseX
-					&& mouseX < boardColumns - 1
-					&& 0 < mouseY
-					&& mouseY < boardLines - 1) {
-				if (SwingUtilities.isLeftMouseButton(e))
-					temporaryBoard[mouseY][mouseX] = ' ';
-			} else if (SwingUtilities.isMiddleMouseButton(e))
-				if (temporaryBoard[mouseY][mouseX] == 'X')
-					temporaryBoard[mouseY][mouseX] = 'I';
-			if (SwingUtilities.isRightMouseButton(e))
-				temporaryBoard[mouseY][mouseX] = 'X';
+			else if (addingTile==TileType.FLOOR)
+				if (mouseX!=0 || mouseX!=boardLines-1 || mouseY!=0 || mouseY!=boardColumns-1)
+					temporaryBoard[mouseY][mouseX]=' ';
 
 			repaint();
 		}
 	}
 
-	public void endEdition(boolean save) {
-
+	public boolean endEdition(boolean save) {
+		boolean valid=false;
 		if(save){
-			editedBoard=temporaryBoard;
-			boardEdited=true;
-		}
-		editingBoard=false;
+			if(heroInBoard && keyInBoard && exitInBoard){
+				editedBoard=temporaryBoard;
+				boardEdited=true;
+				editingBoard=false;
+				game.setLevel(1);
 
-		game.setLevel(1);		
+				valid = true;
+			}			
+
+
+		}				
+
+		return valid;
 	}
 
 	private class MyKeyboardAdapter extends KeyAdapter {
 
 		public void keyPressed(KeyEvent e) {
+			
+			showMessage();
+			
 			int key = e.getKeyCode();
 			if (key == KeyEvent.VK_RIGHT)
 				playTurn('d');			
@@ -513,6 +555,16 @@ public class GamePanel extends JPanel {
 
 	}
 
+	public void clearNewPositions(){
+		game.clearNewPositions();
+	}
 
-
+	public void setLabel(JLabel label){
+		this.label=gui.getLabel();
+	}
+	
+	public void showMessage(){
+		label.setText(stateText);
+	}
+	
 }

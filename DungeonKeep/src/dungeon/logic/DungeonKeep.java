@@ -48,8 +48,6 @@ public class DungeonKeep
 
 	static ArrayList<Character> characters = new ArrayList<>();
 
-
-
 	static Hero hero = null; 
 	static boolean heroKilled = false;
 
@@ -64,7 +62,8 @@ public class DungeonKeep
 	static Club heroClub = new Club('c') ;; 	
 	static Board board = null;
 	static ShowBoard showBoard = new ShowBoard();
-	static int level=2;
+	static int level=1;
+	static ArrayList<int[]> newPositions = new ArrayList<>();
 
 
 	public void setEnemys(int choseGuard, int numberOgres){		
@@ -76,9 +75,23 @@ public class DungeonKeep
 		return board;
 	}
 
-	public void setEditedBoard(char[][] board2){
-		editedBoard = board2;	
+	public void setEditedBoard(char[][] board2, ArrayList<int[]>newPositions){
+		
+		int lines=board2.length;
+		int columns=board2[0].length;
+
+		editedBoard= new char[lines][columns];
+
+		for(int i=0; i<lines;i++)					
+			for(int j=0; j<columns;j++){				
+				if(board2[i][j]!='H' && board2[i][j]!='O') 
+					editedBoard[i][j]=board2[i][j];
+			}
+
+		DungeonKeep.newPositions=newPositions;		
+
 		edited=true;
+
 	}
 
 	public boolean getEditedState(){
@@ -139,19 +152,20 @@ public class DungeonKeep
 
 		else if (level==2)
 		{
-			if (edited)
+			hero = new Hero('H', 7, 2);	
+
+			if (edited){
 				board= new Board(editedBoard);
+				initializeEditedCharacters();
+
+			}
 			else board=new Board(fixedBoard2);
-			
+
 			heroClub = new Club('c') ;
 			heroClub.setHeroClub(board, level);
 
-			hero = new Hero('H', 7, 2);		
-			ogres.clear();
-			// Armazena ogres no arrayList:				
-			for(int i=0; i<numberOgres; i++){
-				ogres.add(new Ogre('O', 1, 3));
-			}
+
+			initializeOgres(edited);
 
 			// Renova o array de characters (para a colocaçao das persongens no board)
 			characters.removeAll(characters);
@@ -159,14 +173,22 @@ public class DungeonKeep
 			for (int i=0; i<ogres.size(); i++)
 				characters.add(ogres.get(i));
 		}
-		////////////////////////////
+
 		board.setCharactersInBoard(characters, level);
 		heroClub.setHeroClub(board, level);
 
-	//	showBoard.printBoard(board, level);
-		////////////////////////////
 	}
 
+
+	private void initializeEditedCharacters() {
+		int heroCol=newPositions.get(0)[1];
+		int heroLine=newPositions.get(0)[0];
+
+		hero.setLine(heroLine);
+		hero.setColumn(heroCol);
+
+		initializeOgres(edited);
+	}
 
 	public String playTurn(char playerInput){
 
@@ -205,8 +227,6 @@ public class DungeonKeep
 		board.setCharactersInBoard(characters, level);
 		heroClub.setHeroClub(board, level);
 
-		//showBoard.printBoard(board, level);
-
 
 		if (heroKilled)
 			return "loser";
@@ -223,5 +243,36 @@ public class DungeonKeep
 		return "normal";
 
 	}
+
+	private void initializeOgres(boolean edited){
+
+		ogres.clear();
+
+		// Armazena ogres no arrayList, depois do tabuleiro ter sido editado
+		if (edited){
+			int numberOfOgres=newPositions.size()-1;
+
+			for(int i=1; i<=numberOfOgres; i++){
+
+				ogres.add(new Ogre('O', newPositions.get(i)[0], newPositions.get(i)[1]));
+			}
+		}
+
+		// Armazena ogres no arrayList, sem o tabuleiro ter sido editado	
+		else{
+			for(int i=0; i<numberOgres; i++){		
+				int ogreCol=1;
+				if (i<board.getColumns()-2)
+					ogreCol=i+1;
+
+				ogres.add(new Ogre('O', 1, ogreCol));
+			}
+		}
+	}
+
+	public void clearNewPositions(){
+		newPositions.clear();
+	}
+
 }
 

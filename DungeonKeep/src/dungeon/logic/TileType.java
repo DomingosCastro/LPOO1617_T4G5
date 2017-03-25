@@ -1,5 +1,5 @@
 package dungeon.logic;
 
 public enum TileType {
-WALL, DOOR, KEY, OGRE;
+WALL, DOOR, KEY, OGRE, FLOOR, HERO;
 }

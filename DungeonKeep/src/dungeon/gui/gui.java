@@ -14,34 +14,28 @@ import dungeon.logic.TileType;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.event.MouseAdapter;
 
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.BorderLayout;
 import java.awt.CardLayout;
-import javax.swing.JLayeredPane;
-import javax.swing.JTabbedPane;
 import javax.swing.JSlider;
+import javax.swing.SwingConstants;
+import java.awt.Font;
 
 
 public class gui extends JFrame implements KeyListener {
 
 	private JFrame frame;
-	private JTextField TextChoseGuard;
 	private JTextField TextnumberOgres;
 	static private GamePanel gamePanel;
 	ShowBoard showBoard = new ShowBoard();
 	private JPanel menuWindow;
 	private JButton quitButton;
 	private JPanel gameWindow;
-	private JPanel doorButton;
+	private JPanel editWindow;
 	private JPanel editPanel;
 	private JPanel editDimensions;
 	private JSlider linesSlider;
@@ -50,12 +44,15 @@ public class gui extends JFrame implements KeyListener {
 	private JLabel lblColumns;
 	private JButton dimensionsBack;
 	private JButton btnNext;
-	private ChangeListener listener;
 	private JTextField textField;
 	private TileType tile;
 	private JButton btnDoor;
-	private JButton button;
 	private JButton btnKey;
+	private JButton btnFloor;
+	private JButton btnOgre;
+	private JButton btnHero;
+	private static JLabel lblNewLabel;
+	private JLabel lblNewLabel_1;
 	/**
 	 * Launch the application.
 	 */
@@ -149,88 +146,112 @@ public class gui extends JFrame implements KeyListener {
 		TextnumberOgres.setBounds(595, 184, 118, 20);
 		gameWindow.add(TextnumberOgres);
 		TextnumberOgres.setColumns(10);
+		
+		lblNewLabel = new JLabel("");
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setBounds(221, 19, 161, 30);
+		gameWindow.add(lblNewLabel);
+		
 
-		doorButton = new JPanel();
-		frame.getContentPane().add(doorButton, "name_31523719216263");
-		doorButton.setLayout(null);
+		editWindow = new JPanel();
+		frame.getContentPane().add(editWindow, "name_31523719216263");
+		editWindow.setLayout(null);
 
 		JButton btnSave = new JButton("Save");
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				boolean save=true;
-				((GamePanel) editPanel).endEdition(save);
-				doorButton.setVisible(false);
+				boolean valid=((GamePanel) editPanel).endEdition(save);
+				
+				if (valid){				
+				editWindow.setVisible(false);
 				menuWindow.setVisible(true);
+				}
+				else JOptionPane.showMessageDialog(frame, "Must have a Hero, a Key and an Exit Door!");
 			}
 		});
 		btnSave.setBounds(404, 483, 102, 42);
-		doorButton.add(btnSave);
+		editWindow.add(btnSave);
 
 		JButton editBack = new JButton("Back");
 		editBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				boolean save=false;
 
-				doorButton.setVisible(false);
+				editWindow.setVisible(false);
 				editDimensions.setVisible(true);
-
+				gamePanel.clearNewPositions();
 			}
 		});
 		editBack.setBounds(265, 483, 102, 42);
-		doorButton.add(editBack);
+		editWindow.add(editBack);
 
 		editPanel = new GamePanel();
 		editPanel.setBounds(59, 21, 532, 438);
-		doorButton.add(editPanel);
+		editWindow.add(editPanel);
 		editPanel.setLayout(null);
-		
+
 		JButton btnWall = new JButton("Wall");
 		btnWall.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				((GamePanel) editPanel).setAddingTile(tile.WALL);
 			}
 		});
-		btnWall.setBounds(629, 85, 74, 65);
-		doorButton.add(btnWall);
-		
+		btnWall.setBounds(629, 21, 74, 65);
+		editWindow.add(btnWall);
+
 		btnDoor = new JButton("Door");
 		btnDoor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				((GamePanel) editPanel).setAddingTile(tile.DOOR);
 			}
 		});
-		btnDoor.setBounds(629, 184, 74, 65);
-		doorButton.add(btnDoor);
-		
-		button = new JButton("Door");
-		button.setBounds(629, 184, 74, 65);
-		doorButton.add(button);
-		
+		btnDoor.setBounds(629, 97, 74, 65);
+		editWindow.add(btnDoor);
+
 		btnKey = new JButton("Key");
 		btnKey.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				((GamePanel) editPanel).setAddingTile(tile.KEY);
 			}
 		});
-		btnKey.setBounds(629, 279, 74, 65);
-		doorButton.add(btnKey);
+		btnKey.setBounds(629, 173, 74, 65);
+		editWindow.add(btnKey);
 
+		btnFloor = new JButton("Floor");
+		btnFloor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				((GamePanel) editPanel).setAddingTile(tile.FLOOR);
+			}
+		});
+		btnFloor.setBounds(629, 249, 74, 65);
+		editWindow.add(btnFloor);
+
+		btnOgre = new JButton("Ogre");
+		btnOgre.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				((GamePanel) editPanel).setAddingTile(tile.OGRE);
+			}
+		});
+		btnOgre.setBounds(629, 325, 74, 65);
+		editWindow.add(btnOgre);
+
+		btnHero = new JButton("Hero");
+		btnHero.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				((GamePanel) editPanel).setAddingTile(tile.HERO);
+			}
+		});
+		btnHero.setBounds(629, 401, 74, 65);
+		editWindow.add(btnHero);
+		
 		editDimensions = new JPanel();
 		frame.getContentPane().add(editDimensions, "name_61773752494836");
 		editDimensions.setLayout(null);
 
-		 listener = new ChangeListener()
-         {
-            public void stateChanged(ChangeEvent event)
-            {
-               // update text field when the slider value changes
-               JSlider source = (JSlider) event.getSource();
-               textField.setText("" + source.getValue());
-            }
 
-		
-         };
-		
+
 		linesSlider = new JSlider( 5, 30, 10);
 		linesSlider.setBounds(250, 187, 206, 55);
 		editDimensions.add(linesSlider);
@@ -238,8 +259,8 @@ public class gui extends JFrame implements KeyListener {
 		linesSlider.setPaintLabels(true);
 		linesSlider.setMajorTickSpacing(5);
 		linesSlider.setMinorTickSpacing(5);
-	
-        
+
+
 
 		columnsSlider = new JSlider( 5, 30, 10);
 		columnsSlider.setBounds(250, 293, 206, 48);
@@ -263,7 +284,7 @@ public class gui extends JFrame implements KeyListener {
 			public void actionPerformed(ActionEvent e) {
 				editDimensions.setVisible(false);
 				menuWindow.setVisible(true);
-			    ((GamePanel) editPanel).setEditState(false);
+				((GamePanel) editPanel).setEditState(false);
 			}
 		});
 		dimensionsBack.setBounds(184, 479, 89, 23);
@@ -273,17 +294,22 @@ public class gui extends JFrame implements KeyListener {
 		btnNext.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				((GamePanel) editPanel).initializeBoardEditing(linesSlider.getValue(), columnsSlider.getValue());
-
+				gamePanel.clearNewPositions();
 
 				editPanel.repaint();
 				editPanel.setVisible(true);
 				editDimensions.setVisible(false);
-				doorButton.setVisible(true);
+				editWindow.setVisible(true);
 
 			}
 		});
 		btnNext.setBounds(404, 479, 89, 23);
 		editDimensions.add(btnNext);
+		
+		lblNewLabel_1 = new JLabel("Maze Dimensions");
+		lblNewLabel_1.setFont(new Font("Arial", Font.BOLD, 14));
+		lblNewLabel_1.setBounds(278, 116, 167, 14);
+		editDimensions.add(lblNewLabel_1);
 
 
 
@@ -346,5 +372,10 @@ public class gui extends JFrame implements KeyListener {
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
 		System.out.println("teste3");
+	}
+
+	public static JLabel getLabel() {
+		// TODO Auto-generated method stub
+		return lblNewLabel;
 	}
 }
