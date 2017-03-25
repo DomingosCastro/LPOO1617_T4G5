@@ -93,7 +93,7 @@ public class Board
 				int clubC=((Ogre) character).getClubColumn();
 				int clubL=((Ogre) character).getClubLine();
 
-				changingBoard[clubL][clubC]=((Ogre) character).getClubLetter();
+	//			changingBoard[clubL][clubC]=((Ogre) character).getClubLetter();
 
 			}
 		}

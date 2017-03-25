@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import dungeon.logic.DungeonKeep;
+import dungeon.logic.Ogre;
 import dungeon.logic.TileType;
 
 public class GamePanel extends JPanel {
@@ -58,8 +59,7 @@ public class GamePanel extends JPanel {
 
 	public void startGame(int guard, int ogres){
 		removeMouseListener(mouseAdapter);
-		setLabel(gui.getLabel());
-		showMessage();
+		
 		if(!boardEdited)
 			game = new DungeonKeep();
 
@@ -73,7 +73,10 @@ public class GamePanel extends JPanel {
 		if(boardEdited)
 			game.setEditedBoard(editedBoard, newPositions);
 
-		//setStateText();
+		//setLabel(gui.getLabel());
+		//showMessage();
+		setStateText();
+	    gui.setStateText(stateText);
 	}
 
 	public void playTurn(char direction ){
@@ -124,7 +127,8 @@ public class GamePanel extends JPanel {
 			stateText="GAME OVER";
 			break;
 		}
-		showMessage();
+		//showMessage();
+		 gui.setStateText(stateText);
 	}
 
 	public String getStateText(){
@@ -240,7 +244,6 @@ public class GamePanel extends JPanel {
 						if (game.getHeroClub().getLine()==i && game.getHeroClub().getColumn()==j)
 							drawCharacter(g2d, heroClub, j, i);
 
-						drawCharacter(g2d, ogreClub, j, i);
 					}
 
 					if (game.getBoard().getBoard()[i][j]=='$'){
@@ -270,9 +273,12 @@ public class GamePanel extends JPanel {
 								drawCharacter(g2d, hero, j, i);
 							drawCharacter(g2d, blood, j, i);}
 
-						drawCharacter(g2d, ogreClub, j, i);						
+					
 					}
+					if(game.getLevel()==2)
+					drawOgreClub(g2d, ogreClub, j, i);
 				}
+				
 			}
 
 		if (editingBoard){
@@ -290,6 +296,18 @@ public class GamePanel extends JPanel {
 
 	}
 
+	private void drawOgreClub(Graphics2D g2d, Image ogreClub2, int j, int i) {
+		ArrayList<Ogre> ogres = game.getOgres();
+		for(Ogre ogre : ogres){
+			if(ogre.getClubLine()==i && ogre.getClubColumn()==j){
+				drawCharacter(g2d, ogreClub, j, i);
+			
+			}
+		}
+	}
+
+	
+	
 	public void initializeBoardEditing(int lines, int columns){		
 
 		game=new DungeonKeep();
@@ -373,7 +391,7 @@ public class GamePanel extends JPanel {
 		}
 
 		int dstX = x * tileWidth;
-
+		
 		int dstY, yCorrection;
 
 		if (tile == wall || tile == wall2)
@@ -424,12 +442,12 @@ public class GamePanel extends JPanel {
 
 
 			else if (addingTile==TileType.DOOR){
-				if (mouseX==0 || mouseX==boardLines-1 || mouseY==0 || mouseY==boardColumns-1){
+				if (mouseX==0 || mouseY==boardLines-1 || mouseY==0 || mouseX==boardColumns-1){
 					temporaryBoard[mouseY][mouseX]='I';
 					exitInBoard=true;
 				}
 			}
-			else if (mouseX!=0 && mouseX!=boardLines-1 && mouseY!=0 && mouseY!=boardColumns-1){
+			else if (mouseX>0  && mouseY>0 && mouseY<boardLines-1 && mouseX<boardColumns-1){
 				System.out.println(mouseX);
 				System.out.println(mouseY);
 				if (addingTile==TileType.KEY){
@@ -506,7 +524,7 @@ public class GamePanel extends JPanel {
 				temporaryBoard[mouseY][mouseX]='X';
 
 			else if (addingTile==TileType.FLOOR)
-				if (mouseX!=0 || mouseX!=boardLines-1 || mouseY!=0 || mouseY!=boardColumns-1)
+				if (mouseX>0 && mouseY<boardLines-1 && mouseY>0 && mouseX<boardColumns-1)
 					temporaryBoard[mouseY][mouseX]=' ';
 
 			repaint();
@@ -535,7 +553,7 @@ public class GamePanel extends JPanel {
 
 		public void keyPressed(KeyEvent e) {
 			
-			showMessage();
+		//	showMessage();
 			
 			int key = e.getKeyCode();
 			if (key == KeyEvent.VK_RIGHT)
@@ -545,7 +563,10 @@ public class GamePanel extends JPanel {
 			else if (key == KeyEvent.VK_LEFT)
 				playTurn('a');
 			else if (key == KeyEvent.VK_UP)
-				playTurn('w');			
+				playTurn('w');	
+			
+			 gui.setStateText(stateText);
+			
 		}		
 	}
 
@@ -559,12 +580,13 @@ public class GamePanel extends JPanel {
 		game.clearNewPositions();
 	}
 
-	public void setLabel(JLabel label){
-		this.label=gui.getLabel();
-	}
+//	public void setLabel(JLabel label){
+//		this.label=gui.getLabel();
+//	}
 	
 	public void showMessage(){
-		label.setText(stateText);
+		//label.setText(stateText);
+	
 	}
 	
 }

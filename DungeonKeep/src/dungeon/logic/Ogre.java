@@ -156,7 +156,7 @@ public class Ogre extends Enemy
 		
 
 		else if (boardTiles[clubL][clubC]=='k' || boardTiles[clubL][clubC]=='$' || boardTiles[clubL][clubC]=='c' || boardTiles[clubL][clubC]=='#'){
-			//clubLetter='$';
+			
 			clubLetter='#';
 			letter='O';
 		}

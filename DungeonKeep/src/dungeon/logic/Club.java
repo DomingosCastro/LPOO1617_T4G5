@@ -27,8 +27,8 @@ public class Club {
 		if (level==2){
 			if (initialized==false){
 				do{					
-					l= randNum.nextInt(board.getBoard().length-2)+1; 
-					c  = randNum.nextInt(board.getBoard().length-2)+1;
+					l= randNum.nextInt(board.getLines()-2)+1; 
+					c  = randNum.nextInt(board.getColumns()-2)+1;
 				} while (board.getBoard()[l][c]!=' ');
 
 				initialized=true;}		

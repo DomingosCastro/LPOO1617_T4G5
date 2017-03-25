@@ -105,6 +105,10 @@ public class DungeonKeep
 	public Club getHeroClub(){
 		return heroClub;
 	}
+	
+	public ArrayList<Ogre> getOgres(){
+		return ogres;
+	}
 
 	public int getLevel(){
 		return level;
@@ -228,6 +232,7 @@ public class DungeonKeep
 		heroClub.setHeroClub(board, level);
 
 
+		
 		if (heroKilled)
 			return "loser";
 
@@ -274,5 +279,7 @@ public class DungeonKeep
 		newPositions.clear();
 	}
 
+
+	
 }
 
