@@ -1,7 +1,11 @@
 package dungeon.logic;
 
 import java.util.Random;
-
+/**
+ * Superclass of the subclasses Roockie, Drunken and Suspicious
+ * @author Domingos
+ *
+ */
 @SuppressWarnings("serial")
 public class Guard extends Enemy {
 

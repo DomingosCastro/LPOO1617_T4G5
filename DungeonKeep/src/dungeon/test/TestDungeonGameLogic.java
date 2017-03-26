@@ -530,4 +530,34 @@ public class TestDungeonGameLogic {
 			
 		}
 		
+		
+		@Test
+		public void testEditedBoard()
+		{
+			ArrayList<int[]> newPositions = new ArrayList<>();
+			int[] pos1={1,2};
+			int[] pos2={3,3};
+			newPositions.add(pos1);
+			newPositions.add(pos2);
+			
+			char[][] mapTest=map;
+			
+			DungeonKeep dk = new DungeonKeep(); 
+			dk.setEditedBoard(mapTest, newPositions);
+			ArrayList<int[]> editedPosition= dk.getNewPositions();
+			char[][] editedBoard = dk.getEditedBoard();
+			
+			
+			assertEquals(newPositions, editedPosition);
+			boolean valid=true;
+			for (int i=0; i<4; i++)
+				for (int j=0; j<5; j++)
+					if(mapTest[i][j]!=editedBoard[i][j])
+						valid=false;
+			assertTrue(valid);
+		}
+			
+			
+		
+		
 }

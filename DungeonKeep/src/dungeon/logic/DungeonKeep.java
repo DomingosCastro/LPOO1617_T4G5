@@ -11,7 +11,11 @@ import dungeon.logic.Guard;
 import dungeon.logic.Rookie;
 import dungeon.logic.Drunken;
 import dungeon.logic.Suspicious;
-
+/**
+ * 
+ * Class that controls the Game logic
+ *
+ */
 @SuppressWarnings("serial")
 public class DungeonKeep implements java.io.Serializable  
 {
@@ -61,6 +65,7 @@ public class DungeonKeep implements java.io.Serializable
 	static int nLevels = 2;
 	static int[] portasSaidaPorNivel = {2, 1};
 
+	
 	/**
 	 * Sets the guard personality and the number of ogres in the game
 	 * @param choseGuard - index of the guard (0 - Rookie, 1 - Drunken, 2 - Suspicious)
@@ -102,6 +107,14 @@ public class DungeonKeep implements java.io.Serializable
 		edited=true;
 	}
 
+	public char[][] getEditedBoard(){
+		return editedBoard;
+	}
+	
+	public ArrayList<int[]> getNewPositions(){
+		return newPositions;
+	}
+	
 	/**
 	 * Returns 'true' if the board was edited
 	 */

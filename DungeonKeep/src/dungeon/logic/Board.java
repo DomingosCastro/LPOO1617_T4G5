@@ -1,14 +1,20 @@
 package dungeon.logic;
 
 import java.util.ArrayList;
-
+/**
+ * The Board Class is constituted by two 2D arrays of chars:
+ * - fixedBoard: stores the empty board (only walls, doors and lever)
+ * - changingBoard: stores the current board and characters. The changingBoard is updated every round, 
+ * by putting the characters' letters in the fixedBoard
+ * It also stores the coordinates of the lever/key
+ */
 
 @SuppressWarnings("serial")
 public class Board implements java.io.Serializable 
 {
 	private int lines; 
 	private int columns;	
-	
+
 	private int leverC;	// lever coluna
 	private int leverL; // lever linha
 
@@ -20,16 +26,11 @@ public class Board implements java.io.Serializable
 	/**
 	 * Board Constructor - initializes Board class attributes;
 	 * 
-	 * The Board Class is constituted by two 2D arrays of chars:
-	 * - fixedBoard: stores the empty board (only walls, doors and lever)
-	 * - changingBoard: stores the current board and characters. The changingBoard is updated every round, 
-	 * by putting the characters' letters in the fixedBoard
-	 *
 	 * @param board - 2D array of chars with the empty board (only walls, doors and lever)
 	 */
-	
+
 	public Board(char[][] board){
-		
+
 		lines=board.length;
 		columns=board[0].length;
 		fixedBoard= new char[lines][columns];
@@ -41,12 +42,12 @@ public class Board implements java.io.Serializable
 		}
 
 		changingBoard= new char[lines][columns];
-		
+
 		// Inicializa changingBord:
 		for(int i=0; i<lines;i++)
 		{			
 			if(fixedBoard[i][0]=='I')
-			   exit.add(i);						
+				exit.add(i);						
 
 			for(int j=0; j<columns;j++)
 			{	
@@ -58,14 +59,14 @@ public class Board implements java.io.Serializable
 			}
 		}
 	}
-	
 
-/**
- * Change the specified tile of the board
- * @param l - line of the tile
- * @param c - column of the tile
- * @param letter - letter to insert in the board
- */
+
+	/**
+	 * Change the specified tile of the board
+	 * @param l - line of the tile
+	 * @param c - column of the tile
+	 * @param letter - letter to insert in the board
+	 */
 	public void setChangingBoardLetter(int l, int c, char letter){
 		changingBoard[l][c]=letter;
 	}
@@ -74,14 +75,14 @@ public class Board implements java.io.Serializable
 	 * Returns the number of lines of the board
 	 * @return - number of lines
 	 */
-	
+
 	public int getLines(){
 		return lines;
 	}
-/**
- *  Returns the number of columns of the board
+	/**
+	 *  Returns the number of columns of the board
 	 * @return - number of columns
- */
+	 */
 	public int getColumns(){
 		return columns;
 	}
@@ -131,12 +132,12 @@ public class Board implements java.io.Serializable
 			changingBoard[l][c]=characters.get(i).getLetter();
 		}
 	}
-	
+
 	/**
 	 * Initializes the empty changingBoard by copying the fixedBoard
 	 */
 	public void initializeChangingBoard(){
-		
+
 		// Inicializa tabuleiro vazio:
 		for(int i=0; i<lines;i++)
 			for(int j=0; j<columns;j++)
@@ -149,7 +150,7 @@ public class Board implements java.io.Serializable
 			}
 
 	}
-	
+
 	/**
 	 * Unlocks the exit doors, by replacing the tile letter 'X' by 'S'
 	 * @param level - the current level number
@@ -162,9 +163,9 @@ public class Board implements java.io.Serializable
 		if (level==2)		
 			for (int i=0; i<lines; i++)
 				for (int j=0; j<columns; j++){
-			fixedBoard[leverL][leverC]=' ';
-			if (fixedBoard[i][j]=='I')
-				fixedBoard[i][j]='S';
+					fixedBoard[leverL][leverC]=' ';
+					if (fixedBoard[i][j]=='I')
+						fixedBoard[i][j]='S';
 				}
 	}
 

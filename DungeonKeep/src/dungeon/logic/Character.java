@@ -1,7 +1,15 @@
 package dungeon.logic;
-
+/**
+ * Superclass of the characters present in the game.
+ * Atributes: 
+ * letter - letter that represents the character in the board
+ * dir - current moving direction
+ * l,c - position in board
+ * @author Domingos
+ *
+ */
 @SuppressWarnings("serial")
-public abstract class Character  implements java.io.Serializable  
+public abstract class Character  
 {  
 	protected char letter;   
 	protected Direction dir; 

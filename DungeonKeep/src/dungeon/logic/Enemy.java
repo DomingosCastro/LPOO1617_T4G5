@@ -1,5 +1,9 @@
 package dungeon.logic;
-
+/**
+ * Superclass of the enemys (guards and ogre)
+ * @author Domingos
+ *
+ */
 @SuppressWarnings("serial")
 public class Enemy extends Character{
 	 
