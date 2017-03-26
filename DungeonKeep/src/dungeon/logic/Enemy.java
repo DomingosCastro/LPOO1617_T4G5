@@ -1,6 +1,6 @@
 package dungeon.logic;
 
-public class Enemy extends Character {
+public class Enemy extends Character implements java.io.Serializable {
 	
 	boolean awakeState = true;
 	

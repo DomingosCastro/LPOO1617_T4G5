@@ -1,14 +1,14 @@
 package dungeon.logic;
-//import java.awt.List;
-//import java.io.*; // evitar usar!!
-//import java.util.Scanner;
+
 import java.util.ArrayList;
 
-public class Board 
+
+@SuppressWarnings("serial")
+public class Board implements java.io.Serializable 
 {
 	private int lines; 
 	private int columns;	
-	//private Tile[][] boardTiles; // matriz de objetos do tipo Tile
+	
 	private int leverC;	// lever coluna
 	private int leverL; // lever linha
 
@@ -19,20 +19,24 @@ public class Board
 
 	public Board(char[][] board){
 		
-		fixedBoard = board;
+		lines=board.length;
+		columns=board[0].length;
+		fixedBoard= new char[lines][columns];
 
-		lines=fixedBoard.length;
-		columns=fixedBoard[0].length;
+		for (int i=0; i<lines; i++){
+			for (int j=0; j<columns; j++){
+				fixedBoard[i][j]=board[i][j];
+			}
+		}
 
 		changingBoard= new char[lines][columns];
 
 		// Inicializa changingBord:
-
 		for(int i=0; i<lines;i++)
 		{			
 			if(fixedBoard[i][0]=='I')
-			{exit.add(i);			
-			}
+			   exit.add(i);			
+			
 
 			for(int j=0; j<columns;j++)
 			{	
@@ -89,13 +93,6 @@ public class Board
 			l=character.getLine();
 			c=character.getColumn();
 			changingBoard[l][c]=characters.get(i).getLetter();
-			if (character instanceof Ogre){
-				int clubC=((Ogre) character).getClubColumn();
-				int clubL=((Ogre) character).getClubLine();
-
-	//			changingBoard[clubL][clubC]=((Ogre) character).getClubLetter();
-
-			}
 		}
 	}
 	

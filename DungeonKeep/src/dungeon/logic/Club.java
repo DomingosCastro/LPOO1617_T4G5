@@ -1,9 +1,9 @@
 package dungeon.logic;
 
-//import java.util.ArrayList;
 import java.util.Random;
 
-public class Club {
+@SuppressWarnings("serial")
+public class Club implements java.io.Serializable {
 
 	boolean initialized=false;
 	char letter;
@@ -11,7 +11,7 @@ public class Club {
 	int l, c;
 	public Club(char letter) {
 		this.letter = letter;
-		//super(heroClub);
+
 		// TODO Auto-generated constructor stub
 	}
    public int getLine(){

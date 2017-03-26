@@ -4,7 +4,7 @@ import java.util.Random;
 import java.util.ArrayList;
 import java.util.Vector;
 
-public class Guard extends Enemy  {
+public class Guard extends Enemy  implements java.io.Serializable {
 	
 	public Guard(char letter, int l, int c) {
 		super(letter, l, c);

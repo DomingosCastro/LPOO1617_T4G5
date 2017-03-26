@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import dungeon.cli.Input;
 
-public class Hero extends Character 
+public class Hero extends Character implements java.io.Serializable 
 {
 	char keyboard; // caracter lido a partir do teclado
 	Scanner input = new Scanner(System.in);

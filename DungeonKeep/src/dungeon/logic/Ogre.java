@@ -4,7 +4,7 @@ import java.util.Random;
 //import java.util.ArrayList;
 //import java.util.Arrays;
 
-public class Ogre extends Enemy 
+public class Ogre extends Enemy implements java.io.Serializable 
 {
 	Random randNum = new Random();
 	int clubL=l, clubC=c;

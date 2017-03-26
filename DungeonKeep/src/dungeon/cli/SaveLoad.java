@@ -1,65 +1,85 @@
 package dungeon.cli;
 
-import java.io.FileWriter;
-import java.io.PrintWriter;
-import java.util.ArrayList;
 
-import static java.lang.System.*;
+import dungeon.gui.GamePanel;
+import dungeon.logic.DungeonKeep;
+
 import java.io.*;
 
 public class SaveLoad {
 
-	public void saveBoard(char[][] board){
+	public void saveGamePanel(GamePanel gamePanel){
 
 		try {
-
-			FileWriter fw = new FileWriter("SavedBoard");
-			PrintWriter pw = new PrintWriter(fw);
-
-			pw.println(board);
-
-			pw.close();
-
-		} catch(IOException e){
-			out.println("ERROR");
+			FileOutputStream fileOut =
+			new FileOutputStream("gamePanel.bin");
+			ObjectOutputStream out = new ObjectOutputStream(fileOut);
+			out.writeObject(gamePanel);
+			out.close();
+			fileOut.close();
+			System.out.println("Serialized data is saved in gamePanel.bin");
+		}catch(IOException i) {
+			i.printStackTrace();
 		}
 
 
 	}
 
-	public char[][] loadBoard(){
-
-		char[][] board;
-		String str=null;
-		ArrayList<String> boardString = new ArrayList<String>();
-		int lineCount=0;
-
-		try{
-
-
-			FileReader fr = new FileReader("SavedBoard");
-			BufferedReader br = new BufferedReader(fr);
-
-
-			while ((str = br.readLine()) != null){				
-				out.println(str + "\n");
-				boardString.add(str);
-			}
-			br.close();
-		}catch(IOException e){
-			out.println("File not found");
+	public void saveDungeonKeep(DungeonKeep dungeonKeep){
+		try {
+			FileOutputStream fileOut =
+			new FileOutputStream("dungeonKeep.bin");
+			ObjectOutputStream out = new ObjectOutputStream(fileOut);
+			out.writeObject(dungeonKeep);
+			out.close();
+			fileOut.close();
+			System.out.println("Serialized data is saved in dungeonKeep.bin");
+		}catch(IOException i) {
+			i.printStackTrace();
 		}
-
-		int lines =	boardString.size();
-		int columns = boardString.get(0).length();
-		board= new char[lines][columns];
-
-		for (int i =0; i< lines; i++)
-			for (int j=0; j<columns; j++)
-				board[i][j]=boardString.get(i).charAt(j);		
-		
-		return board;
 	}
+	
+	public GamePanel loadGamePanel(){
+		GamePanel gamePanel;
+		try {
+			FileInputStream fileIn = new FileInputStream("gamePanel.bin");
+			ObjectInputStream in = new ObjectInputStream(fileIn);
+			gamePanel = (GamePanel) in.readObject();
+			in.close();
+			fileIn.close();
+		}catch(IOException i) {
+			i.printStackTrace();
+			return null;
+		}catch(ClassNotFoundException c) {
+			System.out.println("GamePanel class not found");
+			c.printStackTrace();
+			return null;
+		}
+		System.out.println("GamePanel loaded");
+		return gamePanel;
+	}
+	
+	public DungeonKeep loadDungeonKeep (){
+		DungeonKeep dungeonKeep;
+		try {
+			FileInputStream fileIn = new FileInputStream("dungeonKeep.bin");
+			ObjectInputStream in = new ObjectInputStream(fileIn);
+			dungeonKeep = (DungeonKeep) in.readObject();
+			in.close();
+			fileIn.close();
+		}catch(IOException i) {
+			i.printStackTrace();
+			return null;
+		}catch(ClassNotFoundException c) {
+			System.out.println("DungeonKeep class not found");
+			c.printStackTrace();
+			return null;
+		}
+		System.out.println("DungeonKeep loaded");
+		return dungeonKeep;
+	}
+	
+	
 }
 
 

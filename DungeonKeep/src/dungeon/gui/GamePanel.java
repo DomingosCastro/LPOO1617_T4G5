@@ -19,11 +19,12 @@ import dungeon.logic.DungeonKeep;
 import dungeon.logic.Ogre;
 import dungeon.logic.TileType;
 
-public class GamePanel extends JPanel {
+@SuppressWarnings("serial")
+public class GamePanel extends JPanel implements java.io.Serializable {
 
-	private Image wall, wall2, floor, door,  key, lever, hero1, hero2, hero3,guard1, guard2, guard3, guard4, drunken, heroClub, 
+	private transient Image wall, wall2, floor, door,  key, lever, hero1, hero2, hero3,guard1, guard2, guard3, guard4, drunken, heroClub, 
 	ogreClub1, ogreClub2, ogreClub3, ogreClub4 , ogre, armedHero1,armedHero2,armedHero3,armedHero4 ,stunedOgre, blood;
-	static private DungeonKeep game;
+	static private transient DungeonKeep game;
 	private String gameState;
 	private String stateText;
 	private int tileWidth, tileHeight;
@@ -35,8 +36,8 @@ public class GamePanel extends JPanel {
 	private int boardLines, boardColumns;
 	private int editLines, editColumns;
 	private int mouseX, mouseY;
-	private JLabel label;
-	MyMouseAdapter mouseAdapter;
+	private transient JLabel label;
+	private transient MyMouseAdapter mouseAdapter;
 	private TileType addingTile;
 	private int heroL, heroC, keyL, keyC;
 	private boolean heroInBoard=false;
@@ -58,6 +59,18 @@ public class GamePanel extends JPanel {
 		setDoubleBuffered(true);
 	} 
 
+	public void initializeGamePanel(){
+		loadImages();
+
+		requestFocus();		
+		mouseAdapter = new MyMouseAdapter();
+		addMouseListener(mouseAdapter);
+		addMouseMotionListener(mouseAdapter);
+		addKeyListener(new MyKeyboardAdapter());
+		setFocusable(true);
+		setDoubleBuffered(true);
+	}
+	
 	public void startGame(int guard, int ogres){
 		removeMouseListener(mouseAdapter);
 
@@ -65,8 +78,8 @@ public class GamePanel extends JPanel {
 			game = new DungeonKeep();
 
 		game.setEnemys(guard, ogres);
-		game.setLevel(1);
-
+		game.setLevel(1);      
+		
 		game.initializeLevel();
 		gameState="normal";
 		initialized=true;
@@ -106,7 +119,7 @@ public class GamePanel extends JPanel {
 	}
 
 	private void setStateText() {
-		// TODO Auto-generated method stub
+		
 		switch (gameState){
 		case "normal":
 			if (game.getLevel()==1){
@@ -127,7 +140,7 @@ public class GamePanel extends JPanel {
 			stateText="GAME OVER";
 			break;
 		}
-		//showMessage();
+		
 		gui.setStateText(stateText);
 	}
 
@@ -141,7 +154,6 @@ public class GamePanel extends JPanel {
 
 
 		wall= new ImageIcon(this.getClass().getResource("/wall (2).png")).getImage();
-
 		wall2= new ImageIcon(this.getClass().getResource("/wall (1).png")).getImage();
 
 		door= new ImageIcon(this.getClass().getResource("/door.png")).getImage();	
@@ -167,8 +179,6 @@ public class GamePanel extends JPanel {
 		ogreClub2= new ImageIcon(this.getClass().getResource("/ogreClub2.png")).getImage();
 		ogreClub3= new ImageIcon(this.getClass().getResource("/ogreClub3.png")).getImage();
 		ogreClub4= new ImageIcon(this.getClass().getResource("/ogreClub4.png")).getImage();
-
-		ogre= new ImageIcon(this.getClass().getResource("/ogre.png")).getImage();
 
 		armedHero1=new ImageIcon(this.getClass().getResource("/armedHero1.png")).getImage();
 		armedHero2=new ImageIcon(this.getClass().getResource("/armedHero2.png")).getImage();
@@ -467,7 +477,7 @@ public class GamePanel extends JPanel {
 		initialized=false;
 	}
 
-	public class MyMouseAdapter extends MouseAdapter {
+	public class MyMouseAdapter extends MouseAdapter implements java.io.Serializable{
 		public void mouseClicked(MouseEvent e) {
 
 			if (!editingBoard)
@@ -596,8 +606,6 @@ public class GamePanel extends JPanel {
 
 		public void keyPressed(KeyEvent e) {
 
-			//	showMessage();
-
 			int key = e.getKeyCode();
 			if (key == KeyEvent.VK_RIGHT)
 				playTurn('d');			
@@ -623,13 +631,16 @@ public class GamePanel extends JPanel {
 		game.clearNewPositions();
 	}
 
-	//	public void setLabel(JLabel label){
-	//		this.label=gui.getLabel();
-	//	}
-
-	public void showMessage(){
-		//label.setText(stateText);
-
+	public void setEditedBoardState(boolean state){
+		boardEdited = state;
 	}
-
+	
+//	public DungeonKeep getDungeon(){
+//		return game;
+//	}
+//	
+//	public void setDungeon(DungeonKeep dungeon){
+//		game=dungeon;
+//	}
+	
 }

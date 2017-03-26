@@ -2,7 +2,7 @@ package dungeon.logic;
 
 import java.util.Random;
 
-public class Drunken extends Guard {
+public class Drunken extends Guard implements java.io.Serializable {
 	
 	Random randNum=new Random();
 

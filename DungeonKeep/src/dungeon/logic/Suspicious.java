@@ -1,7 +1,7 @@
 package dungeon.logic;
 import java.util.Random;
 
-public class Suspicious extends Guard {
+public class Suspicious extends Guard implements java.io.Serializable  {
 	
 	public Suspicious(char letter, int l, int c) {
 		super(letter, l, c);

@@ -1,14 +1,10 @@
 package dungeon.logic;
 
 import java.util.ArrayList;
-//import java.util.Collection;
-import java.util.Scanner;
 
-import dungeon.cli.ShowBoard;
 import dungeon.logic.Board;
 import dungeon.logic.Character;
 import dungeon.logic.Club;
-//import dungeon.logic.Direction;
 import dungeon.logic.Hero;
 import dungeon.logic.Ogre;
 import dungeon.logic.Guard;
@@ -16,8 +12,7 @@ import dungeon.logic.Rookie;
 import dungeon.logic.Drunken;
 import dungeon.logic.Suspicious;
 
-
-public class DungeonKeep 
+public class DungeonKeep implements java.io.Serializable  
 {
 	final char[][] fixedBoard1 = {{'X','X','X','X','X','X','X','X','X','X'}, 
 			{'X',' ',' ',' ','I',' ','X',' ',' ','X'}, 
@@ -43,7 +38,6 @@ public class DungeonKeep
 	static char[][] editedBoard;
 	boolean edited=false;
 
-	static Scanner input = new Scanner(System.in);
 	static char playerInput; 
 
 	static ArrayList<Character> characters = new ArrayList<>();
@@ -61,7 +55,6 @@ public class DungeonKeep
 
 	static Club heroClub = new Club('c') ;; 	
 	static Board board = null;
-	static ShowBoard showBoard = new ShowBoard();
 	static int level=1;
 	static ArrayList<int[]> newPositions = new ArrayList<>();
 
@@ -282,7 +275,9 @@ public class DungeonKeep
 		newPositions.clear();
 	}
 
-
+public void setEditedState(boolean state){
+	edited = state;
+}
 	
 }
 

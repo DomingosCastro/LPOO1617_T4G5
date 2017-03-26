@@ -1,15 +1,7 @@
 package dungeon.logic;
-/*
- * Representa uma personagem  
- * 
- * Caracteristicas de cada personagem: nome, posicao (l, c), direcao
- * 
- * Existem sinalizadores (flags) que indicam se a personagem esta a dormir ou a movimentar-se
- *    
- * Personagens: Heroi, Guarda, Ogre 
- */     
 
-public abstract class Character   
+@SuppressWarnings("serial")
+public abstract class Character  implements java.io.Serializable  
 {  
 	protected char letter;   
 	protected Direction dir; 

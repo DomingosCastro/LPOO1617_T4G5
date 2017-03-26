@@ -1,33 +1,31 @@
-package dungeon.test;
-
-import static org.junit.Assert.*;
-import org.junit.Test;
-import java.util.ArrayList;
-
-
-import java.util.Collection;
-import java.util.Scanner;
-
-import dungeon.cli.ShowBoard;
-import dungeon.cli.SaveLoad;
-import dungeon.logic.Board;
-import dungeon.logic.Character;
-import dungeon.logic.Club;
-import dungeon.logic.Direction;
-import dungeon.logic.Drunken;
-import dungeon.logic.Guard;
-import dungeon.logic.Hero;
-import dungeon.logic.Ogre;
-import dungeon.logic.Rookie;
-import dungeon.logic.Suspicious;
-import dungeon.logic.DungeonKeep;
+//package dungeon.test;
 //
-public class TestDungeonGameLogic {
+//import static org.junit.Assert.*;
+//import org.junit.Test;
+//import java.util.ArrayList;
+//
+//
+//import java.util.Collection;
+//import java.util.Scanner;
+//
+//import dungeon.cli.ShowBoard;
+//import dungeon.gui.GamePanel;
+//import dungeon.gui.gui;
+//import dungeon.cli.SaveLoad;
+//import dungeon.logic.Board;
+//import dungeon.logic.Character;
+//import dungeon.logic.Club;
+//import dungeon.logic.Direction;
+//import dungeon.logic.Drunken;
+//import dungeon.logic.Guard;
+//import dungeon.logic.Hero;
+//import dungeon.logic.Ogre;
+//import dungeon.logic.Rookie;
+//import dungeon.logic.Suspicious;
+//import dungeon.logic.DungeonKeep;
+////
+//public class TestDungeonGameLogic {
 	//
-	char[][] map = {{'X', 'X', 'X', 'X', 'X'},
-			{'X', ' ', ' ', ' ', 'X'},			
-			{'I', 'k', ' ', ' ', 'X'},
-			{'X', 'X', 'X', 'X', 'X'}};
 	//
 	//	char[][] map2 = {{'X', 'X', 'X', 'X', 'X'},
 	//			{'X', ' ', ' ', ' ', 'X'},
@@ -480,20 +478,4 @@ public class TestDungeonGameLogic {
 	//	}
 	//
 
-	@Test
-	public void testSave(){
-		Board board=new Board(map);
-		SaveLoad saveLoad = new SaveLoad();
-		saveLoad.saveBoard(board.getBoard());
-
-		char [][] boardLoaded = saveLoad.loadBoard();
-		for(int i = 0; i<board.getLines(); i++)
-		{for (int j=0; j<board.getColumns(); j++)
-			System.out.println(boardLoaded[i][j]);
-
-		System.out.println("");
-		}
-
-	}
-
-}
+//}

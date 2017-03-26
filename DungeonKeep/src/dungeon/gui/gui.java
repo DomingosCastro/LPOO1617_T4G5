@@ -6,9 +6,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
+
+//import dungeon.cli.SaveLoad;
 import dungeon.cli.ShowBoard;
 import dungeon.logic.TileType;
 
@@ -25,9 +25,8 @@ import javax.swing.JSlider;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 
-
 public class gui extends JFrame implements KeyListener {
-
+	
 	private JFrame frame;
 	private JTextField TextnumberOgres;
 	static private GamePanel gamePanel;
@@ -44,8 +43,6 @@ public class gui extends JFrame implements KeyListener {
 	private JLabel lblColumns;
 	private JButton dimensionsBack;
 	private JButton btnNext;
-	private JTextField textField;
-	private TileType tile;
 	private JButton btnDoor;
 	private JButton btnKey;
 	private JButton btnFloor;
@@ -57,7 +54,7 @@ public class gui extends JFrame implements KeyListener {
 	private JButton btnNewButton_1;
 	private JButton btnNewButton_2;
 	private JButton btnEdit; 
-	private JComboBox comboBox; 
+	private JComboBox<Object> comboBox; 
 	int choseGuard=0;
 	int numberOgres=1;
 	private JLabel lblDungeonKeep;
@@ -65,6 +62,7 @@ public class gui extends JFrame implements KeyListener {
 	private JLabel lblGameSettings;
 	private JLabel lblCreateKeepLevel;
 	private JLabel lblSetEnemys;
+//	private SaveLoad saveLoad = new SaveLoad();
 	/**
 	 * Launch the application.
 	 */
@@ -92,7 +90,7 @@ public class gui extends JFrame implements KeyListener {
 	 * Initialize the contents of the frame.
 	 */
 
-	private void initialize() {
+	public void initialize() {
 		frame = new JFrame();
 		frame.getContentPane().setLayout(new CardLayout(0, 0));
 
@@ -123,14 +121,32 @@ public class gui extends JFrame implements KeyListener {
 				settingsWindow.setVisible(true);
 			}
 		});
-		btnNewButton_1.setBounds(274, 304, 221, 49);
+		btnNewButton_1.setBounds(274, 319, 221, 49);
 		menuWindow.add(btnNewButton_1);
-		
+
 		lblDungeonKeep = new JLabel("Dungeon Keep ");
 		lblDungeonKeep.setFont(new Font("Centaur", Font.BOLD, 40));
 		lblDungeonKeep.setHorizontalAlignment(SwingConstants.CENTER);
 		lblDungeonKeep.setBounds(158, 47, 465, 79);
 		menuWindow.add(lblDungeonKeep);
+
+		//		JButton btnNewButton = new JButton("Load Game");
+		//		btnNewButton.addActionListener(new ActionListener() {
+		//			public void actionPerformed(ActionEvent arg0) {
+		//				
+		//				gamePanel=saveLoad.loadGamePanel();
+		//				gamePanel.initializeGamePanel();
+		//				gamePanel.setDungeon(saveLoad.loadDungeonKeep());
+		//				
+		//				menuWindow.setVisible(false);			
+		//				gameWindow.setVisible(true);
+		//
+		//				gamePanel.repaint();
+		//			}
+		//		});
+		//		btnNewButton.setFont(new Font("Centaur", Font.BOLD, 20));
+		//		btnNewButton.setBounds(275, 291, 220, 49);
+		//		menuWindow.add(btnNewButton);
 
 		gameWindow = new JPanel();
 		frame.getContentPane().add(gameWindow, "name_6288929371178");
@@ -138,7 +154,7 @@ public class gui extends JFrame implements KeyListener {
 		//	gameStateLabel.setText(gamePanel.getStateText());
 
 		gamePanel= new GamePanel();
-		gamePanel.setBounds(37, -12, 570, 564);
+		gamePanel.setBounds(28, -14, 570, 564);
 		gameWindow.add(gamePanel);
 		gamePanel.setLayout(null);
 
@@ -149,13 +165,28 @@ public class gui extends JFrame implements KeyListener {
 		stateLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
 		quitButton = new JButton("Quit");
-		quitButton.setBounds(634, 264, 104, 41);
+		quitButton.setFont(new Font("Centaur", Font.BOLD, 15));
+		quitButton.setBounds(634, 266, 104, 41);
 		gameWindow.add(quitButton);
 
 
 		JButton newGameButton = new JButton("New Game");
-		newGameButton.setBounds(634, 198, 104, 41);
+		newGameButton.setFont(new Font("Centaur", Font.BOLD, 15));
+		newGameButton.setBounds(634, 177, 104, 41);
 		gameWindow.add(newGameButton);
+
+		//		JButton saveGame = new JButton("Save Game");
+		//		saveGame.addActionListener(new ActionListener() {
+		//			public void actionPerformed(ActionEvent arg0) {
+		//				
+		//				saveLoad.saveGamePanel(gamePanel);
+		//				saveLoad.saveDungeonKeep(gamePanel.getDungeon());
+		//				
+		//			}
+		//		});
+		//		saveGame.setFont(new Font("Centaur", Font.BOLD, 15));
+		//		saveGame.setBounds(635, 266, 103, 41);
+		//		gameWindow.add(saveGame);
 
 
 
@@ -194,7 +225,7 @@ public class gui extends JFrame implements KeyListener {
 		editBack.setFont(new Font("Centaur", Font.PLAIN, 20));
 		editBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				boolean save=false;
+//				boolean save=false;
 
 				editWindow.setVisible(false);
 				editDimensions.setVisible(true);
@@ -213,7 +244,7 @@ public class gui extends JFrame implements KeyListener {
 		btnWall.setFont(new Font("Centaur", Font.PLAIN, 20));
 		btnWall.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				((GamePanel) editPanel).setAddingTile(tile.WALL);
+				((GamePanel) editPanel).setAddingTile(TileType.WALL);
 			}
 		});
 		btnWall.setBounds(667, 40, 78, 54);
@@ -223,7 +254,7 @@ public class gui extends JFrame implements KeyListener {
 		btnDoor.setFont(new Font("Centaur", Font.PLAIN, 20));
 		btnDoor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				((GamePanel) editPanel).setAddingTile(tile.DOOR);
+				((GamePanel) editPanel).setAddingTile(TileType.DOOR);
 			}
 		});
 		btnDoor.setBounds(667, 102, 78, 54);
@@ -233,7 +264,7 @@ public class gui extends JFrame implements KeyListener {
 		btnKey.setFont(new Font("Centaur", Font.PLAIN, 20));
 		btnKey.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				((GamePanel) editPanel).setAddingTile(tile.KEY);
+				((GamePanel) editPanel).setAddingTile(TileType.KEY);
 			}
 		});
 		btnKey.setBounds(667, 167, 78, 54);
@@ -243,17 +274,17 @@ public class gui extends JFrame implements KeyListener {
 		btnFloor.setFont(new Font("Centaur", Font.PLAIN, 20));
 		btnFloor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				((GamePanel) editPanel).setAddingTile(tile.FLOOR);
+				((GamePanel) editPanel).setAddingTile(TileType.FLOOR);
 			}
 		});
-		btnFloor.setBounds(667, 232, 78, 54);
+		btnFloor.setBounds(667, 362, 78, 54);
 		editWindow.add(btnFloor);
 
 		btnOgre = new JButton("Ogre");
 		btnOgre.setFont(new Font("Centaur", Font.PLAIN, 20));
 		btnOgre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				((GamePanel) editPanel).setAddingTile(tile.OGRE);
+				((GamePanel) editPanel).setAddingTile(TileType.OGRE);
 			}
 		});
 		btnOgre.setBounds(667, 297, 78, 54);
@@ -263,12 +294,12 @@ public class gui extends JFrame implements KeyListener {
 		btnHero.setFont(new Font("Centaur", Font.PLAIN, 20));
 		btnHero.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				((GamePanel) editPanel).setAddingTile(tile.HERO);
+				((GamePanel) editPanel).setAddingTile(TileType.HERO);
 			}
 		});
-		btnHero.setBounds(667, 362, 78, 54);
+		btnHero.setBounds(667, 232, 78, 54);
 		editWindow.add(btnHero);
-		
+
 		label = new JLabel("Edit Keep Level");
 		label.setHorizontalAlignment(SwingConstants.CENTER);
 		label.setFont(new Font("Centaur", Font.BOLD, 34));
@@ -365,20 +396,24 @@ public class gui extends JFrame implements KeyListener {
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-
 				boolean valid=true;
 
 				try{				
 					choseGuard=comboBox.getSelectedIndex();
 					numberOgres=Integer.parseInt(TextnumberOgres.getText());
-
+					if(numberOgres<0){
+						valid=false;
+						JOptionPane.showMessageDialog(null, "invalid");
+					}
 				}catch (Exception e1){
 					valid=false;
 					JOptionPane.showMessageDialog(null, "invalid");
 				}
 
-				menuWindow.setVisible(true);
-				settingsWindow.setVisible(false);
+				if(valid){
+					menuWindow.setVisible(true);
+					settingsWindow.setVisible(false);
+					gamePanel.setEditedBoardState(false);}
 			}
 		});
 		btnNewButton_2.setBounds(495, 215, 116, 26);
@@ -406,19 +441,19 @@ public class gui extends JFrame implements KeyListener {
 		btnEdit.setFont(new Font("Centaur", Font.BOLD, 16));
 		btnEdit.setBounds(329, 362, 114, 46);
 		settingsWindow.add(btnEdit);
-		
+
 		lblGameSettings = new JLabel("Game Settings");
 		lblGameSettings.setFont(new Font("Centaur", Font.BOLD, 30));
 		lblGameSettings.setHorizontalAlignment(SwingConstants.CENTER);
 		lblGameSettings.setBounds(220, 33, 321, 69);
 		settingsWindow.add(lblGameSettings);
-		
+
 		lblCreateKeepLevel = new JLabel("Create Keep Level");
 		lblCreateKeepLevel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCreateKeepLevel.setFont(new Font("Centaur", Font.BOLD, 18));
 		lblCreateKeepLevel.setBounds(286, 320, 201, 31);
 		settingsWindow.add(lblCreateKeepLevel);
-		
+
 		lblSetEnemys = new JLabel("Set Enemies");
 		lblSetEnemys.setFont(new Font("Centaur", Font.BOLD, 19));
 		lblSetEnemys.setHorizontalAlignment(SwingConstants.CENTER);
@@ -475,5 +510,8 @@ public class gui extends JFrame implements KeyListener {
 	public static void setStateText(String text){
 		stateLabel.setText(text);
 	}
-	
+
+	public GamePanel getGamePanel(){
+		return gamePanel;
+	}
 }

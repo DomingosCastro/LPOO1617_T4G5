@@ -1,6 +1,6 @@
 package dungeon.logic;
 
-public class Rookie extends Guard {
+public class Rookie extends Guard implements java.io.Serializable {
 	
 	public Rookie(char letter, int l, int c) {
 		super(letter, l, c);
