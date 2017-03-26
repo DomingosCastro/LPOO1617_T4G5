@@ -10,17 +10,17 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
+//import javax.swing.JLabel;
+//import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import dungeon.logic.Direction;
 import dungeon.logic.DungeonKeep;
 import dungeon.logic.Ogre;
 import dungeon.logic.TileType;
-
+ 
 @SuppressWarnings("serial")
-public class GamePanel extends JPanel implements java.io.Serializable {
+public class GamePanel extends JPanel {
 
 	private transient Image wall, wall2, floor, door,  key, lever, hero1, hero2, hero3,guard1, guard2, guard3, guard4, drunken, heroClub, 
 	ogreClub1, ogreClub2, ogreClub3, ogreClub4 , ogre, armedHero1,armedHero2,armedHero3,armedHero4 ,stunedOgre, blood;
@@ -36,7 +36,7 @@ public class GamePanel extends JPanel implements java.io.Serializable {
 	private int boardLines, boardColumns;
 	private int editLines, editColumns;
 	private int mouseX, mouseY;
-	private transient JLabel label;
+//	private transient JLabel label;
 	private transient MyMouseAdapter mouseAdapter;
 	private TileType addingTile;
 	private int heroL, heroC, keyL, keyC;
@@ -70,7 +70,7 @@ public class GamePanel extends JPanel implements java.io.Serializable {
 		setFocusable(true);
 		setDoubleBuffered(true);
 	}
-	
+
 	public void startGame(int guard, int ogres){
 		removeMouseListener(mouseAdapter);
 
@@ -79,7 +79,7 @@ public class GamePanel extends JPanel implements java.io.Serializable {
 
 		game.setEnemys(guard, ogres);
 		game.setLevel(1);      
-		
+
 		game.initializeLevel();
 		gameState="normal";
 		initialized=true;
@@ -119,7 +119,7 @@ public class GamePanel extends JPanel implements java.io.Serializable {
 	}
 
 	private void setStateText() {
-		
+
 		switch (gameState){
 		case "normal":
 			if (game.getLevel()==1){
@@ -140,7 +140,7 @@ public class GamePanel extends JPanel implements java.io.Serializable {
 			stateText="GAME OVER";
 			break;
 		}
-		
+
 		gui.setStateText(stateText);
 	}
 
@@ -258,7 +258,7 @@ public class GamePanel extends JPanel implements java.io.Serializable {
 
 					if (game.getBoard().getBoard()[i][j]=='8'){
 						if (gameState=="loser" && game.getHero().getLine()==i && game.getHero().getColumn()==j){
-	
+
 							drawHero(g2d, j, i);
 							drawCharacter(g2d, blood, j, i);}
 
@@ -267,16 +267,13 @@ public class GamePanel extends JPanel implements java.io.Serializable {
 
 					if (game.getBoard().getBoard()[i][j]=='*'){						
 						if (gameState=="loser" && game.getHero().getLine()==i && game.getHero().getColumn()==j){
-		
+
 							drawHero(g2d, j, i);
 							drawCharacter(g2d, blood, j, i);}
-
-
 					}
 					if(game.getLevel()==2)
 						drawOgreClub(g2d, j, i);
 				}
-
 			}
 
 		if (editingBoard){
@@ -310,11 +307,6 @@ public class GamePanel extends JPanel implements java.io.Serializable {
 					drawCharacter(g2d, ogreClub3, j, i);
 				else if (ogre.getLine()==i+1)
 					drawCharacter(g2d, ogreClub4, j, i);	
-//				else if (ogre.getLine()==i-1)
-//					drawCharacter(g2d, ogreClub3, j, i);
-//				else if (ogre.getColumn()==j-1)
-//					drawCharacter(g2d, ogreClub2, j, i);
-//				else drawCharacter(g2d, ogreClub1, j, i);
 			}
 		}
 	}
@@ -437,7 +429,7 @@ public class GamePanel extends JPanel implements java.io.Serializable {
 
 
 		// correcting scaling
-		int temp = (int) (81.0 * tileHeight / 131.0);
+	//	int temp = (int) (81.0 * tileHeight / 131.0);
 		if (this.getHeight() < lines) {
 			tileHeight = this.getHeight() / lines;
 			tileHeight += 81.0 * tileHeight / 131.0;
@@ -491,18 +483,21 @@ public class GamePanel extends JPanel implements java.io.Serializable {
 			mouseX=x;
 			mouseY=y;
 
-			if (addingTile==TileType.WALL)
-				temporaryBoard[mouseY][mouseX]='X';
-
+			if (addingTile==TileType.WALL){
+				if (mouseX>=0  && mouseY>=0 && mouseY<=boardLines-1 && mouseX<=boardColumns-1)
+					if (temporaryBoard[mouseY][mouseX]==' ' || temporaryBoard[mouseY][mouseX]=='I')
+						temporaryBoard[mouseY][mouseX]='X';
+			}
 
 			else if (addingTile==TileType.DOOR){
-				if (mouseX==0 || mouseY==boardLines-1 || mouseY==0 || mouseX==boardColumns-1){
-					temporaryBoard[mouseY][mouseX]='I';
-					exitInBoard=true;
-				}
+				if (mouseX==0 || mouseY==boardLines-1 || mouseY==0 || mouseX==boardColumns-1)
+					if (mouseX!=mouseY){
+						temporaryBoard[mouseY][mouseX]='I';
+						exitInBoard=true;
+					}
 			}
 			else if (mouseX>0  && mouseY>0 && mouseY<boardLines-1 && mouseX<boardColumns-1){
-	
+
 				if (addingTile==TileType.KEY){
 					if(keyInBoard)
 						temporaryBoard[keyL][keyC]=' ';							
@@ -512,8 +507,9 @@ public class GamePanel extends JPanel implements java.io.Serializable {
 					keyL=mouseY;
 					keyC=mouseX;	
 				}
-				else if (addingTile==TileType.FLOOR)
-					temporaryBoard[mouseY][mouseX]=' ';
+				else if (addingTile==TileType.FLOOR){
+					if (temporaryBoard[mouseY][mouseX]=='X')
+						temporaryBoard[mouseY][mouseX]=' ';}
 
 				else if (addingTile==TileType.HERO){
 
@@ -526,7 +522,6 @@ public class GamePanel extends JPanel implements java.io.Serializable {
 
 					else {heroInBoard=true;
 					newPositions.add(0, heroPos);}
-
 
 					temporaryBoard[mouseY][mouseX]='H';
 
@@ -557,7 +552,6 @@ public class GamePanel extends JPanel implements java.io.Serializable {
 			mouseX=x;
 			mouseY=y;
 
-
 			repaint();
 		}
 
@@ -572,13 +566,16 @@ public class GamePanel extends JPanel implements java.io.Serializable {
 
 			mouseX=x;
 			mouseY=y;
-
-			if (addingTile==TileType.WALL)
-				temporaryBoard[mouseY][mouseX]='X';
+			if (addingTile==TileType.WALL){
+				if (mouseX>=0  && mouseY>=0 && mouseY<=boardLines-1 && mouseX<=boardColumns-1)
+					if (temporaryBoard[mouseY][mouseX]==' ' || temporaryBoard[mouseY][mouseX]=='I')
+						temporaryBoard[mouseY][mouseX]='X';
+			}
 
 			else if (addingTile==TileType.FLOOR)
 				if (mouseX>0 && mouseY<boardLines-1 && mouseY>0 && mouseX<boardColumns-1)
-					temporaryBoard[mouseY][mouseX]=' ';
+					if (temporaryBoard[mouseY][mouseX]=='X')
+						temporaryBoard[mouseY][mouseX]=' ';
 
 			repaint();
 		}
@@ -594,16 +591,12 @@ public class GamePanel extends JPanel implements java.io.Serializable {
 				game.setLevel(1);
 
 				valid = true;
-			}			
-
-
-		}				
-
+			}		
+		}		
 		return valid;
 	}
 
 	private class MyKeyboardAdapter extends KeyAdapter {
-
 		public void keyPressed(KeyEvent e) {
 
 			int key = e.getKeyCode();
@@ -617,14 +610,12 @@ public class GamePanel extends JPanel implements java.io.Serializable {
 				playTurn('w');	
 
 			gui.setStateText(stateText);
-
 		}		
 	}
 
 	public void setAddingTile(TileType tile) {
 
 		addingTile=tile;			
-
 	}
 
 	public void clearNewPositions(){
@@ -634,13 +625,6 @@ public class GamePanel extends JPanel implements java.io.Serializable {
 	public void setEditedBoardState(boolean state){
 		boardEdited = state;
 	}
-	
-//	public DungeonKeep getDungeon(){
-//		return game;
-//	}
-//	
-//	public void setDungeon(DungeonKeep dungeon){
-//		game=dungeon;
-//	}
-	
+
+
 }

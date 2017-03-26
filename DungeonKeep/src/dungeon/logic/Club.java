@@ -9,19 +9,36 @@ public class Club implements java.io.Serializable {
 	char letter;
 	Random randNum = new Random();
 	int l, c;
+
+	/**
+	 * Initializes the Club Class, that represent the Hero Club, of the second level
+	 * @param letter - letter that represents the club in the board
+	 */
 	public Club(char letter) {
 		this.letter = letter;
-
-		// TODO Auto-generated constructor stub
 	}
-   public int getLine(){
-	   return l;
-   }
-   
-   public int getColumn(){
-	   return c;
-   }
-   
+
+	/**
+	 * Return the line position of the hero's club in the board
+	 * @return - line position
+	 */
+	public int getLine(){
+		return l;
+	}
+
+	/**
+	 * Return the column position of the hero's club in the board
+	 * @return - column position
+	 */
+	public int getColumn(){
+		return c;
+	}
+
+	/**
+	 * Places the hero club in the board of the second level
+	 * @param board - board object
+	 * @param level - current level
+	 */
 	public void setHeroClub(Board board, int level) {
 
 		if (level==2){
@@ -33,11 +50,6 @@ public class Club implements java.io.Serializable {
 
 				initialized=true;}		
 
-
-			//			if (board.getBoard()[l][c]!='A')
-			//				if (board.getBoard()[l][c]!='$')
-			//				board.setChangingBoardLetter(l, c, letter);
-			//			else letter=' ';
 
 			if (board.getBoard()[l][c]=='A')
 				letter=' ';

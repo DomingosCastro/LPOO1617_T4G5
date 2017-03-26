@@ -1,9 +1,8 @@
 package dungeon.logic;
 
 import java.util.Random;
-//import java.util.ArrayList;
-//import java.util.Arrays;
 
+@SuppressWarnings("serial")
 public class Ogre extends Enemy implements java.io.Serializable 
 {
 	Random randNum = new Random();
@@ -11,29 +10,57 @@ public class Ogre extends Enemy implements java.io.Serializable
 	char clubLetter='*';	
 	int stunnedRounds=0;	
 
+	/**
+	 * Ogre constructor - initializes the letter of the character, and its coordinates
+	 * @param letter - letter that represents the character in the board
+	 * @param l - line position 
+	 * @param c - column position
+	 */
 	public Ogre(char letter, int l, int c) {
 		super(letter, l, c);
 		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * Sets the coordinates of the ogre's club
+	 * @param line - line position
+	 * @param column - column position
+	 */
 	public void setClub(int line, int column){
 		clubL=line;
 		clubC=column;
 	}
 	
-	
+	/**
+	 * Returns the club linw
+	 * @return
+	 */
 	public int getClubLine(){
 		return clubL;
 	}
 	
+	/**
+	 * Return the club column
+	 * @return
+	 */
 	public int getClubColumn(){
 		return clubC;
 	}
 
+	/**
+	 * Return the club letter
+	 * @return
+	 */
 	public char getClubLetter(){
 		return clubLetter;
 	}
 	
+	/**
+	 * Moves the ogre and his club. Both movements are randomly set. Checks if the ogre is attacked by the armed hero.
+	 * Updates the letters of the ogre and club 
+	 * @param board - board object
+	 * @param hero - hero object
+	 */
 	public void moveOgre(Board board, Hero hero){
 
 		boolean valid = true;
@@ -77,7 +104,9 @@ public class Ogre extends Enemy implements java.io.Serializable
 		
 	}
 	
-		
+	/**
+	 * Establishes a ramdom direction for the ogre	
+	 */
 	public void movingDirection() {
 		
 		int direction=randNum.nextInt(4);
@@ -92,6 +121,11 @@ public class Ogre extends Enemy implements java.io.Serializable
 			dir=Direction.RIGHT;
 	}
 		
+	/**
+	 * Establishes a random position for the club. Returns "true" if the position is valid; "false" if it is invalid
+	 * @param board - board object
+	 * @return - boolean that states if the attributed position is valid
+	 */
 	public boolean moveClub(Board board){
 		char[][] boardTiles=board.getBoard();
 		boolean valid=true;
@@ -130,12 +164,18 @@ public class Ogre extends Enemy implements java.io.Serializable
 		return valid;
 	}
 	
+	/**
+	 * Updates the Lethal Tiles (tiles that kill the hero) of the ogre, by introducing the tiles around the club
+	 * @param l - club line
+	 * @param c - club column
+	 * @param ogreLethalTiles - ogre lethal tiles (before the introduction of the club lethal tiles)
+	 */
 	public void setClubLethalTiles(int l, int c, int[][] ogreLethalTiles){
 		int[][] clubLethalTiles=new int[][] {{l,c}, {l+1,c}, {l, c+1}, {l-1, c}, {l, c-1}};
 		lethalTiles=concat(clubLethalTiles, ogreLethalTiles );
 	}
 
-	public int[][] concat(int[][] a, int[][] b) {
+	private int[][] concat(int[][] a, int[][] b) {
 		int[][] result = new int[a.length + b.length][];
 		System.arraycopy(a, 0, result, 0, a.length);
 		System.arraycopy(b, 0, result, a.length, b.length);

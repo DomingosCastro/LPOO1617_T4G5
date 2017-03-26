@@ -7,9 +7,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-
-//import dungeon.cli.SaveLoad;
-import dungeon.cli.ShowBoard;
 import dungeon.logic.TileType;
 
 import javax.swing.JButton;
@@ -25,12 +22,12 @@ import javax.swing.JSlider;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 
+@SuppressWarnings("serial")
 public class gui extends JFrame implements KeyListener {
 	
 	private JFrame frame;
 	private JTextField TextnumberOgres;
 	static private GamePanel gamePanel;
-	ShowBoard showBoard = new ShowBoard();
 	private JPanel menuWindow;
 	private JButton quitButton;
 	private JPanel gameWindow;

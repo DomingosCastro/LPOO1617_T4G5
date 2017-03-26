@@ -1,12 +1,8 @@
 package dungeon.test;
 
-import static org.junit.Assert.*;
-
-import java.util.ArrayList;
 
 import org.junit.Test;
 import dungeon.logic.Board;
-import dungeon.logic.Hero;
 import dungeon.logic.Ogre;
 
 public class TestRandomOgre {

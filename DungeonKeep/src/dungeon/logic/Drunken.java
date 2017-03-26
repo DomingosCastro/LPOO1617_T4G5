@@ -2,20 +2,28 @@ package dungeon.logic;
 
 import java.util.Random;
 
+@SuppressWarnings("serial")
 public class Drunken extends Guard implements java.io.Serializable {
 	
 	Random randNum=new Random();
 
-
+/**
+ * Drunken constructor - initializes the letter of the character, and its coordinates
+ * @param letter - letter that represents the character in the board
+ * @param l - line position 
+ * @param c - column position
+ */
 	public Drunken(char letter, int l, int c) {
 		super(letter, l, c);
 		// TODO Auto-generated constructor stub
 	} 
 
+	/**
+	 * Moves the Drunken character in the board. Sets if the Drunken falls asleep or wakes up
+	 * @param board - Board object
+	 */
 	public void moveGuard(Board board){
-		
-		char[][] boardTiles=board.getBoard();
-		
+				
     	// Controla o sono do guarda
     	randomSleep();    	
     	
@@ -27,7 +35,10 @@ public class Drunken extends Guard implements java.io.Serializable {
     	setLethalTiles(awakeState, l, c);
 	}
 	
-	
+	/**
+	 * Makes the Drunken fall asleep and wake up, randomly. When he falls asleep, his letter is updated
+	 * Sets, randomly, the moving direction every time it wakes up
+	 */
 	public void randomSleep(){
 		
 		// Estado atual: awakeState
