@@ -19,6 +19,16 @@ public class Club implements java.io.Serializable {
 	}
 
 	/**
+	 * Returns the club letter
+	 * @return
+	 */
+	
+	public char getSwordLetter()
+	{
+		return letter;
+	}
+	
+	/**
 	 * Return the line position of the hero's club in the board
 	 * @return - line position
 	 */
