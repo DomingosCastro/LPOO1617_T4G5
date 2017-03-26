@@ -62,6 +62,11 @@ public class TestDungeonGameLogic {
 				{'X', ' ', ' ', ' ', 'X'},
 				{'X', ' ', ' ', ' ', 'X'},
 				{'X', 'X', 'X', 'X', 'X'}};
+		
+		char[][] map7 = {{'X', 'X', 'X'},
+				{'X', ' ', ' '},
+				{'I', ' ', ' '}};
+				
 	
 		ShowBoard showBoard = new ShowBoard();
 	
@@ -399,7 +404,8 @@ public class TestDungeonGameLogic {
 			}
 	
 		}
-		
+	
+	
 	
 		@Test
 		public void testGetHeroArmed(){
@@ -508,28 +514,53 @@ public class TestDungeonGameLogic {
 		@Test
 		public void testLevelSetting()
 		{
-			DungeonKeep m = new DungeonKeep();
+			DungeonKeep dk = new DungeonKeep();
 			
-			for (int i = 1; i <= m.getTotalNLevels(); i++)
+			for (int i = 1; i <= dk.getTotalNLevels(); i++)
 			{
-				m.setLevel(i);
-				assertEquals(i, m.getLevel());
+				dk.setLevel(i);
+				assertEquals(i, dk.getLevel());
 			}
 		}
 		
 		@Test
 		public void testLevelInitialization()
 		{
-			DungeonKeep m = new DungeonKeep();
+			DungeonKeep dk = new DungeonKeep();
 			
-			for (int i = 1; i <= m.getTotalNLevels(); i++)
+			dk.setLevel(1);
+			for (int i = 0; i <= 2; i++)
 			{
-				m.setLevel(i);
-				m.initializeLevel();
+				dk.setEnemys(i, 0);
+				dk.initializeLevel();
+				assertEquals(2, dk.getCharacters().size());
 			}
+			
+			dk.setLevel(2);
+			dk.setEnemys(0, 1);
+			dk.initializeLevel();
+			assertEquals(2, dk.getCharacters().size());
 			
 		}
 		
+		@Test
+		public void testGuardState()
+		{
+			DungeonKeep dk = new DungeonKeep();
+			
+			dk.setLevel(1);
+			dk.setEnemys(0, 0);
+			dk.initializeLevel();
+			assertEquals(true, dk.getGuard().getAwakeState());
+		}
+		
+		@Test
+		public void testBoardDimensions()
+		{
+			Board board = new Board(map4);
+			assertEquals(map4.length, board.getLines());
+			assertEquals(map4[0].length, board.getColumns());
+		}
 		
 		@Test
 		public void testEditedBoard()
@@ -557,7 +588,42 @@ public class TestDungeonGameLogic {
 			assertTrue(valid);
 		}
 			
+		@Test
+		public void testClub()
+		{
+			DungeonKeep dk = new DungeonKeep();
 			
+			dk.setLevel(2);
+			dk.setEnemys(0, 1);
+			dk.initializeLevel();
+			
+			assertEquals('*', dk.getOgres().get(0).getClubLetter());
+		}
 		
+		@Test
+		public void testSword()
+		{
+			DungeonKeep dk = new DungeonKeep();
+			
+			dk.setLevel(1);
+			dk.setEnemys(0, 0);
+			dk.initializeLevel();
+	
+			assertEquals('c', dk.getHeroClub().getSwordLetter());
+		}
 		
+		@Test
+		public void testHeroArmedStateAtLevel1()
+		{
+			DungeonKeep dk = new DungeonKeep();
+			
+			dk.setLevel(1);
+			dk.setEnemys(0, 0);
+			dk.initializeLevel();
+	
+			assertEquals(false, dk.getHero().getArmedState());
+		}
+		
+
 }
+
