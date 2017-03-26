@@ -14,14 +14,15 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import dungeon.logic.Direction;
 import dungeon.logic.DungeonKeep;
 import dungeon.logic.Ogre;
 import dungeon.logic.TileType;
 
 public class GamePanel extends JPanel {
 
-	private Image wall, wall2, floor, door,  key, lever, hero, guard, drunken, heroClub, 
-	ogreClub , ogre, armedHero, stunedOgre, blood;
+	private Image wall, wall2, floor, door,  key, lever, hero1, hero2, hero3,guard1, guard2, guard3, guard4, drunken, heroClub, 
+	ogreClub1, ogreClub2, ogreClub3, ogreClub4 , ogre, armedHero1,armedHero2,armedHero3,armedHero4 ,stunedOgre, blood;
 	static private DungeonKeep game;
 	private String gameState;
 	private String stateText;
@@ -59,7 +60,7 @@ public class GamePanel extends JPanel {
 
 	public void startGame(int guard, int ogres){
 		removeMouseListener(mouseAdapter);
-		
+
 		if(!boardEdited)
 			game = new DungeonKeep();
 
@@ -73,10 +74,9 @@ public class GamePanel extends JPanel {
 		if(boardEdited)
 			game.setEditedBoard(editedBoard, newPositions);
 
-		//setLabel(gui.getLabel());
-		//showMessage();
+
 		setStateText();
-	    gui.setStateText(stateText);
+		gui.setStateText(stateText);
 	}
 
 	public void playTurn(char direction ){
@@ -128,7 +128,7 @@ public class GamePanel extends JPanel {
 			break;
 		}
 		//showMessage();
-		 gui.setStateText(stateText);
+		gui.setStateText(stateText);
 	}
 
 	public String getStateText(){
@@ -152,17 +152,29 @@ public class GamePanel extends JPanel {
 
 		key= new ImageIcon(this.getClass().getResource("/key.png")).getImage();
 
-		hero= new ImageIcon(this.getClass().getResource("/hero.png")).getImage();
+		hero1= new ImageIcon(this.getClass().getResource("/hero1.png")).getImage();
+		hero2= new ImageIcon(this.getClass().getResource("/hero2.png")).getImage();
+		hero3= new ImageIcon(this.getClass().getResource("/hero3.png")).getImage();
 
-		guard= new ImageIcon(this.getClass().getResource("/guard.png")).getImage();
+		guard1= new ImageIcon(this.getClass().getResource("/guard1.png")).getImage();
+		guard2= new ImageIcon(this.getClass().getResource("/guard2.png")).getImage();
+		guard3= new ImageIcon(this.getClass().getResource("/guard3.png")).getImage();
+		guard4= new ImageIcon(this.getClass().getResource("/guard4.png")).getImage();
 
 		ogre= new ImageIcon(this.getClass().getResource("/ogre.png")).getImage();
 
-		ogreClub= new ImageIcon(this.getClass().getResource("/ogreClub.png")).getImage();
+		ogreClub1= new ImageIcon(this.getClass().getResource("/ogreClub1.png")).getImage();
+		ogreClub2= new ImageIcon(this.getClass().getResource("/ogreClub2.png")).getImage();
+		ogreClub3= new ImageIcon(this.getClass().getResource("/ogreClub3.png")).getImage();
+		ogreClub4= new ImageIcon(this.getClass().getResource("/ogreClub4.png")).getImage();
 
 		ogre= new ImageIcon(this.getClass().getResource("/ogre.png")).getImage();
 
-		armedHero=new ImageIcon(this.getClass().getResource("/heroArmed2.png")).getImage();
+		armedHero1=new ImageIcon(this.getClass().getResource("/armedHero1.png")).getImage();
+		armedHero2=new ImageIcon(this.getClass().getResource("/armedHero2.png")).getImage();
+		armedHero3=new ImageIcon(this.getClass().getResource("/armedHero3.png")).getImage();
+		armedHero4=new ImageIcon(this.getClass().getResource("/armedHero4.png")).getImage();
+
 
 		heroClub = new ImageIcon(this.getClass().getResource("/heroClub.png")).getImage();
 
@@ -194,35 +206,20 @@ public class GamePanel extends JPanel {
 				for (int j = 0; j < game.getBoard().getColumns(); j++) {
 					drawMaze(g2d, game.getBoard().getBoard(),i, j);
 
-					if (game.getBoard().getBoard()[i][j]=='H' || game.getBoard().getBoard()[i][j]=='K' || game.getBoard().getBoard()[i][j]=='A'){					
-						if(game.getHero().getArmedState())
-							drawCharacter(g2d, armedHero, j, i);
-						else
-							drawCharacter(g2d, hero, j, i);
-
+					if (game.getBoard().getBoard()[i][j]=='H' || game.getBoard().getBoard()[i][j]=='K' || game.getBoard().getBoard()[i][j]=='A'){	
+						drawHero(g2d, j, i);
 						if (gameState=="loser")
 							drawCharacter(g2d, blood, j, i);
 					}
 
-					if (game.getBoard().getBoard()[i][j]=='G'){						
+					if (game.getBoard().getBoard()[i][j]=='G' || game.getBoard().getBoard()[i][j]=='g'){						
 
-						drawCharacter(g2d, guard, j, i);
+						drawGuard(g2d, j, i);
 						if (gameState=="loser" && game.getHero().getLine()==i && game.getHero().getColumn()==j){
-							if(game.getHero().getArmedState())
-								drawCharacter(g2d, armedHero, j, i);
-							else
-								drawCharacter(g2d, hero, j, i);
-
+							drawHero(g2d, j, i);
 							drawCharacter(g2d, blood, j, i);}
 					}
 
-					if (game.getBoard().getBoard()[i][j]=='g'){
-
-						drawCharacter(g2d, drunken, j, i);
-
-						if (gameState=="loser" && game.getHero().getLine()==i && game.getHero().getColumn()==j){							
-							drawCharacter(g2d, blood, j, i);}
-					}
 
 					if (game.getBoard().getBoard()[i][j]=='c')
 						drawCharacter(g2d, heroClub, j, i);
@@ -231,11 +228,7 @@ public class GamePanel extends JPanel {
 
 						drawCharacter(g2d, ogre, j, i);
 						if (gameState=="loser" && game.getHero().getLine()==i && game.getHero().getColumn()==j){
-							if(game.getHero().getArmedState())
-								drawCharacter(g2d, armedHero, j, i);
-							else
-								drawCharacter(g2d, hero, j, i);
-
+							drawHero(g2d, j, i);
 							drawCharacter(g2d, blood, j, i);}
 					}
 
@@ -255,11 +248,8 @@ public class GamePanel extends JPanel {
 
 					if (game.getBoard().getBoard()[i][j]=='8'){
 						if (gameState=="loser" && game.getHero().getLine()==i && game.getHero().getColumn()==j){
-							if(game.getHero().getArmedState())
-								drawCharacter(g2d, armedHero, j, i);
-							else
-								drawCharacter(g2d, hero, j, i);
-
+	
+							drawHero(g2d, j, i);
 							drawCharacter(g2d, blood, j, i);}
 
 						drawCharacter(g2d, stunedOgre, j, i);
@@ -267,18 +257,16 @@ public class GamePanel extends JPanel {
 
 					if (game.getBoard().getBoard()[i][j]=='*'){						
 						if (gameState=="loser" && game.getHero().getLine()==i && game.getHero().getColumn()==j){
-							if(game.getHero().getArmedState())
-								drawCharacter(g2d, armedHero, j, i);
-							else
-								drawCharacter(g2d, hero, j, i);
+		
+							drawHero(g2d, j, i);
 							drawCharacter(g2d, blood, j, i);}
 
-					
+
 					}
 					if(game.getLevel()==2)
-					drawOgreClub(g2d, ogreClub, j, i);
+						drawOgreClub(g2d, j, i);
 				}
-				
+
 			}
 
 		if (editingBoard){
@@ -287,7 +275,7 @@ public class GamePanel extends JPanel {
 					drawMaze(g2d, temporaryBoard,i, j );
 
 					if (temporaryBoard[i][j]=='H')
-						drawCharacter(g2d, hero, j, i);
+						drawCharacter(g2d, hero1, j, i);
 					if (temporaryBoard[i][j]=='O')
 						drawCharacter(g2d, ogre, j, i);
 				}
@@ -296,18 +284,74 @@ public class GamePanel extends JPanel {
 
 	}
 
-	private void drawOgreClub(Graphics2D g2d, Image ogreClub2, int j, int i) {
+	private void drawOgreClub(Graphics2D g2d, int j, int i) {
 		ArrayList<Ogre> ogres = game.getOgres();
+
+
 		for(Ogre ogre : ogres){
+
+
 			if(ogre.getClubLine()==i && ogre.getClubColumn()==j){
-				drawCharacter(g2d, ogreClub, j, i);
-			
+				if(ogre.getColumn()==j-1)
+					drawCharacter(g2d, ogreClub1, j, i);
+				else if(ogre.getColumn()==j+1)
+					drawCharacter(g2d, ogreClub2, j, i);
+				else if (ogre.getLine()==i-1)
+					drawCharacter(g2d, ogreClub3, j, i);
+				else if (ogre.getLine()==i+1)
+					drawCharacter(g2d, ogreClub4, j, i);	
+//				else if (ogre.getLine()==i-1)
+//					drawCharacter(g2d, ogreClub3, j, i);
+//				else if (ogre.getColumn()==j-1)
+//					drawCharacter(g2d, ogreClub2, j, i);
+//				else drawCharacter(g2d, ogreClub1, j, i);
 			}
 		}
 	}
 
-	
-	
+	private void drawGuard(Graphics2D g2d, int j, int i){
+		Image guard=guard3;
+		if (game.getGuard().getAwakeState()){
+			if(game.getGuard().getDir()==Direction.RIGHT)
+				guard = guard1;
+			else if(game.getGuard().getDir()==Direction.DOWN)
+				guard = guard2;
+			else if (game.getGuard().getDir()==Direction.LEFT)
+				guard = guard3;
+			else if(game.getGuard().getDir()==Direction.UP)
+				guard = guard4;}
+		else guard=drunken;
+
+		drawCharacter(g2d, guard, j, i);
+	}
+
+	private void drawHero(Graphics2D g2d, int j, int i){
+		Image hero=hero1;
+		if(game.getHero().getArmedState()){
+			if(game.getHero().getDir()==Direction.RIGHT)
+				hero = armedHero1;
+			else if(game.getHero().getDir()==Direction.DOWN)
+				hero = armedHero2;
+			else if (game.getHero().getDir()==Direction.LEFT)
+				hero = armedHero3;
+			else if(game.getHero().getDir()==Direction.UP)
+				hero = armedHero4;
+		}
+
+
+		else if(game.getHero().getDir()==Direction.RIGHT)
+			hero = hero1;
+		else if(game.getHero().getDir()==Direction.UP)
+			hero = hero3;
+		else if (game.getHero().getDir()==Direction.LEFT)
+			hero = hero2;
+		else if(game.getHero().getDir()==Direction.DOWN)
+			hero = hero1;
+
+		drawCharacter(g2d, hero, j, i);
+
+	}
+
 	public void initializeBoardEditing(int lines, int columns){		
 
 		game=new DungeonKeep();
@@ -391,7 +435,7 @@ public class GamePanel extends JPanel {
 		}
 
 		int dstX = x * tileWidth;
-		
+
 		int dstY, yCorrection;
 
 		if (tile == wall || tile == wall2)
@@ -436,7 +480,7 @@ public class GamePanel extends JPanel {
 
 			mouseX=x;
 			mouseY=y;
-			
+
 			if (addingTile==TileType.WALL)
 				temporaryBoard[mouseY][mouseX]='X';
 
@@ -448,8 +492,7 @@ public class GamePanel extends JPanel {
 				}
 			}
 			else if (mouseX>0  && mouseY>0 && mouseY<boardLines-1 && mouseX<boardColumns-1){
-				System.out.println(mouseX);
-				System.out.println(mouseY);
+	
 				if (addingTile==TileType.KEY){
 					if(keyInBoard)
 						temporaryBoard[keyL][keyC]=' ';							
@@ -461,7 +504,7 @@ public class GamePanel extends JPanel {
 				}
 				else if (addingTile==TileType.FLOOR)
 					temporaryBoard[mouseY][mouseX]=' ';
-				
+
 				else if (addingTile==TileType.HERO){
 
 					int[] heroPos = {mouseY, mouseX};
@@ -552,9 +595,9 @@ public class GamePanel extends JPanel {
 	private class MyKeyboardAdapter extends KeyAdapter {
 
 		public void keyPressed(KeyEvent e) {
-			
-		//	showMessage();
-			
+
+			//	showMessage();
+
 			int key = e.getKeyCode();
 			if (key == KeyEvent.VK_RIGHT)
 				playTurn('d');			
@@ -564,9 +607,9 @@ public class GamePanel extends JPanel {
 				playTurn('a');
 			else if (key == KeyEvent.VK_UP)
 				playTurn('w');	
-			
-			 gui.setStateText(stateText);
-			
+
+			gui.setStateText(stateText);
+
 		}		
 	}
 
@@ -580,13 +623,13 @@ public class GamePanel extends JPanel {
 		game.clearNewPositions();
 	}
 
-//	public void setLabel(JLabel label){
-//		this.label=gui.getLabel();
-//	}
-	
+	//	public void setLabel(JLabel label){
+	//		this.label=gui.getLabel();
+	//	}
+
 	public void showMessage(){
 		//label.setText(stateText);
-	
+
 	}
-	
+
 }

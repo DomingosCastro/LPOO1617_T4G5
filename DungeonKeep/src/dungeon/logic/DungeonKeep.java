@@ -102,6 +102,10 @@ public class DungeonKeep
 		return hero;
 	}
 
+	public Guard getGuard(){
+		return guards.get(0);
+	}
+	
 	public Club getHeroClub(){
 		return heroClub;
 	}
@@ -161,7 +165,6 @@ public class DungeonKeep
 			if (edited){
 				board= new Board(editedBoard);
 				initializeEditedCharacters();
-
 			}
 			else board=new Board(fixedBoard2);
 
