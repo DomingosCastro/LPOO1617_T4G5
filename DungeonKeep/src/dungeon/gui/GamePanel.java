@@ -82,6 +82,7 @@ public class GamePanel extends JPanel {
 		gameState="normal";
 		initialized=true;
 		requestFocus();
+		
 		if(boardEdited)
 			game.setEditedBoard(editedBoard, newPositions);
 

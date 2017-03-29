@@ -35,7 +35,7 @@ public class TestDungeonGameLogic {
 				{'I', ' ', ' ', ' ', 'X'},
 				{'I', 'k', ' ', ' ', 'X'},
 				{'X', 'X', 'X', 'X', 'X'}};
-	
+	 
 		char[][] map3 = {{'X', 'X', 'X', 'X', 'X'},
 				{'X', ' ', ' ', ' ', 'X'},
 				{'I', ' ', ' ', ' ', 'X'},

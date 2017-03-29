@@ -162,10 +162,6 @@ public class DungeonKeep implements java.io.Serializable
 		return level;
 	}
 
-	//		public boolean getInitialized(){
-	//			return initialized;
-	//		}
-
 	/**
 	 * Sets the current level
 	 * @param level
@@ -213,14 +209,14 @@ public class DungeonKeep implements java.io.Serializable
 		}
 
 		else if (level==2)
-		{
-			hero = new Hero('H', 7, 2);	
+		{	
 
 			if (edited){
 				board= new Board(editedBoard);
 				initializeEditedCharacters();
 			}
-			else board=new Board(fixedBoard2);
+			else {board=new Board(fixedBoard2);
+			hero = new Hero('H', 7, 2);}
 
 			heroClub = new Club('c') ;
 			heroClub.setHeroClub(board, level);
@@ -236,7 +232,6 @@ public class DungeonKeep implements java.io.Serializable
 
 		board.setCharactersInBoard(characters);//, level);
 		heroClub.setHeroClub(board, level);
-
 	}
 
 	/**

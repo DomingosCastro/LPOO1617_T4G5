@@ -114,7 +114,7 @@ public class Guard extends Enemy {
 	/**
 	 * Sets, randomly, the boolean variable "changeRoute" which states if the guard must invert the direction.
 	 * @param range - A random number is generated between 0 and range-1. The range of values will determine the
-	 * probability if changing the direction 
+	 * probability of changing the direction 
 	 */
 	protected void randomRouteChange(int range){
 		changeRoute=false;
