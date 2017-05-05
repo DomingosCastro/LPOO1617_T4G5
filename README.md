@@ -12,16 +12,16 @@ No sentido de tornar o Bunny menos vulnerável ao ataque dos seus inimigos, o jo
 </p>
 Interface:</p>
 </p>
-Main Menu
+Main Menu</p>
 ![main menu](https://cloud.githubusercontent.com/assets/25747718/25766842/0d0bd910-31ed-11e7-980f-1529f5072ce5.PNG)
 </p>
-Jogo
+Jogo</p>
 ![play alternate 405p](https://cloud.githubusercontent.com/assets/25747718/25766757/5fc85d64-31ec-11e7-84d8-8d8f99c6e1df.png)
 ![play copy alternate 405p](https://cloud.githubusercontent.com/assets/25747718/25766759/616466cc-31ec-11e7-9a62-fcf4ebf74390.png)
-</p>Controlos
+</p>Controlos</p>
 ![controls](https://cloud.githubusercontent.com/assets/25747718/25766727/26621e48-31ec-11e7-8a2a-0dbbce94b0c2.png)
 </p>
 </p>
-Diagrama de Classes
+Diagrama de Classes</p>
 ![game 2](https://cloud.githubusercontent.com/assets/25747718/25766689/dbb39fd4-31eb-11e7-87a4-5843c29876bc.png)
 
