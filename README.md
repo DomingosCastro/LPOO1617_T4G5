@@ -37,9 +37,9 @@ Main Menu<p>
 </p> 
 </p>
 </p><b>Design Patterns</b></p>
-Singleton: Garantir uma única instancia de GameStateManager de acesso global<p>
-Strategy: Diferentes tipos de inimigos que executam diferentes ações (ex: JUMPING, FLYING, etc). Cada tipo de inimigo pode executá-las usando um algoritmo (strategy) diferente</p>
-State: As personagens podem ter diferentes estados que limitam as ações (ex: JUMPING, DOUBLE JUMPING, DIVING , etc) que podem ser realizadas em cada momento do jogo. Por exemplo, a ação “salto duplo” só está disponível se o estado atual da personagem for JUMPING.
+<b>Singleton:<b/> Garantir uma única instancia de GameStateManager de acesso global<p>
+<b>Strategy:</b> Diferentes tipos de inimigos que executam diferentes ações (ex: JUMPING, FLYING, etc). Cada tipo de inimigo pode executá-las usando um algoritmo (strategy) diferente<p>
+<b>State:</b> As personagens podem ter diferentes estados que limitam as ações (ex: JUMPING, DOUBLE JUMPING, DIVING , etc) que podem ser realizadas em cada momento do jogo. Por exemplo, a ação “salto duplo” só está disponível se o estado atual da personagem for JUMPING.
 </p>
 </p><b> Unitary Tests</b></p>
 - O botão “Play” efetua a transição do estado “MenuState” para “PlayState”<p>
