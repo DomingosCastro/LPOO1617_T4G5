@@ -13,10 +13,10 @@ No sentido de tornar o Bunny menos vulnerável ao ataque dos seus inimigos, o jo
 Interface</p>
 Main Menu<p>
 ![main menu](https://cloud.githubusercontent.com/assets/25747718/25767244/864b6d8e-31ef-11e7-8a7e-6f938941c9ea.PNG)
-Jogo<p>
+</p>Jogo<p>
 ![play alternate 405p](https://cloud.githubusercontent.com/assets/25747718/25767242/863a1372-31ef-11e7-8058-8d029edb5889.png)
 ![play copy alternate 405p](https://cloud.githubusercontent.com/assets/25747718/25767243/864b4a98-31ef-11e7-9568-e4a324499538.png)
-Contrlos<p>
+</p>Contrlos<p>
 ![controls](https://cloud.githubusercontent.com/assets/25747718/25767241/861d1484-31ef-11e7-8be4-e4677fd40c0b.png)
 </p>
 Package Diagram</p>
@@ -29,31 +29,31 @@ Package Diagram</p>
 (https://cloud.githubusercontent.com/assets/25747718/25767246/865246e0-31ef-11e7-8091-2d3d5e1e8a12.png)
 <p>Design Patterns
 
-<p> Unitary Tests
-- O botão “Play” efetua a transição do estado “MenuState” para “PlayState”
-- Bunny muda de cor de acordo com o input 
-- Bunny cai quando a sua cor é diferente da cor da plataforma
-- A vida do Bunny acaba cai de uma plataforma
-- Bunny não cai quando a sua cor é igual à da plataforma
-- Bunny salta, faz salto duplo, e “mergulha” de acordo com o input
-- Crawler (Enemy) move-se sozinho sobre a plataforma
-- Jumper (Enemy) salta sobre a plataforma
-- Os inimigos caem das plataformas
-- o Bunny perde vida quando colide com um Enemy
-- O Enemy morre quando o Bunny os pisa
-  - Os Items de Jogo (Coins, PowerUps, HeatlhPackge, etc) desaparecem do ecrã quando o Bunny os apanha
-- Quando estes items são colecionados:
- 	- HeatlhPackage: aumenta a vida do Buny
-	- ExtraTime: aumenta o tempo de nível disponível 
-	- Coins: incrementa o números de Coins colecionadas
-	- PowerUps: atualiza o powerup armazenado no HUD
-- Ativar PowerUp armazenado, de acordo com input: 
-- Shield: imune à colisão com inimigos
-- Bullet: é lançado um projétil 
-- Projétil elimina o inimigo quando o atinge  
-- Transição para o estado “GameOverState” quando a vida do Bunny acaba.
-- Transição para WinState quando o Tempo acaba
-- Numero de coins é armazenado nos Highscores aquando da transição para WinState
+<p> Unitary Tests<p>
+- O botão “Play” efetua a transição do estado “MenuState” para “PlayState”<p>
+- Bunny muda de cor de acordo com o input <p>
+- Bunny cai quando a sua cor é diferente da cor da plataforma<p>
+- A vida do Bunny acaba cai de uma plataforma<p>
+- Bunny não cai quando a sua cor é igual à da plataforma<p>
+- Bunny salta, faz salto duplo, e “mergulha” de acordo com o input<p>
+- Crawler (Enemy) move-se sozinho sobre a plataforma<p>
+- Jumper (Enemy) salta sobre a plataforma<p>
+- Os inimigos caem das plataformas<p>
+- o Bunny perde vida quando colide com um Enemy<p>
+- O Enemy morre quando o Bunny os pisa<p>
+  - Os Items de Jogo (Coins, PowerUps, HeatlhPackge, etc) desaparecem do ecrã quando o Bunny os apanha<p>
+- Quando estes items são colecionados:<p>
+ 	- HeatlhPackage: aumenta a vida do Buny<p>
+	- ExtraTime: aumenta o tempo de nível disponível <p>
+	- Coins: incrementa o números de Coins colecionadas<p>
+	- PowerUps: atualiza o powerup armazenado no HUD<p>
+- Ativar PowerUp armazenado, de acordo com input: <p>
+- Shield: imune à colisão com inimigos<p>
+- Bullet: é lançado um projétil <p>
+- Projétil elimina o inimigo quando o atinge  <p>
+- Transição para o estado “GameOverState” quando a vida do Bunny acaba.<p>
+- Transição para WinState quando o Tempo acaba<p>
+- Numero de coins é armazenado nos Highscores aquando da transição para WinState<p>
 
 
 
