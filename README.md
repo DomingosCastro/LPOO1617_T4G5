@@ -41,7 +41,7 @@ Main Menu<p>
 <b>Strategy:</b> Diferentes tipos de inimigos que executam diferentes ações (ex: JUMPING, FLYING, etc). Cada tipo de inimigo pode executá-las usando um algoritmo (strategy) diferente<p>
 <b>State:</b> As personagens podem ter diferentes estados que limitam as ações (ex: JUMPING, DOUBLE JUMPING, DIVING , etc) que podem ser realizadas em cada momento do jogo. Por exemplo, a ação “salto duplo” só está disponível se o estado atual da personagem for JUMPING.
 </p>
-</p><b> Unitary Tests</b></p>
+<b> Unitary Tests</b><p>
 - O botão “Play” efetua a transição do estado “MenuState” para “PlayState”<p>
 - Bunny muda de cor de acordo com o input <p>
 - Bunny cai quando a sua cor é diferente da cor da plataforma<p>
