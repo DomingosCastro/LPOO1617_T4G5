@@ -15,25 +15,24 @@ No sentido de tornar o Bunny menos vulnerável ao ataque dos seus inimigos, o jo
 </p>
 <b>Interface</b></p>
 Main Menu<p>
-![main menu](https://cloud.githubusercontent.com/assets/25747718/25767739/f82402dc-31f3-11e7-8204-e876f4845e82.PNG)
+![main menu](https://cloud.githubusercontent.com/assets/25747718/25767772/42724e16-31f4-11e7-8a7e-09a66118d1d0.PNG)
 </p>Jogo<p>
-![play alternate 405p](https://cloud.githubusercontent.com/assets/25747718/25767242/863a1372-31ef-11e7-8058-8d029edb5889.png)<p>
-![play copy alternate 405p](https://cloud.githubusercontent.com/assets/25747718/25767243/864b4a98-31ef-11e7-9568-e4a324499538.png)
+![play alternate 405p](https://cloud.githubusercontent.com/assets/25747718/25767769/425c59e4-31f4-11e7-8636-8e633fbcfac1.png)<p>
+![play copy alternate 405p](https://cloud.githubusercontent.com/assets/25747718/25767773/42764eee-31f4-11e7-88d2-a5acf6d5cbd8.png)
 </p>Controlos<p>
-![controls](https://cloud.githubusercontent.com/assets/25747718/25767241/861d1484-31ef-11e7-8be4-e4677fd40c0b.png)
+![controls](https://cloud.githubusercontent.com/assets/25747718/25767768/424176e2-31f4-11e7-8ace-f5e5ae3fc2f9.png)
 </p>
 </p>
 <b>Package Diagram</b><p>
-![untitled diagram 1](https://cloud.githubusercontent.com/assets/25747718/25767479/8384661c-31f1-11e7-8d3a-bf399e5b1f4b.png)
-
+![untitled diagram 1](https://cloud.githubusercontent.com/assets/25747718/25767778/53a170f4-31f4-11e7-8bc6-3961d370da60.png)
 </p>
 </p><b>Class Diagram</b><p>
-![game 2](https://cloud.githubusercontent.com/assets/25747718/25767245/8650de22-31ef-11e7-8d84-31af075ab1b7.png)
+![game 2](https://cloud.githubusercontent.com/assets/25747718/25767770/427132ec-31f4-11e7-90e1-d6cc5e862e03.png)
 </p>Descrição do Class Diagram: [classes.pdf](https://github.com/DomingosCastro/LPOO1617_T4G5/files/980519/classes.pdf)
 
 </p>
 </p><b>Design of behavioural aspects state</b><p>
-![design of behavioural aspects state](https://cloud.githubusercontent.com/assets/25747718/25767246/865246e0-31ef-11e7-8091-2d3d5e1e8a12.png)
+![design of behavioural aspects state](https://cloud.githubusercontent.com/assets/25747718/25767771/427199c6-31f4-11e7-81ec-42d167d1ce7e.png)
 <p> 
 <p>
 <p>
