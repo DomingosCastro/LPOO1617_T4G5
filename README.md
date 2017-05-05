@@ -19,18 +19,21 @@ Main Menu<p>
 </p>Controlos<p>
 ![controls](https://cloud.githubusercontent.com/assets/25747718/25767241/861d1484-31ef-11e7-8be4-e4677fd40c0b.png)
 </p>
-Package Diagram</p>
+Package Diagram<p>
 
-<p>Class Diagram</p>
+</p>Class Diagram<p>
 ![game 2](https://cloud.githubusercontent.com/assets/25747718/25767245/8650de22-31ef-11e7-8d84-31af075ab1b7.png)
 </p>Descrição do Class Diagram: [classes.pdf](https://github.com/DomingosCastro/LPOO1617_T4G5/files/980519/classes.pdf)
 
 
-<p>Design of behavioural aspects state<p>
+</p>Design of behavioural aspects state<p>
 ![design of behavioural aspects state](https://cloud.githubusercontent.com/assets/25747718/25767246/865246e0-31ef-11e7-8091-2d3d5e1e8a12.png)
-<p>Design Patterns
-
-<p> Unitary Tests</p>
+</p>Design Patterns
+Singleton: Garantir uma única instancia de GameStateManager de acesso global<p>
+Strategy: Diferentes tipos de inimigos que executam diferentes ações (ex: JUMPING, FLYING, etc). Cada tipo de inimigo pode executá-las usando um algoritmo (strategy) diferente</p>
+State: As personagens podem ter diferentes estados que limitam as ações (ex: JUMPING, DOUBLE JUMPING, DIVING , etc) que podem ser realizadas em cada momento do jogo. Por exemplo, a ação “salto duplo” só está disponível se o estado atual da personagem for JUMPING.
+</p>
+</p> Unitary Tests</p>
 - O botão “Play” efetua a transição do estado “MenuState” para “PlayState”<p>
 - Bunny muda de cor de acordo com o input <p>
 - Bunny cai quando a sua cor é diferente da cor da plataforma<p>
