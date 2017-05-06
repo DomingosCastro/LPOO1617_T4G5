@@ -15,7 +15,7 @@ No sentido de tornar o Bunny menos vulnerável ao ataque dos seus inimigos, o jo
 </p>
 <b>Interface</b></p>
 Main Menu<p>
-![main menu](https://cloud.githubusercontent.com/assets/25747718/25767772/42724e16-31f4-11e7-8a7e-09a66118d1d0.png)
+![main menu](https://cloud.githubusercontent.com/assets/25747718/25767772/42724e16-31f4-11e7-8a7e-09a66118d1d0.PNG)
 </p>Jogo<p>
 ![play alternate 405p](https://cloud.githubusercontent.com/assets/25747718/25767769/425c59e4-31f4-11e7-8636-8e633fbcfac1.png)<p>
 ![play copy alternate 405p](https://cloud.githubusercontent.com/assets/25747718/25767773/42764eee-31f4-11e7-88d2-a5acf6d5cbd8.png)
