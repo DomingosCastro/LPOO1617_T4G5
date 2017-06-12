@@ -42,8 +42,8 @@ import com.mygdx.bunnygame.View.Entities.LifeSprite;
 
 public class GameView implements Screen {
 
-    public static final int V_WIDTH = 500;
-    public static final int V_HEIGHT = 240;
+    public static final int V_WIDTH = 800;
+    public static final int V_HEIGHT = 400;
 
     private final BunnyGameMain game;
     private final OrthographicCamera gamecam;
