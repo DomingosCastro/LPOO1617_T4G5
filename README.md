@@ -103,27 +103,25 @@ Para resolver esta situação, o código teve de refeito e restruturado segundo 
 
 </p><b>User manual</b><p>
 
-- O jogo inicia-se com o Bunny sob a plataforma. 
-<p>
+- O jogo inicia-se com o Bunny sob a plataforma. <p>
 ![My image](https://github.com/DomingosCastro/LPOO1617_T4G5/blob/Final-Project/bunny1.JPG)
 
 - O Bunny deve saltar de plataforma em plataforma de modo a atingir o seu objetivo. <p>
 ![My image](https://github.com/DomingosCastro/LPOO1617_T4G5/blob/Final-Project/bunny2.JPG)
 
 - Ao longo do seu percurso, o Bunny irá deparar-se com inimigos que irão tentar impedi-lo de atingir o seu objetivo e com alguns itens, no sentido de tornar o Bunny menos vulnerável ao ataque dos seus inimigos. <p>
-
 ![My image](https://github.com/DomingosCastro/LPOO1617_T4G5/blob/Final-Project/bunny3.JPG)<p>
 ![My image](https://github.com/DomingosCastro/LPOO1617_T4G5/blob/Final-Project/bunny7.JPG)<p>
 
 - Sempre que o Bunny salta para uma plataforma, terá de assumir a respetiva cor da plataforma, sendo necessário que o jogador toque na secção do ecrã que induz a mudança de cor.  <p>
-![My image](https://github.com/DomingosCastro/LPOO1617_T4G5/blob/Final-Project/bunny4.JPG)
+![My image](https://github.com/DomingosCastro/LPOO1617_T4G5/blob/Final-Project/bunny4.JPG)<p>
 
 - Caso contrário, o Bunny cai, perdendo a vida. <p>
 ![My image](https://github.com/DomingosCastro/LPOO1617_T4G5/blob/Final-Project/bunny5.JPG)<p>
 ![My image](https://github.com/DomingosCastro/LPOO1617_T4G5/blob/Final-Project/bunny8.JPG)
 
 - Mudança para o estado de Game Over (fim de jogo).<p>
-![My image](https://github.com/DomingosCastro/LPOO1617_T4G5/blob/Final-Project/gameOver2.JPG)
+![My image](https://github.com/DomingosCastro/LPOO1617_T4G5/blob/Final-Project/gameOver2.JPG)<p>
 
 
 
