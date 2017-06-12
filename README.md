@@ -36,7 +36,7 @@ Atualizado:
 </p>Descrição do Class Diagram: [classes.pdf](https://github.com/DomingosCastro/LPOO1617_T4G5/files/980519/classes.pdf)
 
 Atualizado:
-![My image](https://github.com/DomingosCastro/LPOO1617_T4G5/blob/Final-Project/update.JPG)
+![My image](https://github.com/DomingosCastro/LPOO1617_T4G5/blob/Final-Project/update1.JPG)
 </p>
 </p><b>Design of behavioural aspects state</b><p>
 ![design of behavioural aspects state](https://cloud.githubusercontent.com/assets/25747718/25767771/427199c6-31f4-11e7-81ec-42d167d1ce7e.png)
