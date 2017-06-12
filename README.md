@@ -47,6 +47,13 @@ Diagrama de Classes da componente de Lógica<p>
 <p>
 <p>
 </p><b>Design Patterns</b></p>
+O programa desenvolvido implementa vários design patterns:</b></p>
+- MVC (Model View Controller): é o design pattern de maior relevância, e é sobre esse principio que assenta a arquitetura do programa. Permite um total isolamento das componentes de lógica e UI. A package View assegura-se dos elemtos de UI, Model armazena os dados e funções que os manipulam, Controller recebe instruções de View e comanda as funções de Model.</b></p>
+- Singleton: garante que as classes GameView, GameController e GameModel têm apenas uma instância.</b></p>
+- State: O comportamento da classe Bunny é regido por estados</b></p>
+- Observer: São implementados observers na deteção de input por parte do utilização e deteção de colisões entre os objetos/personagens do jogo
+
+
 Singleton: Garantir uma única instancia de GameStateManager de acesso global</p>
 Strategy: Diferentes tipos de inimigos que executam diferentes ações (ex: JUMPING, FLYING, etc). Cada tipo de inimigo pode executá-las usando um algoritmo (strategy) diferente</p>
 State: As personagens podem ter diferentes estados que limitam as ações (ex: JUMPING, DOUBLE JUMPING, DIVING , etc) que podem ser realizadas em cada momento do jogo. Por exemplo, a ação “salto duplo” só está disponível se o estado atual da personagem for JUMPING.
