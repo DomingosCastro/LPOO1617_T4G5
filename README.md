@@ -69,5 +69,16 @@ State: As personagens podem ter diferentes estados que limitam as ações (ex: J
 - Transição para WinState quando o Tempo acaba<p>
 - Numero de coins é armazenado nos Highscores aquando da transição para WinState<p>
 
+Instruções de instalação
+
+Desktop
+- Download do Repositório neste branch e descomprimir
+- Abrir Android Studio e importar o projeto respetivo (Gradle, entre outros)
+- Correr no modo Desktop
+
+Android
+- Download do ficheiro .apk
+- Instalar 
+
 
 
