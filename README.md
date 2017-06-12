@@ -110,7 +110,7 @@ Para resolver esta situação, o código teve de refeito e restruturado segundo 
 ![My image](https://github.com/DomingosCastro/LPOO1617_T4G5/blob/Final-Project/bunny3.JPG)
 ![My image](https://github.com/DomingosCastro/LPOO1617_T4G5/blob/Final-Project/bunny4.JPG)
 ![My image](https://github.com/DomingosCastro/LPOO1617_T4G5/blob/Final-Project/bunny5.JPG)
-![My image](https://github.com/DomingosCastro/LPOO1617_T4G5/blob/Final-Project/bunny6.JPG)
+![My image](https://github.com/DomingosCastro/LPOO1617_T4G5/blob/Final-Project/bunny7.JPG)
 ![My image](https://github.com/DomingosCastro/LPOO1617_T4G5/blob/Final-Project/bunny8.JPG)
 ![My image](https://github.com/DomingosCastro/LPOO1617_T4G5/blob/Final-Project/gameOver2.JPG)
 
