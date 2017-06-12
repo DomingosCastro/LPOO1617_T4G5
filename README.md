@@ -90,5 +90,14 @@ State: As personagens podem ter diferentes estados que limitam as ações (ex: J
 - Download do ficheiro .apk<p>
 - Instalar 
 
+</p><b>Dificuldades</b><p>
+- 
+
+</p><b>User manual</b><p>
+
+- 
+![My image](https://github.com/DomingosCastro/LPOO1617_T4G5/blob/Final-Project/bunny1.JPG)
+
+
 
 
