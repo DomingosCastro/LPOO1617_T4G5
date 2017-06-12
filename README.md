@@ -98,7 +98,8 @@ State: As personagens podem ter diferentes estados que limitam as ações (ex: J
 - Instalar 
 
 </p><b>Dificuldades</b><p>
-- 
+- A maior dificuldade deste projeto foi lidar com a separação Lógica-Interface. O desenvolvimento em libGDX tende a combinar ambas as componentes, e foi assim que o jogo começou a ser desenvovlido. Chegou-se, erroneamente, a desenvolver demasiadas funcionalidades numa aplicação que, do ponto de vista estrutural, era pouco flexível, fundindo interface com a lógica. 
+Para resolver esta situação, o código teve de refeito e restruturado segundo o design pattern MVC. A arquitetura está agora consistente, no entanto algumas das funcionalidades previamente implementadas ficaram por implementar (nomeadamente diferentes tipos de inimigos, power ups, e o painel de game over e replay)
 
 </p><b>User manual</b><p>
 
