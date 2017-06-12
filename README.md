@@ -33,7 +33,7 @@ Atualizado:
 </p>
 </p><b>Class Diagram</b><p>
 ![game 2](https://cloud.githubusercontent.com/assets/25747718/25767770/427132ec-31f4-11e7-90e1-d6cc5e862e03.png)
-</p>Descrição do Class Diagram: [classes.pdf](https://github.com/DomingosCastro/LPOO1617_T4G5/files/980519/classes.pdf)
+</p>Descrição do Class Diagram: [classes.pdf](https://github.com/DomingosCastro/LPOO1617_T4G5/files/980519/classes.pdf)<p>
 
 Atualizado:
 ![My image](https://github.com/DomingosCastro/LPOO1617_T4G5/blob/Final-Project/update1.JPG)
