@@ -103,8 +103,6 @@ State: As personagens podem ter diferentes estados que limitam as ações (ex: J
 </p><b>User manual</b><p>
 
 - 
-![My image](https://github.com/DomingosCastro/LPOO1617_T4G5/blob/Final-Project/bunny1.JPG)
-![My image](https://github.com/DomingosCastro/LPOO1617_T4G5/blob/Final-Project/bunny2.JPG)
 ![My image](https://github.com/DomingosCastro/LPOO1617_T4G5/blob/Final-Project/bunny3.JPG)
 ![My image](https://github.com/DomingosCastro/LPOO1617_T4G5/blob/Final-Project/bunny4.JPG)
 ![My image](https://github.com/DomingosCastro/LPOO1617_T4G5/blob/Final-Project/bunny5.JPG)
