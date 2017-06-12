@@ -25,6 +25,9 @@ Main Menu<p>
 </p>
 <b>Package Diagram</b><p>
 ![untitled diagram 1](https://cloud.githubusercontent.com/assets/25747718/25767778/53a170f4-31f4-11e7-8bc6-3961d370da60.png)
+- Os packages foram estruturados segundo a arquitetura MVC implementada
+Atualizado:
+
 </p>
 </p><b>Class Diagram</b><p>
 ![game 2](https://cloud.githubusercontent.com/assets/25747718/25767770/427132ec-31f4-11e7-90e1-d6cc5e862e03.png)
