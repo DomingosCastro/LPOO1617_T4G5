@@ -24,8 +24,8 @@ Main Menu<p>
 </p>
 </p>
 <b>Package Diagram</b><p>
-![untitled diagram 1](https://cloud.githubusercontent.com/assets/25747718/25767778/53a170f4-31f4-11e7-8bc6-3961d370da60.png)
-- Os packages foram estruturados segundo a arquitetura MVC implementada
+![untitled diagram 1](https://cloud.githubusercontent.com/assets/25747718/25767778/53a170f4-31f4-11e7-8bc6-3961d370da60.png)<p>
+- Os packages foram estruturados segundo a arquitetura MVC implementada<p>
 Atualizado:
 
 </p>
