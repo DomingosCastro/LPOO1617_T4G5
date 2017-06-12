@@ -26,13 +26,17 @@ Main Menu<p>
 <b>Package Diagram</b><p>
 ![untitled diagram 1](https://cloud.githubusercontent.com/assets/25747718/25767778/53a170f4-31f4-11e7-8bc6-3961d370da60.png)<p>
 - Os packages foram estruturados segundo a arquitetura MVC implementada<p>
+
 Atualizado:
+![My image](https://github.com/DomingosCastro/LPOO1617_T4G5/blob/Final-Project/update.JPG)
 
 </p>
 </p><b>Class Diagram</b><p>
 ![game 2](https://cloud.githubusercontent.com/assets/25747718/25767770/427132ec-31f4-11e7-90e1-d6cc5e862e03.png)
 </p>Descrição do Class Diagram: [classes.pdf](https://github.com/DomingosCastro/LPOO1617_T4G5/files/980519/classes.pdf)
 
+Atualizado:
+![My image](https://github.com/DomingosCastro/LPOO1617_T4G5/blob/Final-Project/update.JPG)
 </p>
 </p><b>Design of behavioural aspects state</b><p>
 ![design of behavioural aspects state](https://cloud.githubusercontent.com/assets/25747718/25767771/427199c6-31f4-11e7-81ec-42d167d1ce7e.png)
